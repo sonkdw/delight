@@ -1,0 +1,118 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: black;
+  color: white;
+}
+
+.section {
+  padding: 5rem;
+}
+
+@media (max-width: 1024px) {
+  .section {
+    padding: 3rem 2rem;
+  }
+}
+
+.desktopHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ff2eba;
+  padding: 0.25rem 0.6875rem 0.125rem;
+  font-size: 0.75rem;
+  font-weight: 900;
+  border-radius: 9999px;
+  line-height: 1;
+  white-space: nowrap;
+  width: fit-content;
+  height: fit-content;
+}
+
+.year {
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 1;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.location {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.buyButton {
+  cursor: pointer;
+  font-weight: 900;
+  border: 1px solid white;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  height: fit-content;
+}
+
+.desktopBg {
+  flex: 1;
+  display: flex;
+  align-items: end;
+  background-image: url('/images/main-bg.png');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding-bottom: 5rem;
+}
+
+@media (max-width: 768px) {
+  .stickyBlock {
+    position: sticky;
+    top: 9rem;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .mobileScrollArea {
+    margin-top: 7rem;
+  }
+
+  .fixedAddress {
+    position: fixed;
+    top: 3rem;
+    right: 2rem;
+    font-size: 1.125rem;
+    font-weight: 800;
+    z-index: 10;
+  }
+
+  .year {
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 1;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .location {
+    font-size: 16px;
+    font-weight: 800;
+  }
+
+  .mobileBg {
+    background-image: url('/images/mobile-main-bg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    padding: 1.5rem 2rem;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}

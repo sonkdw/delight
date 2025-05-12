@@ -1,107 +1,109 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import styles from './styles/ComingSoon.module.css';
+import commonStyles from './styles/Common.module.css';
 
-export default function Home() {
+export default function ComingSoonPage() {
   return (
-    <div className="flex h-screen flex-col bg-black text-white">
-      <div className="px-20 py-20 max-lg:px-8 max-lg:py-12">
-        <header className="flex justify-between max-md:hidden">
-          {/* 로고 */}
+    <div className={styles.container}>
+      <div className={styles.section}>
+        <header className={`${styles.desktopHeader} ${commonStyles.desktopOnly}`}>
           <Image src="/images/logo.png" alt="logo" width={240} height={80} />
-
-          {/* 기간 안내 */}
-          <div className="flex gap-[38px]">
-            <p className="flex h-fit items-center justify-center rounded-full bg-[#FF2EBA] px-[11px] pt-1 pb-0.5 text-sm leading-none font-black text-nowrap">
-              NOW ON
-            </p>
-            <div
-              className="text-4xl leading-none font-black"
-              style={{ fontFamily: 'Montserrat, sans-serif' }}
-            >
+          <div style={{ display: 'flex', gap: '38px' }}>
+            <p className={styles.badge}>NOW ON</p>
+            <div className={styles.year}>
               20 <br /> 25
             </div>
-            <div className="text-2xl font-extrabold">
-              <p>5월8일부터 11월15일까지</p> <p className="mt-2.5">10:00 - 17:00, 연중무휴</p>
+            <div className={styles.location}>
+              <p>5월8일부터 11월15일까지</p>
+              <p>10:00 - 17:00, 연중무휴</p>
             </div>
           </div>
         </header>
 
-        {/* 장소, 티켓 구매하기 */}
-        <div className="mt-[199px] flex justify-between max-md:hidden">
-          <p className="text-2xl font-extrabold">
+        <div
+          className={`${commonStyles.desktopOnly}`}
+          style={{ marginTop: '199px', display: 'flex', justifyContent: 'space-between' }}
+        >
+          <p className={styles.location}>
             서울 종로구 <br />
             율곡로 18 <br />
             도화서길디원
           </p>
-
-          <Link
-            href={'#'}
-            target="_blank"
-            className="h-fit cursor-pointer rounded-full border border-white px-8 py-4 font-black"
-          >
+          <Link href="#" target="_blank" className={styles.buyButton}>
             티켓 구매하기
           </Link>
         </div>
 
-        {/* 모바일 */}
-        <div className="md:hidden">
-          <p className="fixed top-12 right-8 text-lg font-extrabold">
+        {/* 모바일 전용 영역 */}
+        <div className={commonStyles.mobileOnly}>
+          <p className={styles.fixedAddress}>
             서울 종로구 <br />
             율곡로 18 <br />
             도화서길디원
           </p>
 
-          {/* 로고, 티켓 구매하기 */}
           <div className="mt-40">
-            <div className="sticky flex flex-col items-center justify-center gap-6">
+            <div className={styles.stickyBlock}>
               <Image src="/images/logo.png" alt="logo" width={176} height={58} />
               <Link
-                href={'#'}
+                href="#"
                 target="_blank"
-                className="h-fit cursor-pointer rounded-full border border-white bg-black px-8 py-4 text-lg font-black"
+                className={styles.buyButton}
+                style={{ background: 'black' }}
               >
                 티켓 구매하기
               </Link>
             </div>
           </div>
 
-          {/* 기간 안내 */}
-          <>
-            <p className="mt-28 flex h-fit w-fit items-center justify-center rounded-full bg-[#FF2EBA] px-[11px] pt-1 pb-0.5 text-[12px] leading-none font-black text-nowrap">
+          <div className={styles.mobileScrollArea}>
+            <p className={styles.badge} style={{ marginTop: '7rem' }}>
               NOW ON
             </p>
-            <div className="mt-3 flex gap-6">
-              <div
-                className="text-2xl leading-none font-black"
-                style={{ fontFamily: 'Montserrat, sans-serif' }}
-              >
+            <div style={{ display: 'flex', gap: '1.5rem', marginTop: '0.75rem' }}>
+              <div className={styles.year}>
                 20 <br /> 25
               </div>
-              <div className="font-extrabold">
-                <p>5월8일부터 11월15일까지</p> <p>10:00 - 17:00, 연중무휴</p>
+              <div className={styles.location}>
+                <p>5월8일부터 11월15일까지</p>
+                <p>10:00 - 17:00, 연중무휴</p>
               </div>
             </div>
-          </>
+          </div>
         </div>
       </div>
 
-      <div className="flex flex-1 items-end bg-[url('/images/main-bg.png')] bg-cover bg-fixed bg-center bg-no-repeat pb-20 max-md:hidden">
-        <div className="flex w-full items-end justify-between px-20">
-          <p className="text-2xl font-extrabold">
+      {/* 데스크탑 하단 배경 */}
+      <div className={`${commonStyles.desktopOnly} ${styles.desktopBg}`}>
+        <div
+          style={{
+            display: 'flex',
+            width: '100%',
+            justifyContent: 'space-between',
+            padding: '0 5rem',
+          }}
+        >
+          <p className={styles.location}>
             곧, 웹사이트에서도 <br /> 딜라이트 서울 정보를 <br /> 만나보실 수 있습니다.
           </p>
-          <p className="text-2xl font-extrabold">Coming soon</p>
+          <p className={styles.location} style={{ alignSelf: 'end' }}>
+            Coming soon
+          </p>
         </div>
       </div>
 
-      {/* 모바일 */}
-      <div className="flex flex-1 items-end bg-[url('/images/mobile-main-bg.png')] bg-cover bg-fixed bg-center bg-no-repeat md:hidden">
-        <div className="flex h-full w-full flex-col justify-between px-8 pt-10 pb-5">
-          <p className="font-extrabold">
-            곧, 웹사이트에서도 <br /> 딜라이트 서울 정보를 <br /> 만나보실 수 있습니다.
-          </p>
-          <p className="mt-44 self-end font-extrabold">Coming soon</p>
-        </div>
+      {/* 모바일 하단 배경 */}
+      <div className={`${commonStyles.mobileOnly} ${styles.mobileBg}`}>
+        <p className={styles.location}>
+          곧, 웹사이트에서도 <br /> 딜라이트 서울 정보를 <br /> 만나보실 수 있습니다.
+        </p>
+        <p
+          className={styles.location}
+          style={{ marginTop: '11rem', alignSelf: 'flex-end', justifySelf: 'right' }}
+        >
+          Coming soon
+        </p>
       </div>
     </div>
   );
