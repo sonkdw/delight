@@ -1,3 +1,21 @@
+/* flex 양쪽 끝에 요소 배치 */
+.flexBetween {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* 가장자리 패딩값 */
+.boundaryPadding {
+  padding: 5rem;
+}
+
+@media (max-width: 1024px) {
+  .boundaryPadding {
+    padding: 3rem 2rem;
+  }
+}
+
 .mobileOnly {
   display: none !important;
 }
