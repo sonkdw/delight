@@ -1,103 +1,108 @@
-import Image from "next/image";
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="flex h-screen flex-col bg-black text-white">
+      <div className="px-20 py-20 max-lg:px-8 max-lg:py-12">
+        <header className="flex justify-between max-md:hidden">
+          {/* 로고 */}
+          <Image src="/images/logo.png" alt="logo" width={240} height={80} />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+          {/* 기간 안내 */}
+          <div className="flex gap-[38px]">
+            <p className="flex h-fit items-center justify-center rounded-full bg-[#FF2EBA] px-[11px] pt-1 pb-0.5 text-sm leading-none font-black text-nowrap">
+              NOW ON
+            </p>
+            <div
+              className="text-4xl leading-none font-black"
+              style={{ fontFamily: 'Montserrat, sans-serif' }}
+            >
+              20 <br /> 25
+            </div>
+            <div className="text-2xl font-extrabold">
+              <p>5월8일부터 11월15일까지</p> <p className="mt-2.5">10:00 - 17:00, 연중무휴</p>
+            </div>
+          </div>
+        </header>
+
+        {/* 장소, 티켓 구매하기 */}
+        <div className="mt-[199px] flex justify-between max-md:hidden">
+          <p className="text-2xl font-extrabold">
+            서울 종로구 <br />
+            율곡로 18 <br />
+            도화서길디원
+          </p>
+
+          <Link
+            href={'#'}
             target="_blank"
-            rel="noopener noreferrer"
+            className="h-fit cursor-pointer rounded-full border border-white px-8 py-4 font-black"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            티켓 구매하기
+          </Link>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        {/* 모바일 */}
+        <div className="md:hidden">
+          <p className="fixed top-12 right-8 text-lg font-extrabold">
+            서울 종로구 <br />
+            율곡로 18 <br />
+            도화서길디원
+          </p>
+
+          {/* 로고, 티켓 구매하기 */}
+          <div className="mt-40">
+            <div className="sticky flex flex-col items-center justify-center gap-6">
+              <Image src="/images/logo.png" alt="logo" width={176} height={58} />
+              <Link
+                href={'#'}
+                target="_blank"
+                className="h-fit cursor-pointer rounded-full border border-white bg-black px-8 py-4 text-lg font-black"
+              >
+                티켓 구매하기
+              </Link>
+            </div>
+          </div>
+
+          {/* 기간 안내 */}
+          <>
+            <p className="mt-28 flex h-fit w-fit items-center justify-center rounded-full bg-[#FF2EBA] px-[11px] pt-1 pb-0.5 text-[12px] leading-none font-black text-nowrap">
+              NOW ON
+            </p>
+            <div className="mt-3 flex gap-6">
+              <div
+                className="text-2xl leading-none font-black"
+                style={{ fontFamily: 'Montserrat, sans-serif' }}
+              >
+                20 <br /> 25
+              </div>
+              <div className="font-extrabold">
+                <p>5월8일부터 11월15일까지</p> <p>10:00 - 17:00, 연중무휴</p>
+              </div>
+            </div>
+          </>
+        </div>
+      </div>
+
+      <div className="flex flex-1 items-end bg-[url('/images/main-bg.png')] bg-cover bg-fixed bg-center bg-no-repeat pb-20 max-md:hidden">
+        <div className="flex w-full items-end justify-between px-20">
+          <p className="text-2xl font-extrabold">
+            곧, 웹사이트에서도 <br /> 딜라이트 서울 정보를 <br /> 만나보실 수 있습니다.
+          </p>
+          <p className="text-2xl font-extrabold">Coming soon</p>
+        </div>
+      </div>
+
+      {/* 모바일 */}
+      <div className="flex flex-1 items-end bg-[url('/images/mobile-main-bg.png')] bg-cover bg-fixed bg-center bg-no-repeat md:hidden">
+        <div className="flex h-full w-full flex-col justify-between px-8 pt-10 pb-5">
+          <p className="font-extrabold">
+            곧, 웹사이트에서도 <br /> 딜라이트 서울 정보를 <br /> 만나보실 수 있습니다.
+          </p>
+          <p className="mt-44 self-end font-extrabold">Coming soon</p>
+        </div>
+      </div>
     </div>
   );
 }
