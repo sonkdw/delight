@@ -11,7 +11,9 @@ export default function ComingSoonPage() {
         {/* 화면 */}
         <>
           <div className={styles.nowOnInfo}>
-            <span className={styles.badge}>NOW ON</span>
+            <div className={styles.badgeWrap}>
+              <span className={styles.badge}>NOW ON</span>
+            </div>
             <div className={styles.year}>
               20 <br /> 25
             </div>
@@ -23,7 +25,7 @@ export default function ComingSoonPage() {
 
           <header className={styles.header}>
             <div className={styles.logo}>
-              <Image src="/images/logo.png" alt="logo" width={240} height={80} />
+              <Image src="/images/logo.png" alt="Delight Seoul 2025" width={240} height={80} />
             </div>
 
             <Link href="#" target="_blank" className={styles.buyButton}>

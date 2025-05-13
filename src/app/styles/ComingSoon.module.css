@@ -2,16 +2,17 @@
 /**/
 
 .container{
-  height: 100vh;
   background-color: black;
   color: white;
+
 
 }
 
 .wrapper{
   position: relative;
-  height: 60vh;
+  height: 80vh;
   margin: 4rem;
+  box-sizing: border-box;
 }
 
 .nowOnInfo {
@@ -92,19 +93,71 @@
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
-  background-repeat: no-repeat;padding: 2rem 0;
+  background-repeat: no-repeat;
+  padding: 2rem 0;
+  box-sizing: border-box;
 }
 
-.bgBox .location{position: absolute; right: 0; bottom: 0;}
+.bgBox .location{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
 
 
 
 @media all and (max-width: 767px){
 
-  .schedule{
+  .wrapper{
+    margin: 2rem;
+  }
+
+  .nowOnInfo{
     right: auto;
     top: auto;
     left: 0;
     bottom: 0;
+
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 12px;
   }
+
+  .badgeWrap{
+    width: 100%;
+  }
+  .locationWrap{
+    right: 0;
+    top: 0;
+    left: auto;
+    bottom: auto;
+  }
+
+  .header{
+    padding-top: 12rem;
+
+  }
+  .logo img{
+    margin: 0 auto;
+    width: 180px !important;
+    height: auto !important;
+  }
+
+  .buyButton{
+    padding: 0.4rem 1rem;
+    font-size: 14px;
+  }
+
+  .year{
+    font-size: 20px;
+  }
+  .schedule, .location{
+    font-size: 14px;
+  }
+
+  .bgBox{
+    padding: 1rem 0;
+  }
+
+
 }
