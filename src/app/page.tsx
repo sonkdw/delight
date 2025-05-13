@@ -14,6 +14,8 @@ export default function ComingSoonPage() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
+    // !이곳에 원하는 gsap 문법을 적용하시면 됩니다!
+
     // 곧 웹사이트에서도... 텍스트 애니메이션
     if (infoTextRef.current) {
       gsap.from(infoTextRef.current, {
