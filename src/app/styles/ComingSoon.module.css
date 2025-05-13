@@ -88,15 +88,18 @@
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
-  padding: 2rem 0;
+
   box-sizing: border-box;
-  position: relative;
 }
 
 .bgBox .wrapper {
   z-index: 2; /* 오버레이 위로 글자가 보이도록 */
 }
 
+.overlayWrap {
+  position: relative;
+  padding: 2rem 0;
+}
 .overlay {
   position: absolute;
   top: 0;

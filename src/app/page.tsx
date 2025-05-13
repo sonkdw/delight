@@ -101,15 +101,17 @@ export default function ComingSoonPage() {
 
       {/* 하단 배경 */}
       <div className={styles.bgBox}>
-        <div className={styles.overlay} /> {/* 화면 어둡게 + 블러처리를 위한 오버레이 */}
-        <div className={styles.wrapper}>
-          <p className={styles.schedule} ref={infoTextRef}>
-            곧, 웹사이트에서도 <br />
-            딜라이트 서울 정보를 만나보실 수 있습니다.
-          </p>
-          <p className={styles.location} ref={comingSoonRef}>
-            Coming soon...
-          </p>
+        <div className={styles.overlayWrap}>
+          <div className={styles.overlay} /> {/* 화면 어둡게 + 블러처리를 위한 오버레이 */}
+          <div className={styles.wrapper}>
+            <p className={styles.schedule} ref={infoTextRef}>
+              곧, 웹사이트에서도 <br />
+              딜라이트 서울 정보를 만나보실 수 있습니다.
+            </p>
+            <p className={styles.location} ref={comingSoonRef}>
+              Coming soon...
+            </p>
+          </div>
         </div>
       </div>
     </div>
