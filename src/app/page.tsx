@@ -57,9 +57,9 @@ export default function ComingSoonPage() {
             isShown = false;
             gsap.to(infoTextRef.current, {
               opacity: 0,
-              y: 50,
-              duration: 0.5,
-              delay: 0.5, // comingsoon 이후 0.5초 뒤에 사라짐
+              y: 4,
+              duration: 0.2,
+              //delay: 0.5, comingsoon 이후 0.5초 뒤에 사라짐
               ease: 'power3.in',
             });
           }
@@ -95,8 +95,8 @@ export default function ComingSoonPage() {
             isShown = false;
             gsap.to(comingSoonRef.current, {
               opacity: 0,
-              y: 50,
-              duration: 0.5,
+              y: 12,
+              duration: 0.2,
               ease: 'power3.in',
             });
           }
@@ -159,19 +159,23 @@ export default function ComingSoonPage() {
       {/* 하단 배경 */}
       <div className={styles.bgBox}>
         <div className={styles.overlay} /> {/* 화면 어둡게 + 블러처리를 위한 오버레이 */}
-        <div className={styles.bgBoxWrapper}></div>
+        <div className={styles.bgBoxWrapper}>
+
+          {/* text */}
+          <div className={styles.comingsoonWrap}>
+            <p className={styles.comingsoonInfoText} ref={infoTextRef}>
+              곧, 웹사이트에서도 <br />
+              딜라이트 서울 정보를 만나보실 수 있습니다.
+            </p>
+            <p className={styles.comingsoonText} ref={comingSoonRef}>
+              Coming soon...
+            </p>
+          </div>
+
+        </div>
       </div>
 
-      {/* test */}
-      <div className={styles.comingsoonWrap}>
-        <p className={styles.comingsoonInfoText} ref={infoTextRef}>
-          곧, 웹사이트에서도 <br />
-          딜라이트 서울 정보를 만나보실 수 있습니다.
-        </p>
-        <p className={styles.comingsoonText} ref={comingSoonRef}>
-          Coming soon...
-        </p>
-      </div>
+
     </div>
   );
 }
