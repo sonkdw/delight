@@ -208,6 +208,10 @@
     font-size: 14px;
   }
 
+  .location{
+    text-align: right;
+  }
+
   .bgBox {
     background-position: center bottom;
     background-attachment: fixed;
