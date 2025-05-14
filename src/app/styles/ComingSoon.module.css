@@ -12,7 +12,7 @@
   z-index: 99;
   background-color: #000;
   width: 100%;
-  height: 80vh;
+  height: 86vh;
   padding: 4rem;
   box-sizing: border-box;
 }
@@ -97,7 +97,7 @@
   background-image: url('/images/bg.png');
   background-size: cover;
   background-attachment: fixed;
-  background-position: center;
+  background-position: center top;
   background-repeat: no-repeat;
   box-sizing: border-box;
   position: relative;
@@ -141,9 +141,10 @@
   position: fixed;
   font-size: 18px;
   font-weight: 800;
-  top: 61%;
+  top: 64%;
   z-index: 1;
   padding-top: 2rem;
+  opacity: 0;
 }
 
 .comingsoonText {
@@ -151,6 +152,8 @@
   bottom: 4rem;
   right: 4rem;
   z-index: 1;
+  font-weight: 800;
+  opacity: 0;
 }
 
 @media all and (max-width: 767px) {
@@ -204,9 +207,14 @@
     font-size: 14px;
   }
 
+  .bgBox {
+    background-position: center bottom;
+    background-size: contain;
+  }
   .bgBox .bgBoxWrapper {
     margin: 0 2rem;
     padding: 2rem 0;
+
   }
 
   .comingsoonWrap {
@@ -214,10 +222,9 @@
   }
 
   .comingsoonInfoText {
-    font-size: 16px;
+   font-size: 14px;
     left: 2rem;
     padding-top: 0;
-    top: 65%;
   }
 
   .comingsoonText {
@@ -225,6 +232,7 @@
     right: 2rem;
     bottom: 2rem;
     z-index: 10;
-    font-size: 16px;
+    font-size: 14px;
+
   }
 }

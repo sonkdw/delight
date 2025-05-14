@@ -22,8 +22,8 @@ export default function ComingSoonPage() {
         ease: 'power2.out',
         scrollTrigger: {
           trigger: topInfo,
-          start: 'top top', // topInfo의 top이 뷰포트의 top에 닿을 때 시작 (progress = 0)
-          end: 'bottom top', // topInfo의 bottom이 뷰포트의 top에 닿을 때 끝 (progress = 1)
+          start: 'top top', // 시작 지점
+          end: 'bottom top', // 끝나는 시점
           scrub: true, // 스크롤에 따라 애니메이션 연동
         },
       });
@@ -31,7 +31,7 @@ export default function ComingSoonPage() {
 
     // 곧 웹사이트에서도... 텍스트 애니메이션
     if (topInfo && infoTextRef.current) {
-      gsap.set(infoTextRef.current, { opacity: 0, y: 50 });
+      gsap.set(infoTextRef.current, { opacity: 0, y: 4 });
 
       let isShown = false; // 현재 텍스트가 보이는지 여부 플래그
 
@@ -42,7 +42,7 @@ export default function ComingSoonPage() {
         scrub: true,
         onUpdate: (self) => {
           const progress = self.progress;
-
+          console.log(progress);
           // 스크롤 내릴때 텍스트 등장
           if (progress >= 0.5 && !isShown) {
             isShown = true;
@@ -52,7 +52,7 @@ export default function ComingSoonPage() {
               duration: 1,
               ease: 'power3.out',
             });
-            // 스크롤 올릴때 텍스트 사라짐
+            // 스크롤 올릴때 텍트스 사라짐
           } else if (progress < 0.5 && isShown) {
             isShown = false;
             gsap.to(infoTextRef.current, {
@@ -69,7 +69,7 @@ export default function ComingSoonPage() {
 
     // Coming Soon 애니메이션
     if (topInfo && comingSoonRef.current) {
-      gsap.set(comingSoonRef.current, { opacity: 0, y: 50 });
+      gsap.set(comingSoonRef.current, { opacity: 0, y: 4 });
 
       let isShown = false;
 
@@ -90,12 +90,12 @@ export default function ComingSoonPage() {
               delay: 0.5, // "곧 웹사이트에서도..." 이후 0.5초 뒤에 등장
               ease: 'power3.out',
             });
-            // 스크롤 올릴때 텍스트 사라짐
+            // 글자가 보이면 글자 숨김 처리
           } else if (progress < 0.5 && isShown) {
             isShown = false;
             gsap.to(comingSoonRef.current, {
               opacity: 0,
-              y: 12,
+              y: 4,
               duration: 0.2,
               ease: 'power3.in',
             });
@@ -160,6 +160,7 @@ export default function ComingSoonPage() {
       <div className={styles.bgBox}>
         <div className={styles.overlay} /> {/* 화면 어둡게 + 블러처리를 위한 오버레이 */}
         <div className={styles.bgBoxWrapper}>
+
           {/* text */}
           <div className={styles.comingsoonWrap}>
             <p className={styles.comingsoonInfoText} ref={infoTextRef}>
@@ -170,8 +171,11 @@ export default function ComingSoonPage() {
               Coming soon...
             </p>
           </div>
+
         </div>
       </div>
+
+
     </div>
   );
 }
