@@ -165,7 +165,8 @@ export default function ComingSoonPage() {
           <div className={styles.comingsoonWrap}>
             <p className={styles.comingsoonInfoText} ref={infoTextRef}>
               곧, 웹사이트에서도 <br />
-              딜라이트 서울 정보를 만나보실 수 있습니다.
+              딜라이트 서울 정보를 <br />
+              만나보실 수 있습니다.
             </p>
             <p className={styles.comingsoonText} ref={comingSoonRef}>
               Coming soon...
