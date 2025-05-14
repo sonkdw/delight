@@ -159,6 +159,7 @@
 @media all and (max-width: 767px) {
   .topInfo {
     padding: 2rem;
+    height: 80vh;
   }
 
   .nowOnInfo {
@@ -209,7 +210,7 @@
 
   .bgBox {
     background-position: center bottom;
-    background-size: 160% auto;
+    background-attachment: fixed;
   }
   .bgBox .bgBoxWrapper {
     margin: 0 2rem;
