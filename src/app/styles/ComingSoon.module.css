@@ -209,7 +209,7 @@
 
   .bgBox {
     background-position: center bottom;
-    background-size: contain;
+    background-size: 160% auto;
   }
   .bgBox .bgBoxWrapper {
     margin: 0 2rem;
