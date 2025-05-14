@@ -18,12 +18,12 @@ export default function ComingSoonPage() {
     // 검정색 영역의 높이를 줄이는 gsap
     if (topInfo) {
       gsap.to(topInfo, {
-        height: '46vh',
+        height: '60vh',
         ease: 'power2.out',
         scrollTrigger: {
           trigger: topInfo,
-          start: 'top top', // 시작 지점
-          end: 'bottom top', // 끝나는 시점
+          start: 'top top', // topInfo의 top이 뷰포트의 top에 닿을 때 시작 (progress = 0)
+          end: 'bottom top', // topInfo의 bottom이 뷰포트의 top에 닿을 때 끝 (progress = 1)
           scrub: true, // 스크롤에 따라 애니메이션 연동
         },
       });
@@ -44,7 +44,7 @@ export default function ComingSoonPage() {
           const progress = self.progress;
 
           // 스크롤 내릴때 텍스트 등장
-          if (progress >= 0.99 && !isShown) {
+          if (progress >= 0.5 && !isShown) {
             isShown = true;
             gsap.to(infoTextRef.current, {
               opacity: 1,
@@ -52,8 +52,8 @@ export default function ComingSoonPage() {
               duration: 1,
               ease: 'power3.out',
             });
-            // 스크롤 올릴때 텍트스 사라짐
-          } else if (progress < 0.99 && isShown) {
+            // 스크롤 올릴때 텍스트 사라짐
+          } else if (progress < 0.5 && isShown) {
             isShown = false;
             gsap.to(infoTextRef.current, {
               opacity: 0,
@@ -81,7 +81,7 @@ export default function ComingSoonPage() {
         onUpdate: (self) => {
           const progress = self.progress;
 
-          if (progress >= 0.99 && !isShown) {
+          if (progress >= 0.5 && !isShown) {
             isShown = true;
             gsap.to(comingSoonRef.current, {
               opacity: 1,
@@ -90,8 +90,8 @@ export default function ComingSoonPage() {
               delay: 0.5, // "곧 웹사이트에서도..." 이후 0.5초 뒤에 등장
               ease: 'power3.out',
             });
-            // 글자가 보이면 글자 숨김 처리
-          } else if (progress < 0.99 && isShown) {
+            // 스크롤 올릴때 텍스트 사라짐
+          } else if (progress < 0.5 && isShown) {
             isShown = false;
             gsap.to(comingSoonRef.current, {
               opacity: 0,
@@ -160,7 +160,6 @@ export default function ComingSoonPage() {
       <div className={styles.bgBox}>
         <div className={styles.overlay} /> {/* 화면 어둡게 + 블러처리를 위한 오버레이 */}
         <div className={styles.bgBoxWrapper}>
-
           {/* text */}
           <div className={styles.comingsoonWrap}>
             <p className={styles.comingsoonInfoText} ref={infoTextRef}>
@@ -171,11 +170,8 @@ export default function ComingSoonPage() {
               Coming soon...
             </p>
           </div>
-
         </div>
       </div>
-
-
     </div>
   );
 }
