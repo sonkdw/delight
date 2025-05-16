@@ -35,14 +35,14 @@ export const metadata: Metadata = {
     title: '2025 딜라이트 서울 (2025 delight Seoul)',
     description:
       '빛으로 만나는 새로운 서울 이야기, 딜라이트 서울은 세계 주요 도시에서 주목을 받은 미디어 아트 몰입형 전시입니다.',
-    images: ['https://delight-five.vercel.app/images/og-image.png'], // 실제 도메인으로 교체 필요
+    images: ['https://delight-five.vercel.app/images/og-image.jpeg'], // 실제 도메인으로 교체 필요
     url: '/',
   },
   twitter: {
     card: 'summary',
     title: '2025 딜라이트 서울',
     description: '미디어아트, 서울, 전시, 미술관, 몰입형, 체험형, 아트, 딜라이트, 2025',
-    images: ['https://delight-five.vercel.app/images/og-image.png'], // 실제 도메인으로 교체 필요
+    images: ['https://delight-five.vercel.app/images/og-image.jpeg'], // 실제 도메인으로 교체 필요
   },
 };
 
