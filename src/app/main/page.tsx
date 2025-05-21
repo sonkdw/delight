@@ -19,18 +19,19 @@ export default function MainPage() {
     // 기준이 되는 스크롤러(부모 div) 정의. 없으면 document.body 사용.
     const scrollSection = document.body;
 
-    // 이미지1 등장 → 퇴장 (0%~15%)
+    // 이미지1 등장 → 퇴장 (0%~30%)
     gsap.fromTo(
       img1Ref.current,
-      { scale: 0.6, opacity: 1 },
+      { scale: 0.6, opacity: 1, x: 0 },
       {
         scale: 2, // 커졌다가 사라지는 느낌이면 scale: 2, 사라지게만 할거면 scale:1로 유지
         opacity: 0,
+        x: -300, // 왼쪽으로 300px 이동
         ease: 'expo.inOut',
         scrollTrigger: {
           trigger: scrollSection,
           start: '0% top', // 전체 스크롤 시작
-          end: '15% top',
+          end: '30% top',
           scrub: true,
         },
       }
@@ -42,24 +43,25 @@ export default function MainPage() {
       ease: 'expo.inOut',
       scrollTrigger: {
         trigger: scrollSection,
-        start: '15% top',
+        start: '30% top',
         end: '0% top',
         scrub: true,
       },
     });
 
-    // 이미지2 등장(2%) → 퇴장(17%)
+    // 이미지2 등장(2%) → 퇴장(45%)
     gsap.fromTo(
       img2Ref.current,
-      { scale: 0.3, opacity: 1 },
+      { scale: 0.3, opacity: 1, y: 0 },
       {
         scale: 2,
         opacity: 0,
+        y: -200,
         ease: 'expo.inOut',
         scrollTrigger: {
           trigger: scrollSection,
           start: '2% top',
-          end: '17% top',
+          end: '45% top',
           scrub: true,
         },
       }
@@ -71,24 +73,26 @@ export default function MainPage() {
       ease: 'expo.inOut',
       scrollTrigger: {
         trigger: scrollSection,
-        start: '17% top',
+        start: '45% top',
         end: '2% top',
         scrub: true,
       },
     });
 
-    // 이미지3 등장(5%) → 퇴장(30%)
+    // 이미지3 등장(5%) → 퇴장(50%)
     gsap.fromTo(
       img3Ref.current,
-      { scale: 0.3, opacity: 1 },
+      { scale: 0.3, opacity: 1, x: 0, y: 0 },
       {
         scale: 2,
         opacity: 0,
+        x: 200,
+        y: -300,
         ease: 'expo.inOut',
         scrollTrigger: {
           trigger: scrollSection,
           start: '5% top',
-          end: '30% top',
+          end: '50% top',
           scrub: true,
         },
       }
@@ -100,24 +104,26 @@ export default function MainPage() {
       ease: 'expo.inOut',
       scrollTrigger: {
         trigger: scrollSection,
-        start: '30% top',
+        start: '50% top',
         end: '5% top',
         scrub: true,
       },
     });
 
-    // 이미지4 등장(7%) → 퇴장(40%)
+    // 이미지4 등장(7%) → 퇴장(60%)
     gsap.fromTo(
       img4Ref.current,
-      { scale: 0.3, opacity: 1 },
+      { scale: 0.3, opacity: 1, x: 0, y: 0 },
       {
         scale: 2,
         opacity: 0,
+        x: 300,
+        y: -100,
         ease: 'expo.inOut',
         scrollTrigger: {
           trigger: scrollSection,
           start: '7% top',
-          end: '40% top',
+          end: '60% top',
           scrub: true,
         },
       }
@@ -129,24 +135,26 @@ export default function MainPage() {
       ease: 'expo.inOut',
       scrollTrigger: {
         trigger: scrollSection,
-        start: '40% top',
+        start: '60% top',
         end: '7% top',
         scrub: true,
       },
     });
 
-    // 이미지5 등장(10%) → 퇴장(50%)
+    // 이미지5 등장(10%) → 퇴장(70%)
     gsap.fromTo(
       img5Ref.current,
-      { scale: 0.3, opacity: 1 },
+      { scale: 0.3, opacity: 1, x: 0, y: 0 },
       {
         scale: 2,
         opacity: 0,
+        x: -300,
+        y: 100,
         ease: 'expo.inOut',
         scrollTrigger: {
           trigger: scrollSection,
           start: '10% top',
-          end: '50% top',
+          end: '70% top',
           scrub: true,
         },
       }
@@ -158,24 +166,26 @@ export default function MainPage() {
       ease: 'expo.inOut',
       scrollTrigger: {
         trigger: scrollSection,
-        start: '50% top',
+        start: '70% top',
         end: '10% top',
         scrub: true,
       },
     });
 
-    // 이미지6 등장(15%) → 퇴장(60%)
+    // 이미지6 등장(15%) → 퇴장(80%)
     gsap.fromTo(
       img6Ref.current,
-      { scale: 0.3, opacity: 1 },
+      { scale: 0.3, opacity: 1, x: 0, y: 0 },
       {
         scale: 2,
         opacity: 0,
+        x: 300,
+        y: 200,
         ease: 'expo.inOut',
         scrollTrigger: {
           trigger: scrollSection,
           start: '15% top',
-          end: '60% top',
+          end: '80% top',
           scrub: true,
         },
       }
@@ -187,7 +197,7 @@ export default function MainPage() {
       ease: 'expo.inOut',
       scrollTrigger: {
         trigger: scrollSection,
-        start: '60% top',
+        start: '80% top',
         end: '15% top',
         scrub: true,
       },
