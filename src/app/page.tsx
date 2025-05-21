@@ -135,7 +135,7 @@ export default function ComingSoonPage() {
               </div>
               <div className={styles.schedule}>
                 <p>5월8일부터 11월15일까지</p>
-                <p>10:00 - 17:00, 연중무휴</p>
+                <p>10:00 - 20:00, 연중무휴</p>
               </div>
             </div>
 
