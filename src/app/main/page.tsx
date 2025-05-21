@@ -1,11 +1,12 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { RefObject, useEffect, useRef } from 'react';
 import styles from '../styles/Main.module.css';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollSmoother } from 'gsap/ScrollSmoother';
 import { SplitText } from 'gsap/SplitText';
+import { usePinnedImageSwitch, useSectionStaggerAnim } from '../hook/gsapHooks';
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 gsap.registerPlugin(SplitText);
@@ -17,10 +18,17 @@ export default function MainPage() {
   const img4Ref = useRef<HTMLDivElement | null>(null);
   const img5Ref = useRef<HTMLDivElement | null>(null);
   const img6Ref = useRef<HTMLDivElement | null>(null);
-
   const textRef = useRef(null);
   const logoRef = useRef(null);
   const sectionTopRef = useRef(null);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const cardImgRef = useRef(null);
+  const cardImg2Ref = useRef(null);
+  const section5Ref = useRef(null);
+  const section6Ref = useRef(null);
+  const section7Ref = useRef(null);
+  const section8Ref = useRef(null);
+  const cardScaleContainerRef = useRef<HTMLDivElement>(null);
 
   // 스크롤 스무더
   useEffect(() => {
@@ -85,46 +93,43 @@ export default function MainPage() {
     return () => split.revert();
   }, []);
 
+  // 첫번째 섹션 검정색 영역의 높이를 줄이는 gsap
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
     const sectionTop = sectionTopRef.current;
+
     if (sectionTop) {
       gsap.to(sectionTop, {
-        height: '0vh', // 걷히는 목표 높이
+        height: '0vh',
         ease: 'power2.out',
         scrollTrigger: {
           trigger: sectionTop,
-          start: 'top top', // 스크롤 시작
-          end: 'bottom top', // 스크롤 끝
-          scrub: true, // 스크롤 연동(실시간)
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true,
         },
       });
     }
   }, []);
 
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+  // 두번째 섹션 텍스트와 이미지가 순차적으로 나오는 모션
+  useSectionStaggerAnim(sectionRef, styles);
 
-    const sectionTop = sectionTopRef.current;
-    if (sectionTop) {
-      gsap.to(sectionTop, {
-        height: '0vh', // 걷히는 목표 높이
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionTop,
-          start: 'top top', // 스크롤 시작
-          end: 'bottom top', // 스크롤 끝
-          scrub: true, // 스크롤 연동(실시간)
-        },
-      });
-    }
-  }, []);
+  // 네번째 섹션 스크롤 시 이미지 교체 모션
+  usePinnedImageSwitch(cardImgRef, styles);
+  usePinnedImageSwitch(cardImg2Ref, styles);
 
-  //   이미지 날라오는 모션
+  useSectionStaggerAnim(section5Ref, styles);
+  useSectionStaggerAnim(section6Ref, styles);
+  useSectionStaggerAnim(section7Ref, styles);
+  useSectionStaggerAnim(section8Ref, styles);
+
+  // 이미지 날라오는 모션
   useEffect(() => {
-    // 기준이 되는 스크롤러(부모 div) 정의. 없으면 document.body 사용.
-    const scrollSection = document.body;
+    if (!cardScaleContainerRef.current) return;
+    // 기준이 되는 스크롤러(부모 div) 정의.
+    const scrollSection = cardScaleContainerRef.current;
 
     // 이미지1 등장 → 퇴장 (0%~30%)
     gsap.fromTo(
@@ -140,6 +145,8 @@ export default function MainPage() {
           start: '0% top', // 전체 스크롤 시작
           end: '30% top',
           scrub: true,
+          pin: true,
+          anticipatePin: 1,
         },
       }
     );
@@ -319,45 +326,46 @@ export default function MainPage() {
   return (
     <div id="smooth-wrapper">
       <div id="smooth-content">
-        <div ref={sectionTopRef} className={styles.sectionTop}>
-          <div className={styles.wrapper}>
-            <p ref={textRef} className={styles.text}>
-              2025
-            </p>
-            <h1 ref={logoRef} className={styles.logo}>
-              <img src="/images/logo.png" alt="logo" />
-            </h1>
+        {/* 첫번쨰 섹션 */}
+        <>
+          <div ref={sectionTopRef} className={styles.sectionTop}>
+            <div className={styles.wrapper}>
+              <p ref={textRef} className={styles.text}>
+                2025
+              </p>
+              <h1 ref={logoRef} className={styles.logo}>
+                <img src="/images/logo.png" alt="logo" />
+              </h1>
+            </div>
           </div>
-        </div>
 
-        {/* 여기 다시 볼 것 */}
-        <div className={styles.bgSection}>
-          <img
-            src="/images/bg-low.jpg"
-            alt="background"
-            style={{ width: '100vw', height: '100vh', objectFit: 'cover' }}
-          />
-        </div>
+          {/* 검정색 영역 걷히면 나타나는 동영상 영역*/}
+          <div className={styles.bgBox}></div>
+        </>
 
         <div className={styles.sectionInfo}>
           <div className={styles.wrapper}>
-            <p className={styles.textRight}>2025. 5. 8 - 2025. 11. 15</p>
+            {/* 두번째 섹션 */}
+            <div ref={sectionRef}>
+              <p className={`${styles.textRight} ${styles.slideText}`}>2025. 5. 8 - 2025. 11. 15</p>
 
-            <div className={styles.infoCard}>
-              <div className={styles.cardImg}>
-                <img src="/images/bg-low.jpg" alt="img1" />
-              </div>
-              <div className={styles.cardText}>
-                도시는 어둡고도 찬란하며, 차갑고도 뜨겁다.
-                <br />
-                소란스러우나 고요하고, 무심하지만 다정하다.
+              <div className={styles.infoCard}>
+                <div className={styles.cardImg}>
+                  <img src="/images/main/info01.jpg" alt="info01" />
+                </div>
+                <div className={styles.cardText}>
+                  도시는 어둡고도 찬란하며, 차갑고도 뜨겁다.
+                  <br />
+                  소란스러우나 고요하고, 무심하지만 다정하다.
+                </div>
               </div>
             </div>
 
+            {/* 세번째 섹션 */}
             <div className={styles.infoCardFloating}>
               <div className={styles.floatingBox}>
                 <div className={styles.keyImg}>
-                  <img src="/images/bg-low.jpg" alt="img2" />
+                  <img src="/images/main/info02.jpg" alt="info02" />
                 </div>
                 <div className={styles.keyText}>
                   Synchronicity
@@ -365,10 +373,10 @@ export default function MainPage() {
                   of Simulacra
                 </div>
                 <div className={`${styles.floatingImg} ${styles.floatingImgLeft}`}>
-                  <img src="/images/bg-low.jpg" alt="img2" />
+                  <img src="/images/main/info03.jpg" alt="info03" />
                 </div>
                 <div className={`${styles.floatingImg} ${styles.floatingImgRight}`}>
-                  <img src="/images/bg-low.jpg" alt="img2" />
+                  <img src="/images/main/info04.jpg" alt="info04" />
                 </div>
 
                 <div className={styles.subText}>
@@ -383,15 +391,18 @@ export default function MainPage() {
 
             <div className={styles.infoCard}>
               <div className={styles.cardImg}>
-                <img src="/images/bg-low.jpg" alt="img1" />
+                <img src="/images/main/info05.jpg" alt="info05" />
               </div>
               <div className={styles.cardText}>도시성과 인간의 감각적 경험</div>
             </div>
           </div>
         </div>
 
-        <div className={styles.sectionBg}>
-          <img src="/images/bg-low.jpg" alt="" />
+        {/* 네번째 섹션 */}
+        <div ref={cardImgRef} className={styles.sectionBg}>
+          <img src="/images/main/bg01.jpg" alt="bg01" className={styles.blindBg1} />
+          {/* 이미지2: 바뀔 이미지 (초기 opacity: 0) */}
+          <img src="/images/main/bg02.jpg" alt="bg02" className={styles.blindBg2} />
           <div className={styles.blind}>
             <h2>
               The past, present
@@ -401,42 +412,43 @@ export default function MainPage() {
           </div>
         </div>
 
-        <div className={styles.sectionInfo}>
+        {/* 다섯번째 섹션 */}
+        <div className={`${styles.sectionInfo} ${styles.marginTopVh}`}>
           <div className={styles.wrapper}>
-            <div className={styles.infoCard}>
-              <div className={styles.cardText}>
+            <div ref={section5Ref} className={styles.infoCard}>
+              <div className={`${styles.slideText}`}>
                 도시는 어둡고도 찬란하며, 차갑고도 뜨겁다.
                 <br />
                 소란스러우나 고요하고, 무심하지만 다정하다.
               </div>
               <div className={styles.cardImg}>
-                <img src="/images/bg-low.jpg" alt="img1" />
+                <img src="/images/main/info06.jpg" alt="info06" />
               </div>
             </div>
 
-            <div className={styles.infoCardDivide}>
-              <div className={styles.subText}>빛의 기억, 어둠과 빛</div>
+            <div ref={section6Ref} className={styles.infoCardDivide}>
+              <div className={`${styles.subText} ${styles.slideText}`}>빛의 기억, 어둠과 빛</div>
               <div className={styles.divideBox}>
                 <div className={`${styles.divideImg} ${styles.divideImgLeft}`}>
-                  <img src="/images/bg-low.jpg" alt="img2" />
+                  <img src="/images/main/info07.jpg" alt="info07" />
                 </div>
-                <div className={styles.keyText}>
+                <div className={`${styles.keyText} ${styles.slideText}`}>
                   끊임없이 넘쳐흐르는
                   <br />
                   사각의 흐름
                 </div>
                 <div className={`${styles.divideImg} ${styles.divideImgRight}`}>
-                  <img src="/images/bg-low.jpg" alt="img2" />
+                  <img src="/images/main/info08.jpg" alt="info08" />
                 </div>
               </div>
             </div>
 
-            <div className={styles.infoCard}>
+            <div ref={section7Ref} className={styles.infoCard}>
               <p className={styles.marqueeText}>delight seoul 2025</p>
               <div className={styles.cardImg}>
-                <img src="/images/bg-low.jpg" alt="img1" />
+                <img src="/images/main/info09.jpg" alt="info09" />
               </div>
-              <div className={styles.cardText}>
+              <div className={`${styles.slideText}`}>
                 무엇이 숨겨지고 있고, 무엇이 드러나는가?
                 <br />
                 우리가 진실이라고 믿는 것은 어디까지인가?
@@ -445,8 +457,9 @@ export default function MainPage() {
           </div>
         </div>
 
-        <div className={styles.sectionBg}>
-          <img src="/images/bg-low.jpg" alt="" />
+        <div ref={cardImg2Ref} className={styles.sectionBg}>
+          <img src="/images/main/bg03.jpg" alt="bg03" className={styles.blindBg1} />
+          <img src="/images/main/bg04.jpg" alt="bg04" className={styles.blindBg2} />
           <div className={styles.blind}>
             <h2>
               The past, present
@@ -456,11 +469,11 @@ export default function MainPage() {
           </div>
         </div>
 
-        <div className={styles.sectionInfo}>
+        <div ref={section8Ref} className={`${styles.sectionInfo} ${styles.marginTopVh}`}>
           <div className={styles.wrapper}>
             <div className={styles.infoCard}>
               <div className={styles.cardImg}>
-                <img src="/images/bg-low.jpg" alt="img1" />
+                <img src="/images/main/info10.jpg" alt="info10" />
               </div>
               <div className={styles.cardText}>
                 우리가 기억하는 서울,
@@ -504,7 +517,7 @@ export default function MainPage() {
           </div>
         </div>
 
-        <div className={styles.container}>
+        <div ref={cardScaleContainerRef} className={styles.container}>
           <div className={styles.fixedBox}>
             <div className={styles.wrapper}>
               <div className={styles.centerTitle}>딜라이트 서울</div>

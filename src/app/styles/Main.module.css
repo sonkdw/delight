@@ -1,35 +1,35 @@
-body{
+body {
   background-color: #fff;
 }
 
-.wrapper{
+.wrapper {
   padding: 4rem;
+}
+
+.slideText {
 }
 
 .container {
   width: 100%;
-  height: 3000px;
+  height: 100vh;
   position: relative;
   overflow: hidden;
   background-color: #fff;
   border: solid 5px purple;
 }
 
-.fixedBox{
+.fixedBox {
   position: absolute;
   overflow: hidden;
   width: 100%;
   height: 100%;
   border: solid 5px yellowgreen;
-  height: 100vh;
 }
 
-.fixedBox .wrapper{
+.fixedBox .wrapper {
   position: relative;
   height: 100%;
-
 }
-
 
 .centerTitle {
   position: absolute;
@@ -100,21 +100,22 @@ body{
   height: 318px;
 }
 
-
-
-.sectionTop{
+.sectionTop {
   height: 100vh;
   background-color: #000;
   color: #fff;
+  position: absolute;
+  width: 100vw;
+  z-index: 1;
 }
 
-.sectionTop .wrapper{
+.sectionTop .wrapper {
   position: relative;
   height: 100%;
   box-sizing: border-box;
 }
 
-.sectionTop .logo{
+.sectionTop .logo {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -122,36 +123,54 @@ body{
   width: 250px;
 }
 
+.bgBox {
+  background-image: url('/images/bg-low.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center top;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  position: relative;
+  top: 0;
+  height: 136vh; /* 조정 필요 */
+  overscroll-behavior: none;
+}
 
-.textRight{
+.textRight {
   text-align: right;
 }
 
-.infoCard{
+.infoCard {
   max-width: 960px;
   margin: 0 auto;
 }
 
-.cardImg{
+.cardImg {
   border-radius: 12px;
   overflow: hidden;
   margin: 26px 0;
 }
 
-.cardImg img{
+.cardImg img {
   width: 100%;
 }
 
-.infoCardFloating{}
-.floatingBox{
+.cardText {
+  font-weight: 600;
+}
+
+.infoCardFloating {
+}
+.floatingBox {
   position: relative;
   width: 400px;
   margin: 30vh auto;
 }
 
-.floatingBox .keyImg{}
+.floatingBox .keyImg {
+}
 
-.floatingBox .keyText{
+.floatingBox .keyText {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -159,39 +178,61 @@ body{
   font-size: 60px;
 }
 
-.floatingBox .floatingImg{
+.floatingBox .floatingImg {
   position: absolute;
   width: 100px;
 }
 
-.floatingBox .floatingImgLeft{
+.floatingBox .floatingImgLeft {
   left: -100px;
   bottom: -100px;
 }
 
-.floatingBox .floatingImgRight{
+.floatingBox .floatingImgRight {
   right: -100px;
   top: -50px;
 }
 
-.floatingBox .subText{
+.floatingBox .subText {
   position: absolute;
   right: -100px;
   bottom: -100px;
   text-align: right;
 }
 
-.sectionBg{
+.sectionBg {
   background-color: #000;
   position: relative;
 }
 
-.sectionBg .blind{
+.sectionBg .blindBg1 {
+  width: 100%;
+  height: 100vh;
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+}
+
+.sectionBg .blindBg2 {
+  width: 100%;
+  height: 100vh;
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.sectionBg .blind {
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   color: #fff;
   text-align: center;
   z-index: 5;
@@ -200,79 +241,76 @@ body{
   align-items: center;
 }
 
-.divideBox{
+.marginTopVh {
+  margin-top: 100vh;
+}
+
+.divideBox {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
 }
 
-.divideImg{
+.divideImg {
   width: 30%;
 }
 
-.marqueeText{
+.marqueeText {
   font-size: 100px;
 }
 
-
-.sectionGrid{
+.sectionGrid {
   background-color: #000;
 }
 
-.gridWrap{
+.gridWrap {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
-.gridWrap .gridBox{
+.gridWrap .gridBox {
   width: 24.8%;
   margin-bottom: 0.2%;
   position: relative;
 }
 
-.gridWrap .gridBox .text{
+.gridWrap .gridBox .text {
   position: absolute;
   left: 0;
   top: 0;
 }
 
-
-.sectionFaq{
+.sectionFaq {
   background-color: #000;
   color: #fff;
 }
 
-
-
-.accorWrap{
+.accorWrap {
   border-top: solid 1px rgba(255, 255, 255, 0.2);
 }
-.accorCol{
+.accorCol {
   border-bottom: solid 1px rgba(255, 255, 255, 0.2);
 }
 
-.accorCol p.title{
+.accorCol p.title {
   padding: 16px;
 }
 
-.accorDetail{
+.accorDetail {
   padding: 16px;
 }
 
-
-
-.sectionLocation{
+.sectionLocation {
   background-color: #000;
   color: #fff;
 }
 
-.footer{
+.footer {
   background-color: #000;
   color: #fff;
 }
 
-.footer .wrapper{
+.footer .wrapper {
   display: flex;
-
 }
