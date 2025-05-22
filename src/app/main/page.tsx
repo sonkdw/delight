@@ -67,6 +67,8 @@ export default function MainPage() {
   const section8Ref = useRef(null);
   const cardScaleContainerRef = useRef<HTMLDivElement>(null);
 
+  const gridRef = useRef(null);
+
   const faqMarqueeRef = useRef<HTMLDivElement>(null);
   const mapMarqueeRef = useRef<HTMLDivElement>(null);
 
@@ -255,6 +257,23 @@ export default function MainPage() {
     };
   }, []);
 
+  // 그리드 ref
+  useEffect(() => {
+    if (!gridRef.current) return;
+
+    ScrollTrigger.create({
+      trigger: gridRef.current,
+      start: 'top 80%', // 뷰포트 80% 지점에서 시작
+      end: 'bottom 20%', // 끝나는 시점
+      toggleClass: { targets: gridRef.current, className: 'active' },
+    });
+
+    // cleanup
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
+
   // faq 마퀴
   useEffect(() => {
     if (!faqMarqueeRef.current) return;
@@ -414,7 +433,6 @@ export default function MainPage() {
               </div>
             </div>
 
-
             <div className={styles.infoCard}>
               <div className={styles.cardImg}>
                 <img src="/images/main/info05.jpg" alt="info05" />
@@ -423,7 +441,6 @@ export default function MainPage() {
             </div>
           </div>
         </div>
-
 
         {/* 네번째 섹션 */}
         <div ref={cardImgRef} className={styles.sectionBg}>
@@ -599,7 +616,7 @@ export default function MainPage() {
           </div>
         </div>
 
-        <div className={styles.sectionGrid}>
+        <div ref={gridRef} className={styles.sectionGrid}>
           <div className={styles.wrapper}>
             <div className={styles.gridWrap}>
               <div className={styles.gridBox}>
@@ -741,8 +758,6 @@ export default function MainPage() {
               LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION
             </div>
 
-
-
             <div className={styles.locationWrap}>
               <div className={styles.location}>
                 {/* 지도 */}
@@ -750,12 +765,14 @@ export default function MainPage() {
                   id="daumRoughmapContainer1747889978369"
                   className="root_daum_roughmap root_daum_roughmap_landing"
                 />
-
               </div>
               <div className={styles.textWrap}>
                 <div className={styles.row}>
                   <div className={styles.col}>
-                    <p>서울 종로구 율곡로 18 <br />도화서길디원</p>
+                    <p>
+                      서울 종로구 율곡로 18 <br />
+                      도화서길디원
+                    </p>
                   </div>
                   <div className={styles.row}>
                     <p>
