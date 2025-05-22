@@ -147,25 +147,31 @@
   animation: showText 1s 1.5s both;
 }
 
-@keyframes showText{
-  from{ opacity: 0; }
-  to{ opacity: 1; }
+@keyframes showText {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
-
 
 .scrollBar .bar {
   width: 1px;
   height: 140px;
-  background-color: rgba(255,255,255,0.3);
+  background-color: rgba(255, 255, 255, 0.3);
   margin: 0 auto;
   animation: aniBar 1s 2s both;
 }
 
-@keyframes aniBar{
-  from{ height: 0; }
-  to{ height: 140px; }
+@keyframes aniBar {
+  from {
+    height: 0;
+  }
+  to {
+    height: 140px;
+  }
 }
-
 
 .bgBox {
   background-image: url('/images/bg-low.jpg');
@@ -225,7 +231,6 @@
   transform: translate(-50%, -50%);
   font-size: 60px;
 }
-
 
 .floatingBox .floatingImg {
   position: absolute;
@@ -310,7 +315,7 @@
   overflow: hidden;
 }
 
-.divideImg.divideImgLeft{
+.divideImg.divideImgLeft {
   transform: translateY(140px);
 }
 
@@ -400,6 +405,10 @@
   color: #fff;
 }
 
+.row {
+  display: flex;
+}
+
 .footer {
   background-color: #000;
   color: #fff;
@@ -413,21 +422,20 @@
 .footer .footerLogo {
 }
 
-
-@media all and (max-width: 767px){
-  .sectionTop .logo{
+@media all and (max-width: 767px) {
+  .sectionTop .logo {
     width: 120px;
   }
   .wrapper {
     padding: 1.5rem;
   }
 
-  .floatingBox{
+  .floatingBox {
     width: 80%;
     margin: 30vh auto;
   }
 
-  .floatingBox .floatingImgLeft{
+  .floatingBox .floatingImgLeft {
     left: -10%;
     bottom: -100px;
   }
@@ -437,9 +445,8 @@
     top: -100px;
   }
 
-  .floatingBox .subText{
+  .floatingBox .subText {
     right: 0;
     bottom: -140px;
   }
-
 }

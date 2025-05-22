@@ -8,6 +8,12 @@ import { ScrollSmoother } from 'gsap/ScrollSmoother';
 import { SplitText } from 'gsap/SplitText';
 import { usePinnedImageSwitch, useSectionStaggerAnim } from '../hook/gsapHooks';
 
+declare global {
+  interface Window {
+    daum?: any;
+  }
+}
+
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 gsap.registerPlugin(SplitText);
 
@@ -59,6 +65,7 @@ export default function MainPage() {
   const cardScaleContainerRef = useRef<HTMLDivElement>(null);
 
   const faqMarqueeRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<HTMLDivElement>(null);
 
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
@@ -378,6 +385,55 @@ export default function MainPage() {
     );
   }, []);
 
+  // location 지도
+  useEffect(() => {
+    const scriptId = 'daum-roughmap-script';
+
+    // roughmapLoader.js 중복 삽입 방지
+    if (!document.getElementById(scriptId)) {
+      const script = document.createElement('script');
+      script.id = scriptId;
+      script.src = 'https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js';
+      script.async = true;
+      document.body.appendChild(script);
+
+      script.onload = () => {
+        // 스크립트 완전히 로드된 후에만 render 실행!
+        if (
+          window.daum &&
+          window.daum.roughmap &&
+          typeof window.daum.roughmap.Lander === 'function'
+        ) {
+          new window.daum.roughmap.Lander({
+            timestamp: '1747889978369',
+            key: '2o4s2',
+            mapWidth: '800',
+            mapHeight: '360',
+          }).render();
+        }
+      };
+    } else {
+      // 이미 있으면 polling (스크립트가 비동기로 로드될 수 있어서)
+      const checkAndRender = () => {
+        if (
+          window.daum &&
+          window.daum.roughmap &&
+          typeof window.daum.roughmap.Lander === 'function'
+        ) {
+          new window.daum.roughmap.Lander({
+            timestamp: '1747889978369',
+            key: '2o4s2',
+            mapWidth: '800',
+            mapHeight: '360',
+          }).render();
+        } else {
+          setTimeout(checkAndRender, 100);
+        }
+      };
+      checkAndRender();
+    }
+  }, []);
+
   return (
     <div id="smooth-wrapper">
       <div id="smooth-content">
@@ -488,7 +544,6 @@ export default function MainPage() {
             </div>
 
             <div ref={section6Ref} className={styles.infoCardDivide}>
-
               <div className={styles.divideBox}>
                 <div className={`${styles.divideImg} ${styles.divideImgLeft}`}>
                   <img src="/images/main/info07.jpg" alt="info07" />
@@ -584,22 +639,46 @@ export default function MainPage() {
               <div className={styles.centerTitle}>딜라이트 서울</div>
 
               <div ref={img1Ref} className={`${styles.image} ${styles.img1}`}>
-                <img src="/images/main/section3-01.jpg" alt="딜라이트 서울을 즐기는 사람들 모습" className={styles.img} />
+                <img
+                  src="/images/main/section3-01.jpg"
+                  alt="딜라이트 서울을 즐기는 사람들 모습"
+                  className={styles.img}
+                />
               </div>
               <div ref={img2Ref} className={`${styles.image} ${styles.img2}`}>
-                <img src="/images/main/section3-02.jpg" alt="딜라이트 서울을 즐기는 사람들 모습" className={styles.img} />
+                <img
+                  src="/images/main/section3-02.jpg"
+                  alt="딜라이트 서울을 즐기는 사람들 모습"
+                  className={styles.img}
+                />
               </div>
               <div ref={img3Ref} className={`${styles.image} ${styles.img3}`}>
-                <img src="/images/main/section3-03.jpg" alt="딜라이트 서울을 즐기는 사람들 모습" className={styles.img} />
+                <img
+                  src="/images/main/section3-03.jpg"
+                  alt="딜라이트 서울을 즐기는 사람들 모습"
+                  className={styles.img}
+                />
               </div>
               <div ref={img4Ref} className={`${styles.image} ${styles.img4}`}>
-                <img src="/images/main/section3-04.jpg" alt="딜라이트 서울을 즐기는 사람들 모습" className={styles.img} />
+                <img
+                  src="/images/main/section3-04.jpg"
+                  alt="딜라이트 서울을 즐기는 사람들 모습"
+                  className={styles.img}
+                />
               </div>
               <div ref={img5Ref} className={`${styles.image} ${styles.img5}`}>
-                <img src="/images/main/section3-05.jpg" alt="딜라이트 서울을 즐기는 사람들 모습" className={styles.img} />
+                <img
+                  src="/images/main/section3-05.jpg"
+                  alt="딜라이트 서울을 즐기는 사람들 모습"
+                  className={styles.img}
+                />
               </div>
               <div ref={img6Ref} className={`${styles.image} ${styles.img6}`}>
-                <img src="/images/main/section3-06.jpg" alt="딜라이트 서울을 즐기는 사람들 모습" className={styles.img} />
+                <img
+                  src="/images/main/section3-06.jpg"
+                  alt="딜라이트 서울을 즐기는 사람들 모습"
+                  className={styles.img}
+                />
               </div>
             </div>
           </div>
@@ -742,6 +821,12 @@ export default function MainPage() {
         <div className={styles.sectionLocation}>
           <div className={styles.wrapper}>
             <div className={styles.marqueeTitle}>Location</div>
+
+            {/* 지도 */}
+            <div
+              id="daumRoughmapContainer1747889978369"
+              className="root_daum_roughmap root_daum_roughmap_landing"
+            />
 
             <div className={styles.locationWrap}>
               <div className={styles.location}>지도</div>
