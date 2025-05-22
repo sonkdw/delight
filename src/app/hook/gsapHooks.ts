@@ -1,5 +1,10 @@
 import { RefObject, useEffect } from 'react';
 import gsap from 'gsap';
+import { SplitText } from 'gsap/SplitText';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(SplitText);
 
 export function useSectionStaggerAnim(
   sectionRef: RefObject<HTMLElement | null>,
@@ -27,19 +32,48 @@ export function useSectionStaggerAnim(
       opacity: 1,
       y: 100,
       scale: 1,
-      stagger: 0.18,
+      // stagger: 0.15,
       duration: 1.5,
       ease: 'power3.inOut',
       scrollTrigger: {
         trigger: sectionRef.current,
-        start: 'top 40%',
+        start: 'top 50%',
+        toggleActions: 'play none none reverse',
+        scrub: false,
+      },
+    });
+
+    const cardSlowImg = sectionRef.current.querySelectorAll(`.${styles.cardSlowImg}`);
+    gsap.from(cardSlowImg, {
+      opacity: 1,
+      y: 80,
+      scale: 1,
+      duration: 3,
+      ease: 'power3.inOut',
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top 50%',
+        toggleActions: 'play none none reverse',
+        scrub: false,
+      },
+    });
+
+    const cardSlowImg2 = sectionRef.current.querySelectorAll(`.${styles.cardSlowImg2}`);
+    gsap.from(cardSlowImg2, {
+      opacity: 1,
+      y: 80,
+      scale: 1,
+      duration: 4,
+      ease: 'power3.inOut',
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top 50%',
         toggleActions: 'play none none reverse',
         scrub: false,
       },
     });
 
     const cardImgIn = sectionRef.current.querySelectorAll(`.${styles.cardImg} img`);
-
     gsap.from(cardImgIn, {
       y: 100,
       stagger: 0.18,
@@ -97,4 +131,30 @@ export function usePinnedImageSwitch(
       },
     });
   }, [triggerRef, styles]);
+}
+
+export function useShowTextAnimation(
+  textRef: React.RefObject<HTMLElement | null>,
+  delay: number = 0 // 기본값 0
+) {
+  useEffect(() => {
+    if (!textRef.current) return;
+    gsap.fromTo(
+      textRef.current,
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        delay: delay,
+        ease: 'power3.inOut',
+        scrollTrigger: {
+          trigger: textRef.current,
+          start: 'top 80%',
+        },
+      }
+    );
+    // 클린업: 컴포넌트 언마운트시 ScrollTrigger 제거
+    return () => ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+  }, [textRef, delay]);
 }

@@ -1,5 +1,4 @@
-
-body{
+body {
   background: #fff url('/images/main/noise.gif') repeat center top fixed;
 }
 
@@ -12,6 +11,18 @@ body{
 }
 .slideText {
   font-family: 'Montserrat', sans-serif;
+}
+
+.overflowHidden {
+  overflow: hidden;
+}
+
+.cardSlowImg {
+  width: auto;
+}
+
+.cardImgIn {
+  width: auto;
 }
 
 .container {
@@ -141,7 +152,7 @@ body{
   font-size: 18px;
 }
 
-.sectionTop .text *{
+.sectionTop .text * {
   font-family: inherit;
 }
 
@@ -202,6 +213,7 @@ body{
 }
 
 .textRight {
+  overflow: hidden;
   text-align: right;
 }
 
@@ -223,6 +235,7 @@ body{
 }
 
 .cardText {
+  overflow: hidden;
   font-weight: 400;
 }
 
@@ -269,6 +282,7 @@ body{
 }
 
 .floatingBox .subText {
+  overflow: hidden;
   position: absolute;
   right: -100px;
   bottom: -100px;
@@ -430,14 +444,13 @@ body{
   color: #fff;
 }
 
-.location{
+.location {
   margin-bottom: 36px;
 }
 
-.location > div{
+.location > div {
   width: 100% !important;
 }
-
 
 .row {
   display: flex;
@@ -471,7 +484,7 @@ body{
     width: 180px;
   }
 
-  .sectionTop .text span{
+  .sectionTop .text span {
     font-size: 16px;
   }
 
@@ -499,21 +512,21 @@ body{
     bottom: -140px;
   }
 
-  .row{
+  .row {
     font-size: 16px;
     display: block;
   }
 
-  .row > div{
+  .row > div {
     margin-bottom: 12px;
   }
 
-  .row > p{
+  .row > p {
     text-align: left !important;
     margin-left: 0;
   }
 
-  .row br{
+  .row br {
     display: none;
   }
 }
