@@ -37,7 +37,22 @@ export function useSectionStaggerAnim(
       ease: 'power3.inOut',
       scrollTrigger: {
         trigger: sectionRef.current,
-        start: 'top 50%',
+        start: 'top 60%',
+        toggleActions: 'play none none reverse',
+        scrub: false,
+      },
+    });
+
+    const cardImg2 = sectionRef.current.querySelectorAll(`.${styles.cardImg2}`);
+    gsap.from(cardImg2, {
+      opacity: 1,
+      y: 200,
+      scale: 1,
+      duration: 1.5,
+      ease: 'power3.inOut',
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top -30%',
         toggleActions: 'play none none reverse',
         scrub: false,
       },

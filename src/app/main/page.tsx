@@ -639,7 +639,7 @@ export default function MainPage() {
 
             <div className={styles.infoCardFloating}>
               <div className={styles.floatingBox}>
-                <div ref={section9Ref} className={`${styles.keyImg} ${styles.cardImg}`}>
+                <div className={`${styles.keyImg} ${styles.cardImg2}`}>
                   <img src="/images/main/info11.jpg" alt="img2" />
                 </div>
                 <div ref={animatedText2Ref} className={styles.keyText}>

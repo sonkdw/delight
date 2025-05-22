@@ -222,7 +222,8 @@ body {
   margin: 0 auto;
 }
 
-.cardImg {
+.cardImg,
+.cardImg2 {
   border-radius: 12px;
   overflow: hidden;
   margin: 26px 0;
