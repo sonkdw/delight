@@ -170,7 +170,7 @@ export default function MainPage() {
       // 1. 단어 단위 래핑
       const split = new SplitText(animatedTextRef.current, { type: 'words' });
 
-      // 2. 단어별 애니메이션: opacity 0 → 1, stagger로 딱딱딱!
+      // 2. 단어별 애니메이션: opacity 0 → 1
       gsap.fromTo(
         split.words,
         { opacity: 0 },
@@ -206,71 +206,49 @@ export default function MainPage() {
     )
       return;
 
+    gsap.registerPlugin(ScrollTrigger);
+
     const scrollSection = cardScaleContainerRef.current;
 
-    console.log('abcc');
+    const moveSettings = [
+      { x: -100, y: 0 }, // img1: 왼쪽
+      { x: 80, y: -60 }, // img2: 오른쪽 위
+      { x: 120, y: 120 }, // img3: 오른쪽 아래
+      { x: -60, y: 130 }, // img4: 왼쪽 아래
+      { x: 100, y: -100 }, // img5: 오른쪽 위 멀리
+      { x: -150, y: 100 }, // img6: 왼쪽 아래 멀리
+    ];
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: scrollSection,
         start: 'top top',
-        end: '+=4000', // 전체 스크롤 길이 조절 (애니메이션 길이 반영)
+        end: '+=4000', // 스크롤 거리 길이 설정
         scrub: true,
         pin: true,
-        markers: true,
+        anticipatePin: 2,
       },
     });
 
-    // === 이미지1 ===
-    tl.fromTo(
-      img1Ref.current,
-      { scale: 0.6, opacity: 0, x: 0 },
-      { scale: 1, opacity: 1, duration: 1, ease: 'expo.inOut' }
-    );
+    const imageRefs = [img1Ref, img2Ref, img3Ref, img4Ref, img5Ref, img6Ref];
 
-    tl.fromTo(
-      img2Ref.current,
-      { scale: 0.3, opacity: 0, y: 0 },
-      { scale: 1, opacity: 1, duration: 1, ease: 'expo.inOut' },
-      '-=.3'
-    );
+    imageRefs.forEach((imgRef, i) => {
+      const { x, y } = moveSettings[i];
+      tl.to(
+        imgRef.current,
+        {
+          duration: 0.8,
+          keyframes: [
+            { scale: 0.3, opacity: 0, x: 0, y: 0, duration: 0 }, // 시작
+            { scale: 1, opacity: 1, x: 0, y: 0, ease: 'none' },
+            { scale: 2, opacity: 0, x, y, ease: 'none' },
+          ],
+        },
+        `-=${i === 0 ? 0 : 0.6}`
+      ); // 이전과 약간 겹치게 실행
+    });
 
-    tl.fromTo(
-      img3Ref.current,
-      { scale: 0.3, opacity: 0, x: 0, y: 0 },
-      { scale: 1, opacity: 1, duration: 1, ease: 'expo.inOut' }
-    );
-
-    tl.to(img1Ref.current, { scale: 2, opacity: 0, duration: 1, ease: 'expo.inOut' }, '-=.5');
-
-    tl.fromTo(
-      img4Ref.current,
-      { scale: 0.3, opacity: 0, x: 0, y: 0 },
-      { scale: 1, opacity: 1, duration: 1, ease: 'expo.inOut' },
-      '-=.3'
-    );
-
-    tl.to(img2Ref.current, { scale: 2, opacity: 0, duration: 1, ease: 'expo.inOut' }, '-=1');
-
-    tl.fromTo(
-      img5Ref.current,
-      { scale: 0.3, opacity: 0, x: 0, y: 0 },
-      { scale: 1, opacity: 1, duration: 1, ease: 'expo.inOut' }
-    );
-
-    tl.to(img3Ref.current, { scale: 2, opacity: 0, duration: 1, ease: 'expo.inOut' }, '-=.5');
-
-    tl.to(img4Ref.current, { scale: 2, opacity: 0, duration: 1, ease: 'expo.inOut' }, '-=.3');
-
-    tl.fromTo(
-      img6Ref.current,
-      { scale: 0.3, opacity: 0, x: 0, y: 0 },
-      { scale: 1, opacity: 1, duration: 1, ease: 'expo.inOut' }
-    );
-
-    tl.to(img5Ref.current, { scale: 2, opacity: 0, duration: 1, ease: 'expo.inOut' }, '-=.5');
-
-    tl.to(img6Ref.current, { scale: 2, opacity: 0, duration: 1, ease: 'expo.inOut' }, '-=.3');
+    ScrollTrigger.refresh();
 
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
@@ -506,8 +484,11 @@ export default function MainPage() {
         </div>
 
         <div ref={cardImg2Ref} className={styles.sectionBg}>
+          {/* 1번 */}
           <img src="/images/main/bg03.jpg" alt="bg03" className={styles.blindBg1} />
+          {/* 2번 */}
           <img src="/images/main/bg04.jpg" alt="bg04" className={styles.blindBg2} />
+          {/* 3번 */}
           <div className={styles.blind}>
             <h2>
               The past, present

@@ -71,15 +71,22 @@ export function useSectionStaggerAnim(
 }
 
 export function usePinnedImageSwitch(
-  triggerRef: RefObject<HTMLElement | null>,
+  triggerRef: React.RefObject<HTMLElement | null>,
   styles: { [key: string]: string }
 ) {
   useEffect(() => {
     if (!triggerRef.current) return;
 
-    // 두 번째 이미지에만 효과 적용
+    // 1. 두 번째 이미지를 오른쪽 바깥에 배치
+    gsap.set(`.${styles.blindBg2}`, {
+      xPercent: 100, // 처음에 화면 밖(오른쪽)
+      opacity: 1, // 오퍼시티 고정 (밀려오는 효과에 집중)
+    });
+
+    // 2. 스크롤/휠 시 중앙으로 슬라이드
     gsap.to(`.${styles.blindBg2}`, {
-      opacity: 1,
+      xPercent: 0, // 가운데로 이동
+      ease: 'expo.inOut',
       scrollTrigger: {
         trigger: triggerRef.current,
         start: 'top top',
