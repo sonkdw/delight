@@ -14,7 +14,7 @@ export function useSectionStaggerAnim(
       y: 60,
       stagger: 0.18,
       duration: 1.2,
-      ease: 'power2.out',
+      ease: 'power3.inOut',
       scrollTrigger: {
         trigger: sectionRef.current,
         start: 'top 80%',
@@ -29,12 +29,12 @@ export function useSectionStaggerAnim(
       scale: 1,
       stagger: 0.18,
       duration: 1.5,
-      ease: 'power2.out',
+      ease: 'power3.inOut',
       scrollTrigger: {
         trigger: sectionRef.current,
         start: 'top 40%',
         toggleActions: 'play none none reverse',
-        scrub: true,
+        scrub: false,
       },
     });
 
@@ -44,7 +44,7 @@ export function useSectionStaggerAnim(
       y: 100,
       stagger: 0.18,
       duration: 1,
-      ease: 'power2.out',
+      ease: 'power3.inOut',
       scale: 1.4,
       scrollTrigger: {
         trigger: sectionRef.current,

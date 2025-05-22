@@ -81,7 +81,7 @@ export default function MainPage() {
     const smoother = ScrollSmoother.create({
       wrapper: '#smooth-wrapper',
       content: '#smooth-content',
-      smooth: 1.2, // 부드러움 정도, 1~2 추천
+      smooth: 1, // 부드러움 정도, 1~2 추천
       effects: true, // 패럴랙스 효과용, 기본 true
     });
 
@@ -100,9 +100,9 @@ export default function MainPage() {
     tl.from(split.words, {
       opacity: 0,
       y: 40,
-      stagger: 0,
-      duration: 1,
-      ease: 'expo.out',
+      stagger: 0.5,
+      duration: 0.7,
+      ease: 'power3.inOut',
     });
 
     // 2. 로고 등장 (텍스트 끝나고)
@@ -113,20 +113,20 @@ export default function MainPage() {
         y: 0,
         scale: 1,
         duration: 0.7,
-        ease: 'power2.out',
+        ease: 'power3.inOut',
       },
       '+=0.1'
     );
 
-    // 3. 로고 퇴장
+    // // 3. 로고 퇴장
     // tl.to(logoRef.current, {
     //   opacity: 0,
     //   y: -30,
     //   duration: 0.6,
     //   ease: 'expo.in',
     // });
-
-    // 4. 텍스트 퇴장 (로고 퇴장 끝나고 바로)
+    //
+    // // 4. 텍스트 퇴장 (로고 퇴장 끝나고 바로)
     // tl.to(split.chars, {
     //   opacity: 0,
     //   y: -30,
@@ -147,7 +147,7 @@ export default function MainPage() {
     if (sectionTop) {
       gsap.to(sectionTop, {
         height: '0vh',
-        ease: 'power2.out',
+        ease: 'power3.inOut',
         scrollTrigger: {
           trigger: sectionTop,
           start: 'top top',
@@ -178,7 +178,7 @@ export default function MainPage() {
           opacity: 1,
           stagger: 0.27,
           duration: 0.45, // 등장속도
-          ease: 'power1.out',
+          ease: 'power3.inOut',
           scrollTrigger: {
             trigger: animatedTextRef.current,
             start: 'top 80%',
@@ -223,7 +223,7 @@ export default function MainPage() {
       scrollTrigger: {
         trigger: scrollSection,
         start: 'top top',
-        end: '+=4000', // 스크롤 거리 길이 설정
+        end: '+=1000', // 스크롤 거리 길이 설정
         scrub: true,
         pin: true,
         anticipatePin: 2,
@@ -240,8 +240,8 @@ export default function MainPage() {
           duration: 0.8,
           keyframes: [
             { scale: 0.3, opacity: 0, x: 0, y: 0, duration: 0 }, // 시작
-            { scale: 1, opacity: 1, x: 0, y: 0, ease: 'none' },
-            { scale: 2, opacity: 0, x, y, ease: 'none' },
+            { scale: 0.8, opacity: 1, x: 0, y: 0, ease: 'none' },
+            { scale: 1, opacity: 0, x, y, ease: 'none' },
           ],
         },
         `-=${i === 0 ? 0 : 0.6}`
@@ -372,7 +372,7 @@ export default function MainPage() {
           <div className={styles.wrapper}>
             {/* 두번째 섹션 */}
             <div ref={sectionRef}>
-              <p className={`${styles.textRight} ${styles.slideText}`}>2025. 5. 8 - 2025. 11. 15</p>
+              <p className={`${styles.textRight} ${styles.slideText}`}>2025 5. 8 - 2025. 11. 15</p>
 
               <div className={styles.infoCard}>
                 <div className={styles.cardImg}>
@@ -414,6 +414,7 @@ export default function MainPage() {
               </div>
             </div>
 
+
             <div className={styles.infoCard}>
               <div className={styles.cardImg}>
                 <img src="/images/main/info05.jpg" alt="info05" />
@@ -422,6 +423,7 @@ export default function MainPage() {
             </div>
           </div>
         </div>
+
 
         {/* 네번째 섹션 */}
         <div ref={cardImgRef} className={styles.sectionBg}>
@@ -553,28 +555,28 @@ export default function MainPage() {
 
               <div ref={img1Ref} className={`${styles.image} ${styles.img1}`}>
                 <img
-                  src="/images/main/section3-01.jpg"
+                  src="/images/main/section3-08.jpg"
                   alt="딜라이트 서울을 즐기는 사람들 모습"
                   className={styles.img}
                 />
               </div>
               <div ref={img2Ref} className={`${styles.image} ${styles.img2}`}>
                 <img
-                  src="/images/main/section3-02.jpg"
+                  src="/images/main/section3-13.jpg"
                   alt="딜라이트 서울을 즐기는 사람들 모습"
                   className={styles.img}
                 />
               </div>
               <div ref={img3Ref} className={`${styles.image} ${styles.img3}`}>
                 <img
-                  src="/images/main/section3-03.jpg"
+                  src="/images/main/section3-14.jpg"
                   alt="딜라이트 서울을 즐기는 사람들 모습"
                   className={styles.img}
                 />
               </div>
               <div ref={img4Ref} className={`${styles.image} ${styles.img4}`}>
                 <img
-                  src="/images/main/section3-04.jpg"
+                  src="/images/main/section3-02.jpg"
                   alt="딜라이트 서울을 즐기는 사람들 모습"
                   className={styles.img}
                 />
@@ -607,91 +609,91 @@ export default function MainPage() {
                 </div>
               </div>
               <div className={styles.gridBox}>
-                <p className={styles.text}>DE</p>
+                <p className={styles.text}></p>
                 <div className={styles.img}>
                   <img src="/images/main/grid-img02.jpg" alt="img2" />
                 </div>
               </div>
               <div className={styles.gridBox}>
-                <p className={styles.text}>DE</p>
+                <p className={styles.text}></p>
                 <div className={styles.img}>
                   <img src="/images/main/grid-img03.jpg" alt="img2" />
                 </div>
               </div>
               <div className={styles.gridBox}>
-                <p className={styles.text}>DE</p>
+                <p className={styles.text}>SEOUL</p>
                 <div className={styles.img}>
                   <img src="/images/main/grid-img04.jpg" alt="img2" />
                 </div>
               </div>
               <div className={styles.gridBox}>
-                <p className={styles.text}>DE</p>
+                <p className={styles.text}></p>
                 <div className={styles.img}>
                   <img src="/images/main/grid-img05.jpg" alt="img2" />
                 </div>
               </div>
               <div className={styles.gridBox}>
-                <p className={styles.text}>DE</p>
+                <p className={styles.text}></p>
                 <div className={styles.img}>
                   <img src="/images/main/grid-img06.jpg" alt="img2" />
                 </div>
               </div>
               <div className={styles.gridBox}>
-                <p className={styles.text}>DE</p>
+                <p className={styles.text}>HT</p>
                 <div className={styles.img}>
                   <img src="/images/main/grid-img07.jpg" alt="img2" />
                 </div>
               </div>
               <div className={styles.gridBox}>
-                <p className={styles.text}>DE</p>
+                <p className={styles.text}></p>
                 <div className={styles.img}>
                   <img src="/images/main/grid-img08.jpg" alt="img2" />
                 </div>
               </div>
               <div className={styles.gridBox}>
-                <p className={styles.text}>DE</p>
+                <p className={styles.text}></p>
                 <div className={styles.img}>
                   <img src="/images/main/grid-img09.jpg" alt="img2" />
                 </div>
               </div>
               <div className={styles.gridBox}>
-                <p className={styles.text}>DE</p>
+                <p className={styles.text}>LIG</p>
                 <div className={styles.img}>
                   <img src="/images/main/grid-img10.jpg" alt="img2" />
                 </div>
               </div>
               <div className={styles.gridBox}>
-                <p className={styles.text}>DE</p>
+                <p className={styles.text}></p>
                 <div className={styles.img}>
                   <img src="/images/main/grid-img11.jpg" alt="img2" />
                 </div>
               </div>
               <div className={styles.gridBox}>
-                <p className={styles.text}>DE</p>
+                <p className={styles.text}></p>
                 <div className={styles.img}>
                   <img src="/images/main/grid-img12.jpg" alt="img2" />
                 </div>
               </div>
               <div className={styles.gridBox}>
-                <p className={styles.text}>DE</p>
+                <p className={styles.text}></p>
                 <div className={styles.img}>
                   <img src="/images/main/grid-img13.jpg" alt="img2" />
                 </div>
               </div>
               <div className={styles.gridBox}>
-                <p className={styles.text}>DE</p>
+                <p className={styles.text}></p>
                 <div className={styles.img}>
                   <img src="/images/main/grid-img14.jpg" alt="img2" />
                 </div>
               </div>
               <div className={styles.gridBox}>
-                <p className={styles.text}>DE</p>
+                <p className={styles.text}></p>
                 <div className={styles.img}>
                   <img src="/images/main/grid-img15.jpg" alt="img2" />
                 </div>
               </div>
               <div className={styles.gridBox}>
-                <p className={styles.text}>DE</p>
+                <p className={styles.text}></p>
                 <div className={styles.img}>
                   <img src="/images/main/grid-img16.jpg" alt="img2" />
                 </div>
@@ -739,20 +741,23 @@ export default function MainPage() {
               LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION
             </div>
 
-            {/* 지도 */}
-            <div
-              id="daumRoughmapContainer1747889978369"
-              className="root_daum_roughmap root_daum_roughmap_landing"
-            />
+
 
             <div className={styles.locationWrap}>
-              <div className={styles.location}>지도</div>
+              <div className={styles.location}>
+                {/* 지도 */}
+                <div
+                  id="daumRoughmapContainer1747889978369"
+                  className="root_daum_roughmap root_daum_roughmap_landing"
+                />
+
+              </div>
               <div className={styles.textWrap}>
                 <div className={styles.row}>
                   <div className={styles.col}>
-                    <p>서울 종로구 율곡로 18 도화서길디원</p>
+                    <p>서울 종로구 율곡로 18 <br />도화서길디원</p>
                   </div>
-                  <div className={styles.col}>
+                  <div className={styles.row}>
                     <p>
                       2025년 5월 8일부터
                       <br />
