@@ -58,6 +58,9 @@ export default function MainPage() {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const cardImgRef = useRef(null);
   const cardImg2Ref = useRef(null);
+
+  const animatedTextRef = useRef<HTMLDivElement>(null);
+
   const section5Ref = useRef(null);
   const section6Ref = useRef(null);
   const section7Ref = useRef(null);
@@ -65,7 +68,7 @@ export default function MainPage() {
   const cardScaleContainerRef = useRef<HTMLDivElement>(null);
 
   const faqMarqueeRef = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<HTMLDivElement>(null);
+  const mapMarqueeRef = useRef<HTMLDivElement>(null);
 
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
@@ -155,211 +158,117 @@ export default function MainPage() {
     }
   }, []);
 
-  // 두번째 섹션 텍스트와 이미지가 순차적으로 나오는 모션
+  // 텍스트와 이미지가 순차적으로 나오는 모션
   useSectionStaggerAnim(sectionRef, styles);
-
-  // 네번째 섹션 스크롤 시 이미지 교체 모션
-  usePinnedImageSwitch(cardImgRef, styles);
-  usePinnedImageSwitch(cardImg2Ref, styles);
-
   useSectionStaggerAnim(section5Ref, styles);
   useSectionStaggerAnim(section6Ref, styles);
   useSectionStaggerAnim(section7Ref, styles);
   useSectionStaggerAnim(section8Ref, styles);
 
+  useEffect(() => {
+    if (animatedTextRef.current) {
+      // 1. 단어 단위 래핑
+      const split = new SplitText(animatedTextRef.current, { type: 'words' });
+
+      // 2. 단어별 애니메이션: opacity 0 → 1, stagger로 딱딱딱!
+      gsap.fromTo(
+        split.words,
+        { opacity: 0 },
+        {
+          opacity: 1,
+          stagger: 0.27,
+          duration: 0.45, // 등장속도
+          ease: 'power1.out',
+          scrollTrigger: {
+            trigger: animatedTextRef.current,
+            start: 'top 80%',
+            toggleActions: 'play none none reverse',
+          },
+        }
+      );
+    }
+  }, []);
+
+  // 스크롤 시 이미지 교체 모션
+  usePinnedImageSwitch(cardImgRef, styles);
+  usePinnedImageSwitch(cardImg2Ref, styles);
+
   // 이미지 날라오는 모션
   useEffect(() => {
-    if (!cardScaleContainerRef.current) return;
-    // 기준이 되는 스크롤러(부모 div) 정의.
+    if (
+      !cardScaleContainerRef.current ||
+      !img1Ref.current ||
+      !img2Ref.current ||
+      !img3Ref.current ||
+      !img4Ref.current ||
+      !img5Ref.current ||
+      !img6Ref.current
+    )
+      return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
     const scrollSection = cardScaleContainerRef.current;
 
-    // 이미지1 등장 → 퇴장 (0%~30%)
-    gsap.fromTo(
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: scrollSection,
+        start: 'top top',
+        end: '+=5000', // 전체 스크롤 길이 조절 (애니메이션 길이 반영)
+        scrub: true,
+        pin: true,
+        anticipatePin: 1,
+      },
+    });
+
+    // === 이미지1 ===
+    tl.fromTo(
       img1Ref.current,
       { scale: 0.6, opacity: 0, x: 0 },
-      {
-        scale: 1.2, // 커졌다가 사라지는 느낌이면 scale: 2, 사라지게만 할거면 scale:1로 유지
-        opacity: 1,
-        x: -100, // 왼쪽으로 300px 이동
-        ease: 'expo.inOut',
-        scrollTrigger: {
-          trigger: scrollSection,
-          start: '0% top', // 전체 스크롤 시작
-          end: '30% top',
-          scrub: true,
-          pin: true,
-          anticipatePin: 1,
-        },
-      }
+      { scale: 1, opacity: 1, duration: 1, ease: 'expo.inOut' }
     );
-    // 퇴장
-    gsap.to(img1Ref.current, {
-      scale: 2,
-      opacity: 0,
-      ease: 'expo.inOut',
-      scrollTrigger: {
-        trigger: scrollSection,
-        start: '30% top',
-        end: '0% top',
-        scrub: true,
-      },
-    });
+    tl.to(img1Ref.current, { scale: 2, opacity: 0, duration: 1, ease: 'expo.inOut' });
 
-    // 이미지2 등장(2%) → 퇴장(45%)
-    gsap.fromTo(
+    // === 이미지2 ===
+    tl.fromTo(
       img2Ref.current,
-      { scale: 0.3, opacity: 1, y: 0 },
-      {
-        scale: 2,
-        opacity: 0,
-        y: -200,
-        ease: 'expo.inOut',
-        scrollTrigger: {
-          trigger: scrollSection,
-          start: '2% top',
-          end: '45% top',
-          scrub: true,
-        },
-      }
+      { scale: 0.3, opacity: 0, y: 0 },
+      { scale: 1, opacity: 1, duration: 1, ease: 'expo.inOut' }
     );
-    // 퇴장
-    gsap.to(img2Ref.current, {
-      scale: 2,
-      opacity: 0,
-      ease: 'expo.inOut',
-      scrollTrigger: {
-        trigger: scrollSection,
-        start: '45% top',
-        end: '2% top',
-        scrub: true,
-      },
-    });
+    tl.to(img2Ref.current, { scale: 2, opacity: 0, duration: 1, ease: 'expo.inOut' });
 
-    // 이미지3 등장(5%) → 퇴장(50%)
-    gsap.fromTo(
+    // === 이미지3 ===
+    tl.fromTo(
       img3Ref.current,
-      { scale: 0.3, opacity: 1, x: 0, y: 0 },
-      {
-        scale: 2,
-        opacity: 0,
-        x: 200,
-        y: -300,
-        ease: 'expo.inOut',
-        scrollTrigger: {
-          trigger: scrollSection,
-          start: '5% top',
-          end: '50% top',
-          scrub: true,
-        },
-      }
+      { scale: 0.3, opacity: 0, x: 0, y: 0 },
+      { scale: 1, opacity: 1, duration: 1, ease: 'expo.inOut' }
     );
-    // 퇴장
-    gsap.to(img3Ref.current, {
-      scale: 2,
-      opacity: 0,
-      ease: 'expo.inOut',
-      scrollTrigger: {
-        trigger: scrollSection,
-        start: '50% top',
-        end: '5% top',
-        scrub: true,
-      },
-    });
+    tl.to(img3Ref.current, { scale: 2, opacity: 0, duration: 1, ease: 'expo.inOut' });
 
-    // 이미지4 등장(7%) → 퇴장(60%)
-    gsap.fromTo(
+    // === 이미지4 ===
+    tl.fromTo(
       img4Ref.current,
-      { scale: 0.3, opacity: 1, x: 0, y: 0 },
-      {
-        scale: 2,
-        opacity: 0,
-        x: 300,
-        y: -100,
-        ease: 'expo.inOut',
-        scrollTrigger: {
-          trigger: scrollSection,
-          start: '7% top',
-          end: '60% top',
-          scrub: true,
-        },
-      }
+      { scale: 0.3, opacity: 0, x: 0, y: 0 },
+      { scale: 1, opacity: 1, duration: 1, ease: 'expo.inOut' }
     );
-    // 퇴장
-    gsap.to(img4Ref.current, {
-      scale: 2,
-      opacity: 0,
-      ease: 'expo.inOut',
-      scrollTrigger: {
-        trigger: scrollSection,
-        start: '60% top',
-        end: '7% top',
-        scrub: true,
-      },
-    });
+    tl.to(img4Ref.current, { scale: 2, opacity: 0, duration: 1, ease: 'expo.inOut' });
 
-    // 이미지5 등장(10%) → 퇴장(70%)
-    gsap.fromTo(
+    // === 이미지5 ===
+    tl.fromTo(
       img5Ref.current,
-      { scale: 0.3, opacity: 1, x: 0, y: 0 },
-      {
-        scale: 2,
-        opacity: 0,
-        x: -300,
-        y: 100,
-        ease: 'expo.inOut',
-        scrollTrigger: {
-          trigger: scrollSection,
-          start: '10% top',
-          end: '70% top',
-          scrub: true,
-        },
-      }
+      { scale: 0.3, opacity: 0, x: 0, y: 0 },
+      { scale: 1, opacity: 1, duration: 1, ease: 'expo.inOut' }
     );
-    // 퇴장
-    gsap.to(img5Ref.current, {
-      scale: 2,
-      opacity: 0,
-      ease: 'expo.inOut',
-      scrollTrigger: {
-        trigger: scrollSection,
-        start: '70% top',
-        end: '10% top',
-        scrub: true,
-      },
-    });
+    tl.to(img5Ref.current, { scale: 2, opacity: 0, duration: 1, ease: 'expo.inOut' });
 
-    // 이미지6 등장(15%) → 퇴장(80%)
-    gsap.fromTo(
+    // === 이미지6 ===
+    tl.fromTo(
       img6Ref.current,
-      { scale: 0.3, opacity: 1, x: 0, y: 0 },
-      {
-        scale: 2,
-        opacity: 0,
-        x: 300,
-        y: 200,
-        ease: 'expo.inOut',
-        scrollTrigger: {
-          trigger: scrollSection,
-          start: '15% top',
-          end: '80% top',
-          scrub: true,
-        },
-      }
+      { scale: 0.3, opacity: 0, x: 0, y: 0 },
+      { scale: 1, opacity: 1, duration: 1, ease: 'expo.inOut' }
     );
-    // 퇴장
-    gsap.to(img6Ref.current, {
-      scale: 2,
-      opacity: 0,
-      ease: 'expo.inOut',
-      scrollTrigger: {
-        trigger: scrollSection,
-        start: '80% top',
-        end: '15% top',
-        scrub: true,
-      },
-    });
+    tl.to(img6Ref.current, { scale: 2, opacity: 0, duration: 1, ease: 'expo.inOut' });
 
-    // 클린업
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
@@ -377,6 +286,26 @@ export default function MainPage() {
         ease: 'none',
         scrollTrigger: {
           trigger: faqMarqueeRef.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+        },
+      }
+    );
+  }, []);
+
+  // location 마퀴
+  useEffect(() => {
+    if (!mapMarqueeRef.current) return;
+    gsap.fromTo(
+      mapMarqueeRef.current,
+      { x: 0, y: 0, rotate: -5 },
+      {
+        x: '-50vw', // 이동거리
+        rotate: -5,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: mapMarqueeRef.current,
           start: 'top bottom',
           end: 'bottom top',
           scrub: true,
@@ -482,7 +411,7 @@ export default function MainPage() {
                 <div className={styles.keyImg}>
                   <img src="/images/main/info02.jpg" alt="info02" />
                 </div>
-                <div className={styles.keyText}>
+                <div ref={animatedTextRef} className={styles.keyText}>
                   Synchronicity
                   <br />
                   of Simulacra
@@ -818,9 +747,13 @@ export default function MainPage() {
           </div>
         </div>
 
+        {/* location */}
         <div className={styles.sectionLocation}>
           <div className={styles.wrapper}>
-            <div className={styles.marqueeTitle}>Location</div>
+            <div ref={mapMarqueeRef} className={styles.marqueeTitle}>
+              LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION
+              LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION
+            </div>
 
             {/* 지도 */}
             <div
