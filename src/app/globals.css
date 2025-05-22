@@ -23,6 +23,10 @@
   font-family: 'Suit', sans-serif;
 }
 
+body {
+  background: #fff;
+}
+
 /* Suit Thin */
 @font-face {
   font-family: 'Suit';

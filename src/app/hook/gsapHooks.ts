@@ -24,8 +24,9 @@ export function useSectionStaggerAnim(
 
     const cardImg = sectionRef.current.querySelectorAll(`.${styles.cardImg}`);
     gsap.from(cardImg, {
-      opacity: 0,
+      opacity: 1,
       y: 60,
+      scale: 0.9,
       stagger: 0.18,
       duration: 1.5,
       ease: 'power2.out',
@@ -33,6 +34,23 @@ export function useSectionStaggerAnim(
         trigger: sectionRef.current,
         start: 'top 40%',
         toggleActions: 'play none none reverse',
+        scrub: true,
+      },
+    });
+
+    const cardImgIn = sectionRef.current.querySelectorAll(`.${styles.cardImg} img`);
+
+    gsap.from(cardImgIn, {
+      y: -100,
+      stagger: 0.18,
+      duration: 1,
+      ease: 'power2.out',
+      scale: 1.4,
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top 80%',
+        toggleActions: 'play none none reverse',
+        scrub: true,
       },
     });
 

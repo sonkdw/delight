@@ -1,6 +1,6 @@
 'use client';
 
-import { RefObject, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from '../styles/Main.module.css';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -10,6 +10,34 @@ import { usePinnedImageSwitch, useSectionStaggerAnim } from '../hook/gsapHooks';
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 gsap.registerPlugin(SplitText);
+
+const faqList = [
+  {
+    question: '입장권은 어디에서 구매할 수 있나요?',
+    answer: '답변',
+  },
+  {
+    question: '관람 시 사전 예약이 필요한가요?',
+    answer: '답변',
+  },
+  {
+    question: '운영시간이 궁금합니다.',
+    answer: '답변',
+  },
+  {
+    question: '찾아가는 방법은 어디서 확인하나요?',
+    answer: '답변',
+  },
+  {
+    question: '입장 후 나갔다가 재입장이 가능한가요?',
+    answer: '답변',
+  },
+  {
+    question: '반려동물 동반 입장이 가능한가요?',
+    answer:
+      '관람객 안전 및 쾌적한 전시환경을 위해 실내 및 야외전시장에 반려동물 출입을 제한하고 있습니다. 단, 시각 장애인 안내견은 출입이 가능합니다.',
+  },
+];
 
 export default function MainPage() {
   const img1Ref = useRef<HTMLDivElement | null>(null);
@@ -30,6 +58,14 @@ export default function MainPage() {
   const section8Ref = useRef(null);
   const cardScaleContainerRef = useRef<HTMLDivElement>(null);
 
+  const faqMarqueeRef = useRef<HTMLDivElement>(null);
+
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+
+  const handleFaqToggle = (idx: number) => {
+    setOpenFaqIndex(idx === openFaqIndex ? null : idx);
+  };
+
   // 스크롤 스무더
   useEffect(() => {
     const smoother = ScrollSmoother.create({
@@ -47,48 +83,47 @@ export default function MainPage() {
 
   // 로고 텍스트 스플릿
   useEffect(() => {
-    const split = new SplitText(textRef.current, { type: 'chars' });
+    const split = new SplitText(textRef.current, { type: 'words' });
     const tl = gsap.timeline();
 
     // 1. 텍스트 등장
-    tl.from(split.chars, {
+    tl.from(split.words, {
       opacity: 0,
       y: 40,
-      stagger: 0.07,
-      duration: 0.7,
+      stagger: 0,
+      duration: 1,
       ease: 'expo.out',
     });
 
     // 2. 로고 등장 (텍스트 끝나고)
     tl.fromTo(
       logoRef.current,
-      { opacity: 0, y: 60 },
+      { y: 100 },
       {
-        opacity: 1,
         y: 0,
         scale: 1,
-        duration: 1.5,
+        duration: 0.7,
         ease: 'power2.out',
       },
       '+=0.1'
     );
 
     // 3. 로고 퇴장
-    tl.to(logoRef.current, {
-      opacity: 0,
-      y: -30,
-      duration: 0.6,
-      ease: 'expo.in',
-    });
+    // tl.to(logoRef.current, {
+    //   opacity: 0,
+    //   y: -30,
+    //   duration: 0.6,
+    //   ease: 'expo.in',
+    // });
 
     // 4. 텍스트 퇴장 (로고 퇴장 끝나고 바로)
-    tl.to(split.chars, {
-      opacity: 0,
-      y: -30,
-      duration: 0.6,
-      stagger: 0.02,
-      ease: 'expo.in',
-    });
+    // tl.to(split.chars, {
+    //   opacity: 0,
+    //   y: -30,
+    //   duration: 0.6,
+    //   stagger: 0.02,
+    //   ease: 'expo.in',
+    // });
 
     return () => split.revert();
   }, []);
@@ -107,7 +142,7 @@ export default function MainPage() {
           trigger: sectionTop,
           start: 'top top',
           end: 'bottom top',
-          scrub: true,
+          scrub: false,
         },
       });
     }
@@ -323,6 +358,26 @@ export default function MainPage() {
     };
   }, []);
 
+  // faq 마퀴
+  useEffect(() => {
+    if (!faqMarqueeRef.current) return;
+    gsap.fromTo(
+      faqMarqueeRef.current,
+      { x: 0, y: 0, rotate: -5 },
+      {
+        x: '-50vw', // 이동거리
+        rotate: -5,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: faqMarqueeRef.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+        },
+      }
+    );
+  }, []);
+
   return (
     <div id="smooth-wrapper">
       <div id="smooth-content">
@@ -330,12 +385,16 @@ export default function MainPage() {
         <>
           <div ref={sectionTopRef} className={styles.sectionTop}>
             <div className={styles.wrapper}>
-              <p ref={textRef} className={styles.text}>
-                2025
+              <p className={styles.text}>
+                <span ref={textRef}>2025</span>
               </p>
-              <h1 ref={logoRef} className={styles.logo}>
-                <img src="/images/logo.png" alt="logo" />
+              <h1 className={styles.logo}>
+                <img ref={logoRef} src="/images/logo.png" alt="logo" />
               </h1>
+              <div className={styles.scrollBar}>
+                <span>SCROLL</span>
+                <div className={styles.bar}></div>
+              </div>
             </div>
           </div>
 
@@ -550,112 +609,130 @@ export default function MainPage() {
               <div className={styles.gridBox}>
                 <p className={styles.text}>DE</p>
                 <div className={styles.img}>
-                  <img src="/images/bg-low.jpg" alt="img2" />
+                  <img src="/images/main/grid-img01.jpg" alt="img2" />
                 </div>
               </div>
               <div className={styles.gridBox}>
                 <p className={styles.text}>DE</p>
                 <div className={styles.img}>
-                  <img src="/images/bg-low.jpg" alt="img2" />
+                  <img src="/images/main/grid-img02.jpg" alt="img2" />
                 </div>
               </div>
               <div className={styles.gridBox}>
                 <p className={styles.text}>DE</p>
                 <div className={styles.img}>
-                  <img src="/images/bg-low.jpg" alt="img2" />
+                  <img src="/images/main/grid-img03.jpg" alt="img2" />
                 </div>
               </div>
               <div className={styles.gridBox}>
                 <p className={styles.text}>DE</p>
                 <div className={styles.img}>
-                  <img src="/images/bg-low.jpg" alt="img2" />
+                  <img src="/images/main/grid-img04.jpg" alt="img2" />
                 </div>
               </div>
               <div className={styles.gridBox}>
                 <p className={styles.text}>DE</p>
                 <div className={styles.img}>
-                  <img src="/images/bg-low.jpg" alt="img2" />
+                  <img src="/images/main/grid-img05.jpg" alt="img2" />
                 </div>
               </div>
               <div className={styles.gridBox}>
                 <p className={styles.text}>DE</p>
                 <div className={styles.img}>
-                  <img src="/images/bg-low.jpg" alt="img2" />
+                  <img src="/images/main/grid-img06.jpg" alt="img2" />
                 </div>
               </div>
               <div className={styles.gridBox}>
                 <p className={styles.text}>DE</p>
                 <div className={styles.img}>
-                  <img src="/images/bg-low.jpg" alt="img2" />
+                  <img src="/images/main/grid-img07.jpg" alt="img2" />
                 </div>
               </div>
               <div className={styles.gridBox}>
                 <p className={styles.text}>DE</p>
                 <div className={styles.img}>
-                  <img src="/images/bg-low.jpg" alt="img2" />
+                  <img src="/images/main/grid-img08.jpg" alt="img2" />
                 </div>
               </div>
               <div className={styles.gridBox}>
                 <p className={styles.text}>DE</p>
                 <div className={styles.img}>
-                  <img src="/images/bg-low.jpg" alt="img2" />
+                  <img src="/images/main/grid-img09.jpg" alt="img2" />
                 </div>
               </div>
               <div className={styles.gridBox}>
                 <p className={styles.text}>DE</p>
                 <div className={styles.img}>
-                  <img src="/images/bg-low.jpg" alt="img2" />
+                  <img src="/images/main/grid-img10.jpg" alt="img2" />
                 </div>
               </div>
               <div className={styles.gridBox}>
                 <p className={styles.text}>DE</p>
                 <div className={styles.img}>
-                  <img src="/images/bg-low.jpg" alt="img2" />
+                  <img src="/images/main/grid-img11.jpg" alt="img2" />
                 </div>
               </div>
               <div className={styles.gridBox}>
                 <p className={styles.text}>DE</p>
                 <div className={styles.img}>
-                  <img src="/images/bg-low.jpg" alt="img2" />
+                  <img src="/images/main/grid-img12.jpg" alt="img2" />
                 </div>
               </div>
               <div className={styles.gridBox}>
                 <p className={styles.text}>DE</p>
                 <div className={styles.img}>
-                  <img src="/images/bg-low.jpg" alt="img2" />
+                  <img src="/images/main/grid-img13.jpg" alt="img2" />
                 </div>
               </div>
               <div className={styles.gridBox}>
                 <p className={styles.text}>DE</p>
                 <div className={styles.img}>
-                  <img src="/images/bg-low.jpg" alt="img2" />
+                  <img src="/images/main/grid-img14.jpg" alt="img2" />
                 </div>
               </div>
               <div className={styles.gridBox}>
                 <p className={styles.text}>DE</p>
                 <div className={styles.img}>
-                  <img src="/images/bg-low.jpg" alt="img2" />
+                  <img src="/images/main/grid-img15.jpg" alt="img2" />
                 </div>
               </div>
               <div className={styles.gridBox}>
                 <p className={styles.text}>DE</p>
                 <div className={styles.img}>
-                  <img src="/images/bg-low.jpg" alt="img2" />
+                  <img src="/images/main/grid-img16.jpg" alt="img2" />
                 </div>
               </div>
             </div>
           </div>
         </div>
 
+        {/* faq */}
         <div className={styles.sectionFaq}>
           <div className={styles.wrapper}>
-            <div className={styles.marqueeTitle}>FAQ FAQ FAQ </div>
-
+            <div ref={faqMarqueeRef} className={styles.marqueeTitle}>
+              FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ
+              FAQ FAQ FAQ
+            </div>
             <div className={styles.accorWrap}>
-              <div className={styles.accorCol}>
-                <p className={styles.title}>제목</p>
-                <div className={styles.accorDetail}>상세 내용</div>
-              </div>
+              {faqList.map((faq, idx) => (
+                <div className={styles.accorCol} key={idx}>
+                  <button
+                    type="button"
+                    className={styles.title}
+                    onClick={() => handleFaqToggle(idx)}
+                    aria-expanded={openFaqIndex === idx}
+                    aria-controls={`faq-panel-${idx}`}
+                  >
+                    {faq.question}
+                  </button>
+                  <div
+                    id={`faq-panel-${idx}`}
+                    className={`${styles.accorDetail} ${openFaqIndex === idx ? styles.open : ''}`}
+                  >
+                    {faq.answer}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -692,16 +769,19 @@ export default function MainPage() {
         <footer className={styles.footer}>
           <div className={styles.wrapper}>
             <div className={styles.footerLogo}>
-              <img src="/images/bg-low.jpg" alt="img1" />
+              <img src="/images/main/footer-logo01.jpg" alt="delight collective" />
             </div>
             <div className={styles.footerLogo}>
-              <img src="/images/bg-low.jpg" alt="img1" />
+              <img src="/images/main/footer-logo02.jpg" alt="silver fish space + media" />
             </div>
             <div className={styles.footerLogo}>
-              <img src="/images/bg-low.jpg" alt="img1" />
+              <img src="/images/main/footer-logo03.jpg" alt="문화체육관광부" />
             </div>
             <div className={styles.footerLogo}>
-              <img src="/images/bg-low.jpg" alt="img1" />
+              <img
+                src="/images/main/footer-logo04.jpg"
+                alt="한국콘텐츠진흥원 Korea Creative Content Agency"
+              />
             </div>
           </div>
         </footer>
