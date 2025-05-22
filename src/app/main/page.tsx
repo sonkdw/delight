@@ -206,18 +206,18 @@ export default function MainPage() {
     )
       return;
 
-    gsap.registerPlugin(ScrollTrigger);
-
     const scrollSection = cardScaleContainerRef.current;
+
+    console.log('abcc');
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: scrollSection,
         start: 'top top',
-        end: '+=5000', // 전체 스크롤 길이 조절 (애니메이션 길이 반영)
+        end: '+=4000', // 전체 스크롤 길이 조절 (애니메이션 길이 반영)
         scrub: true,
         pin: true,
-        anticipatePin: 1,
+        markers: true,
       },
     });
 
@@ -227,47 +227,50 @@ export default function MainPage() {
       { scale: 0.6, opacity: 0, x: 0 },
       { scale: 1, opacity: 1, duration: 1, ease: 'expo.inOut' }
     );
-    tl.to(img1Ref.current, { scale: 2, opacity: 0, duration: 1, ease: 'expo.inOut' });
 
-    // === 이미지2 ===
     tl.fromTo(
       img2Ref.current,
       { scale: 0.3, opacity: 0, y: 0 },
-      { scale: 1, opacity: 1, duration: 1, ease: 'expo.inOut' }
+      { scale: 1, opacity: 1, duration: 1, ease: 'expo.inOut' },
+      '-=.3'
     );
-    tl.to(img2Ref.current, { scale: 2, opacity: 0, duration: 1, ease: 'expo.inOut' });
 
-    // === 이미지3 ===
     tl.fromTo(
       img3Ref.current,
       { scale: 0.3, opacity: 0, x: 0, y: 0 },
       { scale: 1, opacity: 1, duration: 1, ease: 'expo.inOut' }
     );
-    tl.to(img3Ref.current, { scale: 2, opacity: 0, duration: 1, ease: 'expo.inOut' });
 
-    // === 이미지4 ===
+    tl.to(img1Ref.current, { scale: 2, opacity: 0, duration: 1, ease: 'expo.inOut' }, '-=.5');
+
     tl.fromTo(
       img4Ref.current,
       { scale: 0.3, opacity: 0, x: 0, y: 0 },
-      { scale: 1, opacity: 1, duration: 1, ease: 'expo.inOut' }
+      { scale: 1, opacity: 1, duration: 1, ease: 'expo.inOut' },
+      '-=.3'
     );
-    tl.to(img4Ref.current, { scale: 2, opacity: 0, duration: 1, ease: 'expo.inOut' });
 
-    // === 이미지5 ===
+    tl.to(img2Ref.current, { scale: 2, opacity: 0, duration: 1, ease: 'expo.inOut' }, '-=1');
+
     tl.fromTo(
       img5Ref.current,
       { scale: 0.3, opacity: 0, x: 0, y: 0 },
       { scale: 1, opacity: 1, duration: 1, ease: 'expo.inOut' }
     );
-    tl.to(img5Ref.current, { scale: 2, opacity: 0, duration: 1, ease: 'expo.inOut' });
 
-    // === 이미지6 ===
+    tl.to(img3Ref.current, { scale: 2, opacity: 0, duration: 1, ease: 'expo.inOut' }, '-=.5');
+
+    tl.to(img4Ref.current, { scale: 2, opacity: 0, duration: 1, ease: 'expo.inOut' }, '-=.3');
+
     tl.fromTo(
       img6Ref.current,
       { scale: 0.3, opacity: 0, x: 0, y: 0 },
       { scale: 1, opacity: 1, duration: 1, ease: 'expo.inOut' }
     );
-    tl.to(img6Ref.current, { scale: 2, opacity: 0, duration: 1, ease: 'expo.inOut' });
+
+    tl.to(img5Ref.current, { scale: 2, opacity: 0, duration: 1, ease: 'expo.inOut' }, '-=.5');
+
+    tl.to(img6Ref.current, { scale: 2, opacity: 0, duration: 1, ease: 'expo.inOut' }, '-=.3');
 
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
