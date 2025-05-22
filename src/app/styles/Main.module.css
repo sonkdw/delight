@@ -2,6 +2,9 @@
   padding: 4rem;
 }
 
+.wrapper > div:last-child {
+  margin-bottom: 50px;
+}
 .slideText {
 }
 
@@ -103,6 +106,7 @@
   position: absolute;
   width: 100vw;
   z-index: 1;
+  overflow: hidden;
 }
 
 .sectionTop .wrapper {
@@ -134,15 +138,34 @@
   bottom: 0;
   text-align: center;
   transform: translateX(-50%);
+  height: 140px;
 }
 .scrollBar span {
+  font-weight: bold;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  animation: showText 1s 1.5s both;
 }
+
+@keyframes showText{
+  from{ opacity: 0; }
+  to{ opacity: 1; }
+}
+
+
 .scrollBar .bar {
   width: 1px;
   height: 140px;
-  background-color: #fff;
+  background-color: rgba(255,255,255,0.3);
   margin: 0 auto;
+  animation: aniBar 1s 2s both;
 }
+
+@keyframes aniBar{
+  from{ height: 0; }
+  to{ height: 140px; }
+}
+
 
 .bgBox {
   background-image: url('/images/bg-low.jpg');
@@ -175,7 +198,7 @@
 .cardImg img {
   width: 100%;
   display: block;
-  transform-origin: 50% 0 0;
+  transform-origin: 50% 100% 0;
 }
 
 .cardText {
@@ -187,10 +210,12 @@
 .floatingBox {
   position: relative;
   width: 400px;
-  margin: 30vh auto;
+  margin: 30vh auto 50vh;
 }
 
 .floatingBox .keyImg {
+  overflow: hidden;
+  border-radius: 12px;
 }
 
 .floatingBox .keyText {
@@ -201,19 +226,22 @@
   font-size: 60px;
 }
 
+
 .floatingBox .floatingImg {
   position: absolute;
   width: 100px;
+  overflow: hidden;
+  border-radius: 12px;
 }
 
 .floatingBox .floatingImgLeft {
-  left: -100px;
-  bottom: -100px;
+  left: -160px;
+  bottom: -140px;
 }
 
 .floatingBox .floatingImgRight {
-  right: -100px;
-  top: -50px;
+  right: -160px;
+  top: -100px;
 }
 
 .floatingBox .subText {
@@ -272,10 +300,18 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  align-items: center;
+  padding: 10vh 0;
 }
 
 .divideImg {
   width: 30%;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.divideImg.divideImgLeft{
+  transform: translateY(140px);
 }
 
 .marqueeText {
@@ -375,4 +411,35 @@
 }
 
 .footer .footerLogo {
+}
+
+
+@media all and (max-width: 767px){
+  .sectionTop .logo{
+    width: 120px;
+  }
+  .wrapper {
+    padding: 1.5rem;
+  }
+
+  .floatingBox{
+    width: 80%;
+    margin: 30vh auto;
+  }
+
+  .floatingBox .floatingImgLeft{
+    left: -10%;
+    bottom: -100px;
+  }
+
+  .floatingBox .floatingImgRight {
+    right: -10%;
+    top: -100px;
+  }
+
+  .floatingBox .subText{
+    right: 0;
+    bottom: -140px;
+  }
+
 }

@@ -483,10 +483,12 @@ export default function MainPage() {
               <div className={styles.cardImg}>
                 <img src="/images/main/info06.jpg" alt="info06" />
               </div>
+
+              <div className={`${styles.subText} ${styles.slideText}`}>빛의 기억, 어둠과 빛</div>
             </div>
 
             <div ref={section6Ref} className={styles.infoCardDivide}>
-              <div className={`${styles.subText} ${styles.slideText}`}>빛의 기억, 어둠과 빛</div>
+
               <div className={styles.divideBox}>
                 <div className={`${styles.divideImg} ${styles.divideImgLeft}`}>
                   <img src="/images/main/info07.jpg" alt="info07" />
@@ -546,14 +548,14 @@ export default function MainPage() {
             <div className={styles.infoCardFloating}>
               <div className={styles.floatingBox}>
                 <div className={styles.keyImg}>
-                  <img src="/images/bg-low.jpg" alt="img2" />
+                  <img src="/images/main/info11.jpg" alt="img2" />
                 </div>
                 <div className={styles.keyText}>Resonance</div>
                 <div className={`${styles.floatingImg} ${styles.floatingImgLeft}`}>
-                  <img src="/images/bg-low.jpg" alt="img2" />
+                  <img src="/images/main/info12.jpg" alt="img2" />
                 </div>
                 <div className={`${styles.floatingImg} ${styles.floatingImgRight}`}>
-                  <img src="/images/bg-low.jpg" alt="img2" />
+                  <img src="/images/main/info13.jpg" alt="img2" />
                 </div>
 
                 <div className={styles.subText}>
@@ -565,7 +567,7 @@ export default function MainPage() {
 
             <div className={styles.infoCard}>
               <div className={styles.cardImg}>
-                <img src="/images/bg-low.jpg" alt="img1" />
+                <img src="/images/main/info14.jpg" alt="img1" />
               </div>
               <div className={styles.cardText}>
                 축적된 서사와 데이터의 집합,
@@ -582,22 +584,22 @@ export default function MainPage() {
               <div className={styles.centerTitle}>딜라이트 서울</div>
 
               <div ref={img1Ref} className={`${styles.image} ${styles.img1}`}>
-                <img src="/images/test-image1.png" alt="img1" className={styles.img} />
+                <img src="/images/main/section3-01.jpg" alt="딜라이트 서울을 즐기는 사람들 모습" className={styles.img} />
               </div>
               <div ref={img2Ref} className={`${styles.image} ${styles.img2}`}>
-                <img src="/images/test-image2.png" alt="img2" className={styles.img} />
+                <img src="/images/main/section3-02.jpg" alt="딜라이트 서울을 즐기는 사람들 모습" className={styles.img} />
               </div>
               <div ref={img3Ref} className={`${styles.image} ${styles.img3}`}>
-                <img src="/images/test-image1.png" alt="img3" className={styles.img} />
+                <img src="/images/main/section3-03.jpg" alt="딜라이트 서울을 즐기는 사람들 모습" className={styles.img} />
               </div>
               <div ref={img4Ref} className={`${styles.image} ${styles.img4}`}>
-                <img src="/images/test-image1.png" alt="img4" className={styles.img} />
+                <img src="/images/main/section3-04.jpg" alt="딜라이트 서울을 즐기는 사람들 모습" className={styles.img} />
               </div>
               <div ref={img5Ref} className={`${styles.image} ${styles.img5}`}>
-                <img src="/images/test-image1.png" alt="img5" className={styles.img} />
+                <img src="/images/main/section3-05.jpg" alt="딜라이트 서울을 즐기는 사람들 모습" className={styles.img} />
               </div>
               <div ref={img6Ref} className={`${styles.image} ${styles.img6}`}>
-                <img src="/images/test-image2.png" alt="img6" className={styles.img} />
+                <img src="/images/main/section3-06.jpg" alt="딜라이트 서울을 즐기는 사람들 모습" className={styles.img} />
               </div>
             </div>
           </div>

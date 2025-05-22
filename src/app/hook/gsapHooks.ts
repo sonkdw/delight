@@ -25,8 +25,8 @@ export function useSectionStaggerAnim(
     const cardImg = sectionRef.current.querySelectorAll(`.${styles.cardImg}`);
     gsap.from(cardImg, {
       opacity: 1,
-      y: 60,
-      scale: 0.9,
+      y: 100,
+      scale: 1,
       stagger: 0.18,
       duration: 1.5,
       ease: 'power2.out',
@@ -41,7 +41,7 @@ export function useSectionStaggerAnim(
     const cardImgIn = sectionRef.current.querySelectorAll(`.${styles.cardImg} img`);
 
     gsap.from(cardImgIn, {
-      y: -100,
+      y: 100,
       stagger: 0.18,
       duration: 1,
       ease: 'power2.out',
