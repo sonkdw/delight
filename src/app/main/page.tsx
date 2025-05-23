@@ -753,7 +753,7 @@ export default function MainPage() {
         </div>
 
         {/* 다섯번째 섹션 */}
-        <div className={`${styles.sectionInfo} ${styles.marginTopVh}`}>
+        <div className={`${styles.sectionInfo}`}>
           <div className={styles.wrapper}>
             <div ref={section5Ref} className={styles.infoCard}>
               <div className={`${styles.overflowHidden}`}>
@@ -847,7 +847,7 @@ export default function MainPage() {
                 <div className={`${styles.keyImg} ${styles.cardImg2}`}>
                   <img src="/images/main/info11.jpg" alt="img2" />
                 </div>
-                <div ref={animatedText2Ref} className={styles.keyText}>
+                <div ref={animatedText2Ref} className={`${styles.keyText} ${styles.colorWhite}`}>
                   Resonance
                 </div>
                 <div

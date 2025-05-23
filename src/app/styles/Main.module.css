@@ -30,8 +30,6 @@
   height: 100vh;
   position: relative;
   overflow: hidden;
-  background-color: #fff;
-  border: solid 5px purple;
 }
 
 .fixedBox {
@@ -39,7 +37,6 @@
   overflow: hidden;
   width: 100%;
   height: 100%;
-  border: solid 5px yellowgreen;
 }
 
 .fixedBox .wrapper {
@@ -61,6 +58,8 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  font-family: 'Suit', sans-serif;
+  font-weight: 800;
 }
 
 .leftTitle {
@@ -72,7 +71,6 @@
 
 .rightTitle {
   position: relative;
-  width: 10rem;
   padding-left: 0.5rem;
   text-align: start;
 }
@@ -306,7 +304,7 @@
 .floatingBox {
   position: relative;
   width: 400px;
-  margin: 30vh auto 50vh;
+  margin: 30vh auto 40vh;
 }
 
 .floatingBox .keyImg {
@@ -319,11 +317,14 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  font-size: 60px;
+  font-size: 68px;
 
   font-family: 'Montserrat', sans-serif;
   font-weight: 800;
   text-align: center;
+}
+.colorWhite{
+  color: #fff;
 }
 
 .floatingBox .floatingImg {
@@ -358,17 +359,11 @@
 
 .sectionBg .blindBg1 {
   width: 100%;
-  height: 100vh;
   display: block;
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 1;
 }
 
 .sectionBg .blindBg2 {
   width: 100%;
-  height: 100vh;
   display: block;
   position: absolute;
   left: 0;
@@ -383,11 +378,11 @@
   left: 0;
   top: 0;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   color: #fff;
   text-align: center;
   z-index: 2;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   background-color: #00000069;
@@ -397,10 +392,6 @@
   font-family: 'Noto Serif Display', serif;
   font-weight: 500;
   font-size: 32px;
-}
-
-.marginTopVh {
-  margin-top: 100vh;
 }
 
 .divideBox {
@@ -425,6 +416,9 @@
   font-size: 100px;
   font-family: 'Montserrat', sans-serif;
   font-weight: 800;
+  width: 2000px;
+  position: relative;
+  top: 80px;
 }
 
 .sectionGrid {
@@ -463,6 +457,8 @@
   color: #fff;
 }
 
+
+
 .marqueeTitle {
   width: 100%;
   font-size: 3.5rem;
@@ -492,16 +488,16 @@
 
 .accorDetail {
   padding: 0 16px;
-  font-size: 0.97rem;
+  font-size: 0.9rem;
   line-height: 1.7;
   max-height: 0;
   opacity: 0;
   overflow: hidden;
   background: none;
   transition:
-    max-height 0.4s cubic-bezier(0.87, 0, 0.13, 1),
-    opacity 0.3s cubic-bezier(0.87, 0, 0.13, 1),
-    padding 0.3s cubic-bezier(0.87, 0, 0.13, 1);
+      max-height 0.4s cubic-bezier(0.87, 0, 0.13, 1),
+      opacity 0.3s cubic-bezier(0.87, 0, 0.13, 1),
+      padding 0.3s cubic-bezier(0.87, 0, 0.13, 1);
 }
 
 .accorDetail.open {
@@ -513,10 +509,12 @@
 .sectionLocation {
   background-color: #000;
   color: #fff;
+  overflow: hidden;
 }
 
 .location {
   margin-bottom: 36px;
+  overflow: hidden;
 }
 
 .location > div {
@@ -565,7 +563,7 @@
 
   .floatingBox {
     width: 80%;
-    margin: 30vh auto;
+    margin: 16vh auto;
   }
 
   .floatingBox .floatingImgLeft {
@@ -600,4 +598,24 @@
   .row br {
     display: none;
   }
+
+
+  .floatingBox .keyText{
+    font-size: 48px;
+  }
+
+
+  .centerTitle{
+    font-size: 2rem;
+  }
+
+  .rightTitle{
+    width: 65px;
+  }
+
+  .footer .wrapper{
+    display: block;
+    height: auto;
+  }
+
 }

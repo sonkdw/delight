@@ -29,7 +29,7 @@ export function useSectionStaggerAnim(
 
     const cardImg = sectionRef.current.querySelectorAll(`.${styles.cardImg}`);
     gsap.from(cardImg, {
-      opacity: 1,
+      opacity: 0,
       y: 100,
       scale: 1,
       // stagger: 0.15,
@@ -48,7 +48,7 @@ export function useSectionStaggerAnim(
       opacity: 1,
       y: 200,
       scale: 1,
-      duration: 1.5,
+      duration: 0.5,
       ease: 'power3.inOut',
       scrollTrigger: {
         trigger: sectionRef.current,
@@ -61,36 +61,34 @@ export function useSectionStaggerAnim(
     const cardSlowImg = sectionRef.current.querySelectorAll(`.${styles.cardSlowImg}`);
     gsap.from(cardSlowImg, {
       opacity: 1,
-      y: 80,
+      y: 300,
       scale: 1,
-      duration: 3,
+      duration: 0.5,
       ease: 'power3.inOut',
       scrollTrigger: {
         trigger: sectionRef.current,
-        start: 'top 50%',
         toggleActions: 'play none none reverse',
-        scrub: false,
+        scrub: true,
       },
     });
 
     const cardSlowImg2 = sectionRef.current.querySelectorAll(`.${styles.cardSlowImg2}`);
     gsap.from(cardSlowImg2, {
       opacity: 1,
-      y: 80,
+      y: 300,
       scale: 1,
-      duration: 4,
+      duration: 0.5,
       ease: 'power3.inOut',
       scrollTrigger: {
         trigger: sectionRef.current,
-        start: 'top 50%',
         toggleActions: 'play none none reverse',
-        scrub: false,
+        scrub: true,
       },
     });
 
     const cardImgIn = sectionRef.current.querySelectorAll(`.${styles.cardImg} img`);
     gsap.from(cardImgIn, {
-      y: 100,
+      y: 80,
       stagger: 0.18,
       duration: 1,
       ease: 'power3.inOut',
