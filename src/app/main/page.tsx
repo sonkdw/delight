@@ -7,7 +7,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollSmoother } from 'gsap/ScrollSmoother';
 import { SplitText } from 'gsap/SplitText';
 import {
-  usePinnedImageSwitch,
+  // usePinnedImageSwitch,
+  useImageFadeSwitch,
   useSectionStaggerAnim,
   useShowTextAnimation,
 } from '../hook/gsapHooks';
@@ -253,8 +254,8 @@ export default function MainPage() {
   }, []);
 
   // 스크롤 시 이미지 교체 모션
-  usePinnedImageSwitch(cardImgRef, styles);
-  usePinnedImageSwitch(cardImg2Ref, styles);
+  useImageFadeSwitch(cardImgRef, styles);
+  useImageFadeSwitch(cardImg2Ref, styles);
 
   // 이미지 날라오는 모션
   useEffect(() => {
@@ -472,7 +473,9 @@ export default function MainPage() {
             {/* 두번째 섹션 */}
             <div ref={sectionRef}>
               <div className={`${styles.textRight}`}>
-                <p className={styles.textDeco} ref={text2Ref}>2025. 5. 8 - 2025. 11. 15</p>
+                <p className={styles.textDeco} ref={text2Ref}>
+                  2025. 5. 8 - 2025. 11. 15
+                </p>
               </div>
 
               <div className={styles.infoCard}>
@@ -538,7 +541,6 @@ export default function MainPage() {
         {/* 네번째 섹션 */}
         <div ref={cardImgRef} className={styles.sectionBg}>
           <img src="/images/main/bg01.jpg" alt="bg01" className={styles.blindBg1} />
-          {/* 이미지2: 바뀔 이미지 (초기 opacity: 0) */}
           <img src="/images/main/bg02.jpg" alt="bg02" className={styles.blindBg2} />
           <div className={styles.blind}>
             <h2>

@@ -217,7 +217,7 @@ body {
   text-align: right;
 }
 
-.textDeco{
+.textDeco {
   font-family: 'Montserrat', sans-serif;
   font-weight: 800;
 }
@@ -334,6 +334,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #00000069;
 }
 
 .marginTopVh {
