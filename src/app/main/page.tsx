@@ -632,7 +632,7 @@ export default function MainPage() {
   }, []);
 
   return (
-    <div id="smooth-wrapper">
+    <div id="smooth-wrapper" className={styles.noise}>
       <div id="smooth-content">
         {/* 첫번쨰 섹션 */}
         <>
