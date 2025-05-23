@@ -57,6 +57,41 @@
   text-align: center;
   z-index: 2;
   color: #000;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.leftTitle {
+  position: relative;
+  width: 10rem;
+  padding-right: 0.5rem;
+  text-align: end;
+}
+
+.rightTitle {
+  position: relative;
+  width: 10rem;
+  padding-left: 0.5rem;
+  text-align: start;
+}
+
+.videoBox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 10;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  background: black;
+  border-radius: 30px;
+}
+
+.videoBox iframe {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* 이미지 공통 스타일 */

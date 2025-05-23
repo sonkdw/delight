@@ -899,28 +899,24 @@ export default function MainPage() {
             </div>
 
             {/* 텍스트 + 비디오 */}
-            <div
-              className={`${styles.centerTitle} relative flex flex-row items-center justify-center`}
-            >
-              <span ref={textLeftRef} className="relative z-10 w-40 pr-2 text-end">
+            <div className={styles.centerTitle}>
+              <span ref={textLeftRef} className={styles.leftTitle}>
                 딜라이트
               </span>
 
-              <div
-                ref={videoDivRef}
-                className={`${styles.videoBox} absolute top-1/2 left-1/2 z-0 -translate-x-1/2 -translate-y-1/2 overflow-hidden bg-black`}
-              >
-                <video
-                  src="/videos/promo.mp4"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className={`${styles.video} h-full w-full object-cover`}
+              <div ref={videoDivRef} className={styles.videoBox}>
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src="https://www.youtube.com/embed/ZFWOwC_pmLw?autoplay=1&mute=1&loop=1&playlist=ZFWOwC_pmLw&controls=0&showinfo=0&modestbranding=1"
+                  title="YouTube video player"
+                  allow="autoplay; encrypted-media"
+                  allowFullScreen
+                  className={styles.video}
                 />
               </div>
 
-              <span ref={textRightRef} className="relative z-10 w-40 pl-2 text-start">
+              <span ref={textRightRef} className={styles.rightTitle}>
                 서울
               </span>
             </div>

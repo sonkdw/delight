@@ -164,7 +164,7 @@ export function useImageFadeSwitch(
         start: `+=200`,
         end: '+=200',
         scrub: true,
-        onUpdate: (self) => {
+        onUpdate: () => {
           // 실시간으로 blind의 opacity 값을 체크
           const currentOpacity = Number(gsap.getProperty(bg3, 'opacity'));
           if (currentOpacity > 0.6) {
