@@ -71,7 +71,6 @@
 
 .rightTitle {
   position: relative;
-  /* width: 10rem; */
   padding-left: 0.5rem;
   text-align: start;
 }
@@ -612,5 +611,47 @@
   .footer .wrapper {
     display: block;
     height: auto;
+  }
+
+  /* 카드 이미지 6개 */
+  .img1 {
+    left: 9%;
+    top: 12vh;
+    width: 320px;
+    height: 410px;
+  }
+  .img2 {
+    left: 32vw;
+    top: 10vh;
+    width: 136px;
+    height: 180px;
+  }
+  .img3 {
+    left: 46vw;
+    top: 17vh;
+    width: 186px;
+    height: 256px;
+  }
+  .img4 {
+    left: 47vw;
+    top: 18vh;
+    width: 222px;
+    height: 236px;
+  }
+  .img5 {
+    left: 14vw;
+    top: 62vh;
+    width: 320px;
+    height: 150px;
+  }
+  .img6 {
+    left: 9vw;
+    top: 42vh;
+    width: 489px;
+    height: 318px;
+  }
+
+  .leftTitle {
+    width: auto;
   }
 }
