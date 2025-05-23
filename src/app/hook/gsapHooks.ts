@@ -121,7 +121,8 @@ export function useSectionStaggerAnim(
 
 export function useImageFadeSwitch(
   triggerRef: React.RefObject<HTMLElement | null>,
-  styles: { [key: string]: string }
+  styles: { [key: string]: string },
+  setShowScrollBar: any
 ) {
   useEffect(() => {
     if (!triggerRef.current) return;
@@ -140,8 +141,8 @@ export function useImageFadeSwitch(
       opacity: 0,
       scrollTrigger: {
         trigger: triggerRef.current,
-        start: 'top top', // 트리거 top이 뷰포트 center에 닿을 때 시작
-        end: 'bottom center', // (예시) 트리거 bottom이 뷰포트 center에 닿을 때 완료
+        start: 'top top', // 트리거 top이 뷰포트 top 닿을 때 시작
+        end: 'bottom center',
         scrub: true,
       },
     });
@@ -156,17 +157,6 @@ export function useImageFadeSwitch(
       },
     });
 
-    // 구간2: bg2 → bg3 전환 (두 번째 구간은 700px 이후부터 시작)
-    // gsap.to(bg2, {
-    //   opacity: 0,
-    //   scrollTrigger: {
-    //     trigger: triggerRef.current,
-    //     start: `+=200`, // 구간1 끝나는 지점에서 시작
-    //     end: '+=200', // 두 번째 구간의 길이
-    //     scrub: true,
-    //   },
-    // });
-
     gsap.to(bg3, {
       opacity: 1,
       scrollTrigger: {
@@ -174,6 +164,15 @@ export function useImageFadeSwitch(
         start: `+=200`,
         end: '+=200',
         scrub: true,
+        onUpdate: (self) => {
+          // 실시간으로 blind의 opacity 값을 체크
+          const currentOpacity = Number(gsap.getProperty(bg3, 'opacity'));
+          if (currentOpacity > 0.6) {
+            setShowScrollBar(true);
+          } else {
+            setShowScrollBar(false);
+          }
+        },
       },
     });
 
@@ -183,35 +182,6 @@ export function useImageFadeSwitch(
     };
   }, [triggerRef, styles]);
 }
-
-// export function usePinnedImageSwitch(
-//   triggerRef: React.RefObject<HTMLElement | null>,
-//   styles: { [key: string]: string }
-// ) {
-//   useEffect(() => {
-//     if (!triggerRef.current) return;
-
-//     // 1. 두 번째 이미지를 오른쪽 바깥에 배치
-//     gsap.set(`.${styles.blindBg2}`, {
-//       xPercent: 100, // 처음에 화면 밖(오른쪽)
-//       opacity: 1, // 오퍼시티 고정 (밀려오는 효과에 집중)
-//     });
-
-//     // 2. 스크롤/휠 시 중앙으로 슬라이드
-//     gsap.to(`.${styles.blindBg2}`, {
-//       xPercent: 0, // 가운데로 이동
-//       ease: 'expo.inOut',
-//       scrollTrigger: {
-//         trigger: triggerRef.current,
-//         start: 'top top',
-//         end: '+=500',
-//         scrub: true,
-//         pin: true,
-//         anticipatePin: 1,
-//       },
-//     });
-//   }, [triggerRef, styles]);
-// }
 
 export function useShowTextAnimation(
   textRef: React.RefObject<HTMLElement | null>,

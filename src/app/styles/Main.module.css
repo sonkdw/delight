@@ -172,7 +172,6 @@ body {
   color: rgba(255, 255, 255, 0.7);
   animation: showText 1s 1.8s both;
 }
-
 @keyframes showText {
   from {
     opacity: 0;
@@ -197,6 +196,28 @@ body {
   to {
     height: 140px;
   }
+}
+
+.sectionBg .scrollBar {
+  position: absolute;
+  left: 50%;
+  bottom: 25%;
+  text-align: center;
+  transform: translateX(-50%);
+  height: 140px;
+  margin-bottom: 0 !important;
+}
+
+.sectionBg .scrollBar .bar {
+  width: 1px;
+  height: 140px;
+  background-color: white;
+  margin: 0 auto;
+  animation: aniBar 1s 2.4s both;
+}
+
+.sectionBg .scrollBar.show .bar {
+  animation: aniBar 1s 0.2s both;
 }
 
 .bgBox {
@@ -335,6 +356,12 @@ body {
   justify-content: center;
   align-items: center;
   background-color: #00000069;
+}
+
+.sectionBg .blind h2 {
+  font-family: 'Noto Serif Display', serif;
+  font-weight: 500;
+  font-size: 32px;
 }
 
 .marginTopVh {

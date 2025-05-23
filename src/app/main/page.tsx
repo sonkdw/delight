@@ -24,29 +24,33 @@ gsap.registerPlugin(SplitText);
 
 const faqList = [
   {
-    question: '입장권은 어디에서 구매할 수 있나요?',
-    answer: '답변',
-  },
-  {
-    question: '관람 시 사전 예약이 필요한가요?',
-    answer: '답변',
-  },
-  {
-    question: '운영시간이 궁금합니다.',
-    answer: '답변',
-  },
-  {
-    question: '찾아가는 방법은 어디서 확인하나요?',
-    answer: '답변',
-  },
-  {
-    question: '입장 후 나갔다가 재입장이 가능한가요?',
-    answer: '답변',
-  },
-  {
-    question: '반려동물 동반 입장이 가능한가요?',
+    question: '관람 가능한 연령은 어떻게 되나요?',
     answer:
-      '관람객 안전 및 쾌적한 전시환경을 위해 실내 및 야외전시장에 반려동물 출입을 제한하고 있습니다. 단, 시각 장애인 안내견은 출입이 가능합니다.',
+      '보호자 없이 입장이 가능한 연령은 14세(중학생) 이상입니다. 36개월 미만은 무료입장이 가능하며 관련 증빙 서류를 필수로 지참하셔야 합니다.',
+  },
+  {
+    question: '재입장이 가능한가요?',
+    answer: '티켓은 1회 입장 기준이며, 퇴장 시 재입장이 불가합니다.',
+  },
+  {
+    question: '전시장 내 유모차, 휠체어 이용이 가능한가요?',
+    answer:
+      '유모차, 휠체어 이용이 가능하지만 대여 서비스는 제공하지 않습니다. 전시가 지하 3층부터 지상 5층으로 이동하는 전시장 구조입니다. 계단 및 엘리베이터로 이동은 가능하나, 혼잡도에 따라 이동에 불편함이 있을 수 있습니다.',
+  },
+  {
+    question: '관람 시 사진 및 영상 촬영을 해도 되나요?',
+    answer:
+      '본 전시는 관람 시 사진 및 영상 촬영이 가능합니다. 단, 대형 전문 장비 등은 이용하실 수 없습니다.',
+  },
+  {
+    question: '주차 시설이 있나요?',
+    answer:
+      '본 전시장은 주차장 시설이 없으니, 인근 주차장을 이용하시거나 가급적 대중교통을 이용해 주시기 바랍니다.',
+  },
+  {
+    question: '기타 안내사항',
+    answer:
+      '사용한 티켓은 환불 불가합니다.\n관객 부주의로 상해를 입었을 경우 책임은 관객에게 있으며, 전시장에서는 이에 대한 책임을 지지 않습니다.\n전시장 내 음료와 음식물 반입이 불가합니다.\n반려동물 출입이 불가합니다.',
   },
 ];
 
@@ -90,12 +94,18 @@ export default function MainPage() {
   const cardScaleContainerRef = useRef<HTMLDivElement>(null);
 
   const gridRef = useRef(null);
+  const videoDivRef = useRef(null);
+  const textLeftRef = useRef(null);
+  const textRightRef = useRef(null);
 
   const delightSeoulMarqueeRef = useRef<HTMLDivElement>(null);
   const faqMarqueeRef = useRef<HTMLDivElement>(null);
   const mapMarqueeRef = useRef<HTMLDivElement>(null);
 
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+
+  const [showScrollBar, setShowScrollBar] = useState(false);
+  const [showScrollBar2, setShowScrollBar2] = useState(false);
 
   const handleFaqToggle = (idx: number) => {
     setOpenFaqIndex(idx === openFaqIndex ? null : idx);
@@ -254,8 +264,38 @@ export default function MainPage() {
   }, []);
 
   // 스크롤 시 이미지 교체 모션
-  useImageFadeSwitch(cardImgRef, styles);
-  useImageFadeSwitch(cardImg2Ref, styles);
+  useImageFadeSwitch(cardImgRef, styles, setShowScrollBar);
+  useImageFadeSwitch(cardImg2Ref, styles, setShowScrollBar2);
+
+  const blindRef = useRef(null); // .blind DOM 참조
+
+  useEffect(() => {
+    const observer = new window.IntersectionObserver(
+      ([entry]) => {
+        setShowScrollBar(entry.isIntersecting); // 화면에 보이면 true
+      },
+      { threshold: 0.3 } // 30% 이상 보이면 트리거
+    );
+    if (blindRef.current) observer.observe(blindRef.current);
+    return () => {
+      if (blindRef.current) observer.unobserve(blindRef.current);
+    };
+  }, []);
+
+  const blind2Ref = useRef(null); // .blind DOM 참조
+
+  useEffect(() => {
+    const observer = new window.IntersectionObserver(
+      ([entry]) => {
+        setShowScrollBar(entry.isIntersecting); // 화면에 보이면 true
+      },
+      { threshold: 0.3 } // 30% 이상 보이면 트리거
+    );
+    if (blind2Ref.current) observer.observe(blind2Ref.current);
+    return () => {
+      if (blind2Ref.current) observer.unobserve(blind2Ref.current);
+    };
+  }, []);
 
   // 이미지 날라오는 모션
   useEffect(() => {
@@ -266,35 +306,37 @@ export default function MainPage() {
       !img3Ref.current ||
       !img4Ref.current ||
       !img5Ref.current ||
-      !img6Ref.current
+      !img6Ref.current ||
+      !videoDivRef.current ||
+      !textLeftRef.current ||
+      !textRightRef.current
     )
       return;
 
     gsap.registerPlugin(ScrollTrigger);
 
     const scrollSection = cardScaleContainerRef.current;
-
     const moveSettings = [
-      { x: -100, y: 0 }, // img1: 왼쪽
-      { x: 80, y: -60 }, // img2: 오른쪽 위
-      { x: 120, y: 120 }, // img3: 오른쪽 아래
-      { x: -60, y: 130 }, // img4: 왼쪽 아래
-      { x: 100, y: -100 }, // img5: 오른쪽 위 멀리
-      { x: -150, y: 100 }, // img6: 왼쪽 아래 멀리
+      { x: -200, y: 0 },
+      { x: 80, y: -60 },
+      { x: 120, y: 120 },
+      { x: -60, y: 130 },
+      { x: 100, y: -100 },
+      { x: -150, y: 100 },
     ];
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: scrollSection,
         start: 'top top',
-        end: '+=1000', // 스크롤 거리 길이 설정
+        end: '+=3000',
         scrub: true,
         pin: true,
         anticipatePin: 2,
       },
     });
 
-    const imageRefs = [img1Ref, img2Ref, img3Ref, img4Ref, img5Ref, img6Ref];
+    const imageRefs = [img1Ref, img4Ref, img6Ref, img5Ref, img3Ref, img2Ref];
 
     imageRefs.forEach((imgRef, i) => {
       const { x, y } = moveSettings[i];
@@ -303,14 +345,38 @@ export default function MainPage() {
         {
           duration: 0.8,
           keyframes: [
-            { scale: 0.3, opacity: 0, x: 0, y: 0, duration: 0 }, // 시작
-            { scale: 0.8, opacity: 1, x: 0, y: 0, ease: 'none' },
+            { scale: 0.3, opacity: 0, x: 0, y: 0, duration: 0 },
+            { scale: 0.8, opacity: 1, x: (x * 2) / 3, y: (y * 2) / 3, ease: 'none' },
             { scale: 1, opacity: 0, x, y, ease: 'none' },
           ],
         },
         `-=${i === 0 ? 0 : 0.6}`
-      ); // 이전과 약간 겹치게 실행
+      );
     });
+
+    // 텍스트 이동
+    tl.to(textLeftRef.current, { x: -100, duration: 1, ease: 'power2.out' }, 'textMove');
+    tl.to(textRightRef.current, { x: 100, duration: 1, ease: 'power2.out' }, 'textMove');
+
+    // 비디오 커지며 텍스트 위로
+    tl.fromTo(
+      videoDivRef.current,
+      {
+        opacity: 1,
+        scale: 0,
+        duration: 1.5,
+        ease: 'power3.out',
+      },
+      {
+        opacity: 1,
+        width: '80vw',
+        height: '80vh',
+        scale: 1,
+        duration: 1.5,
+        ease: 'power3.out',
+      },
+      '-=.9'
+    );
 
     ScrollTrigger.refresh();
 
@@ -542,12 +608,17 @@ export default function MainPage() {
         <div ref={cardImgRef} className={styles.sectionBg}>
           <img src="/images/main/bg01.jpg" alt="bg01" className={styles.blindBg1} />
           <img src="/images/main/bg02.jpg" alt="bg02" className={styles.blindBg2} />
-          <div className={styles.blind}>
+          <div className={styles.blind} ref={blindRef}>
             <h2>
               The past, present
               <br />
               and future of seoul
             </h2>
+
+            {/* 막대기 등장 */}
+            <div className={`${styles.scrollBar} ${showScrollBar ? styles.show : ''}`}>
+              <div className={styles.bar} key={Date.now()}></div>
+            </div>
           </div>
         </div>
 
@@ -608,17 +679,19 @@ export default function MainPage() {
         </div>
 
         <div ref={cardImg2Ref} className={styles.sectionBg}>
-          {/* 1번 */}
           <img src="/images/main/bg03.jpg" alt="bg03" className={styles.blindBg1} />
-          {/* 2번 */}
           <img src="/images/main/bg04.jpg" alt="bg04" className={styles.blindBg2} />
-          {/* 3번 */}
-          <div className={styles.blind}>
+          <div className={styles.blind} ref={blind2Ref}>
             <h2>
               The past, present
               <br />
               and future of seoul
             </h2>
+
+            {/* 막대기 등장 */}
+            <div className={`${styles.scrollBar} ${showScrollBar2 ? styles.show : ''}`}>
+              <div className={styles.bar} key={Date.now()}></div>
+            </div>
           </div>
         </div>
 
@@ -684,51 +757,51 @@ export default function MainPage() {
 
         <div ref={cardScaleContainerRef} className={styles.container}>
           <div className={styles.fixedBox}>
-            <div className={styles.wrapper}>
-              <div className={styles.centerTitle}>딜라이트 서울</div>
+            {/* 이미지 6개 */}
+            <div ref={img1Ref} className={`${styles.image} ${styles.img1}`}>
+              <img src="/images/main/section3-08.jpg" alt="" className={styles.img} />
+            </div>
+            <div ref={img2Ref} className={`${styles.image} ${styles.img2}`}>
+              <img src="/images/main/section3-13.jpg" alt="" className={styles.img} />
+            </div>
+            <div ref={img3Ref} className={`${styles.image} ${styles.img3}`}>
+              <img src="/images/main/section3-14.jpg" alt="" className={styles.img} />
+            </div>
+            <div ref={img4Ref} className={`${styles.image} ${styles.img4}`}>
+              <img src="/images/main/section3-02.jpg" alt="" className={styles.img} />
+            </div>
+            <div ref={img5Ref} className={`${styles.image} ${styles.img5}`}>
+              <img src="/images/main/section3-05.jpg" alt="" className={styles.img} />
+            </div>
+            <div ref={img6Ref} className={`${styles.image} ${styles.img6}`}>
+              <img src="/images/main/section3-06.jpg" alt="" className={styles.img} />
+            </div>
 
-              <div ref={img1Ref} className={`${styles.image} ${styles.img1}`}>
-                <img
-                  src="/images/main/section3-08.jpg"
-                  alt="딜라이트 서울을 즐기는 사람들 모습"
-                  className={styles.img}
+            {/* 텍스트 + 비디오 */}
+            <div
+              className={`${styles.centerTitle} relative flex flex-row items-center justify-center`}
+            >
+              <span ref={textLeftRef} className="relative z-10 w-40 pr-2 text-end">
+                딜라이트
+              </span>
+
+              <div
+                ref={videoDivRef}
+                className={`${styles.videoBox} absolute top-1/2 left-1/2 z-0 -translate-x-1/2 -translate-y-1/2 overflow-hidden bg-black`}
+              >
+                <video
+                  src="/videos/promo.mp4"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className={`${styles.video} h-full w-full object-cover`}
                 />
               </div>
-              <div ref={img2Ref} className={`${styles.image} ${styles.img2}`}>
-                <img
-                  src="/images/main/section3-13.jpg"
-                  alt="딜라이트 서울을 즐기는 사람들 모습"
-                  className={styles.img}
-                />
-              </div>
-              <div ref={img3Ref} className={`${styles.image} ${styles.img3}`}>
-                <img
-                  src="/images/main/section3-14.jpg"
-                  alt="딜라이트 서울을 즐기는 사람들 모습"
-                  className={styles.img}
-                />
-              </div>
-              <div ref={img4Ref} className={`${styles.image} ${styles.img4}`}>
-                <img
-                  src="/images/main/section3-02.jpg"
-                  alt="딜라이트 서울을 즐기는 사람들 모습"
-                  className={styles.img}
-                />
-              </div>
-              <div ref={img5Ref} className={`${styles.image} ${styles.img5}`}>
-                <img
-                  src="/images/main/section3-05.jpg"
-                  alt="딜라이트 서울을 즐기는 사람들 모습"
-                  className={styles.img}
-                />
-              </div>
-              <div ref={img6Ref} className={`${styles.image} ${styles.img6}`}>
-                <img
-                  src="/images/main/section3-06.jpg"
-                  alt="딜라이트 서울을 즐기는 사람들 모습"
-                  className={styles.img}
-                />
-              </div>
+
+              <span ref={textRightRef} className="relative z-10 w-40 pl-2 text-start">
+                서울
+              </span>
             </div>
           </div>
         </div>
@@ -858,6 +931,7 @@ export default function MainPage() {
                   <div
                     id={`faq-panel-${idx}`}
                     className={`${styles.accorDetail} ${openFaqIndex === idx ? styles.open : ''}`}
+                    style={{ whiteSpace: 'pre-line' }}
                   >
                     {faq.answer}
                   </div>

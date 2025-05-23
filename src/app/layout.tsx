@@ -58,6 +58,12 @@ export default function RootLayout({
           className="daum_roughmap_loader_script"
           src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"
         ></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet"
+        />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>
     </html>
