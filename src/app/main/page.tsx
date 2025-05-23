@@ -9,6 +9,7 @@ import { SplitText } from 'gsap/SplitText';
 import {
   // usePinnedImageSwitch,
   useImageFadeSwitch,
+  useSectionImgShowAnim,
   useSectionStaggerAnim,
   useShowTextAnimation,
 } from '../hook/gsapHooks';
@@ -93,7 +94,7 @@ export default function MainPage() {
   const section7Ref = useRef(null);
   const section8Ref = useRef(null);
   const section9Ref = useRef(null);
-  const section10Ref = useRef(null);
+  const section10Ref = useRef<HTMLDivElement | null>(null);
 
   const cardImgRef = useRef(null);
   const cardImg2Ref = useRef(null);
@@ -235,7 +236,7 @@ export default function MainPage() {
 
   // 텍스트와 이미지가 순차적으로 나오는 모션
   useSectionStaggerAnim(sectionRef, styles);
-  useSectionStaggerAnim(section2Ref, styles);
+  useSectionImgShowAnim(section2Ref, styles);
   useSectionStaggerAnim(section3Ref, styles);
   useSectionStaggerAnim(section4Ref, styles);
   useSectionStaggerAnim(section5Ref, styles);
@@ -243,7 +244,7 @@ export default function MainPage() {
   useSectionStaggerAnim(section7Ref, styles);
   useSectionStaggerAnim(section8Ref, styles);
   useSectionStaggerAnim(section9Ref, styles);
-  useSectionStaggerAnim(section10Ref, styles);
+  useSectionImgShowAnim(section10Ref, styles);
 
   useEffect(() => {
     if (animatedTextRef.current) {
@@ -715,7 +716,7 @@ export default function MainPage() {
             {/* 세번째 섹션 */}
             <div className={styles.infoCardFloating}>
               <div ref={section2Ref} className={styles.floatingBox}>
-                <div className={`${styles.keyImg} ${styles.cardImg}`}>
+                <div className={`${styles.keyImg} ${styles.centerCardImg}`}>
                   <img
                     src="/images/main/info02.jpg"
                     alt="631 - 딜라이트(Delight)의 상징적 모티프인 “청사초롱”을 현대적으로 재해석한 인스톨레이션 작업"
@@ -907,8 +908,8 @@ export default function MainPage() {
             </div>
 
             <div className={styles.infoCardFloating}>
-              <div className={styles.floatingBox}>
-                <div className={`${styles.keyImg} ${styles.cardImg2}`}>
+              <div ref={section10Ref} className={styles.floatingBox}>
+                <div className={`${styles.keyImg} ${styles.centerCardImg}`}>
                   <img
                     src="/images/main/info11.jpg"
                     alt="Resonance - 이 작업은 관람객이 디지털로 구현된 대나무 숲을 천천히 거닐도록 유도하며, 서울이라는 도시를 정의하는 ‘공식적인 언어’가 과연 진심을 담고 있는지, 아니면 더 깊은 진실을 감추 고 있는지를 스스로 질문하게 합니다."
@@ -918,15 +919,16 @@ export default function MainPage() {
                   Resonance
                 </div>
                 <div
-                  className={`${styles.floatingImg} ${styles.floatingImgLeft} ${styles.cardSlowImg4}`}
+                  className={`${styles.floatingImg} ${styles.floatingImgLeft} ${styles.cardSlowImg2}`}
                 >
                   <img
                     src="/images/main/info12.jpg"
                     alt="빛의 기억 Memory of Light - 이 작품은 데이터의 흐름 속에서 생성되는 최소 단위의 조형성을 시각적으로 재현한 설치 작업입니다."
                   />
                 </div>
+
                 <div
-                  className={`${styles.floatingImg} ${styles.floatingImgRight} ${styles.cardSlowImg3}`}
+                  className={`${styles.floatingImg} ${styles.floatingImgRight} ${styles.cardSlowImg}`}
                 >
                   <img src="/images/main/info13.jpg" alt="전시를 즐기는 관람객의 모습" />
                 </div>
