@@ -93,6 +93,7 @@ export default function MainPage() {
   const section7Ref = useRef(null);
   const section8Ref = useRef(null);
   const section9Ref = useRef(null);
+  const section10Ref = useRef(null);
 
   const cardImgRef = useRef(null);
   const cardImg2Ref = useRef(null);
@@ -242,6 +243,7 @@ export default function MainPage() {
   useSectionStaggerAnim(section7Ref, styles);
   useSectionStaggerAnim(section8Ref, styles);
   useSectionStaggerAnim(section9Ref, styles);
+  useSectionStaggerAnim(section10Ref, styles);
 
   useEffect(() => {
     if (animatedTextRef.current) {
@@ -384,6 +386,14 @@ export default function MainPage() {
     // x축의 수치로 텍스트의 움직임을 조절하시면 됩니다
     tl.to(textLeftRef.current, { x: -200, duration: 1, ease: 'power2.out' }, 'textMove');
     tl.to(textRightRef.current, { x: 30, duration: 1, ease: 'power2.out' }, 'textMove');
+
+    // opacity 조정
+    tl.to(
+      textLeftRef.current,
+      { opacity: 0, duration: 0.6, ease: 'power2.out' },
+      'textMove+=0.3' // 0.3초 뒤에 opacity 시작
+    );
+    tl.to(textRightRef.current, { opacity: 0, duration: 0.6, ease: 'power2.out' }, 'textMove+=0.3');
 
     // 비디오 커지며 텍스트 위로
     tl.fromTo(
@@ -908,7 +918,7 @@ export default function MainPage() {
                   Resonance
                 </div>
                 <div
-                  className={`${styles.floatingImg} ${styles.floatingImgLeft} ${styles.cardSlowImg2}`}
+                  className={`${styles.floatingImg} ${styles.floatingImgLeft} ${styles.cardSlowImg4}`}
                 >
                   <img
                     src="/images/main/info12.jpg"
@@ -916,7 +926,7 @@ export default function MainPage() {
                   />
                 </div>
                 <div
-                  className={`${styles.floatingImg} ${styles.floatingImgRight} ${styles.cardSlowImg}`}
+                  className={`${styles.floatingImg} ${styles.floatingImgRight} ${styles.cardSlowImg3}`}
                 >
                   <img src="/images/main/info13.jpg" alt="전시를 즐기는 관람객의 모습" />
                 </div>
