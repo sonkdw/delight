@@ -102,6 +102,23 @@ export default function MainPage() {
   const faqMarqueeRef = useRef<HTMLDivElement>(null);
   const mapMarqueeRef = useRef<HTMLDivElement>(null);
 
+  // 그리드
+  const gridBoxRef = useRef<HTMLDivElement>(null);
+  const gridOverlayRef = useRef<HTMLDivElement>(null);
+  const gridBaseRef = useRef<HTMLDivElement>(null);
+
+  const gridBox2Ref = useRef<HTMLDivElement>(null);
+  const gridOverlay2Ref = useRef<HTMLDivElement>(null);
+  const gridBase2Ref = useRef<HTMLDivElement>(null);
+
+  const gridBox3Ref = useRef<HTMLDivElement>(null);
+  const gridOverlay3Ref = useRef<HTMLDivElement>(null);
+  const gridBase3Ref = useRef<HTMLDivElement>(null);
+
+  const gridBox4Ref = useRef<HTMLDivElement>(null);
+  const gridOverlay4Ref = useRef<HTMLDivElement>(null);
+  const gridBase4Ref = useRef<HTMLDivElement>(null);
+
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
   const [showScrollBar, setShowScrollBar] = useState(false);
@@ -395,6 +412,110 @@ export default function MainPage() {
       end: 'bottom 20%', // 끝나는 시점
       toggleClass: { targets: gridRef.current, className: 'active' },
     });
+
+    // cleanup
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
+
+  // 그리드 이미지 움직이는 모션
+  useEffect(() => {
+    if (!gridBoxRef.current || !gridBaseRef.current || !gridOverlayRef.current) return;
+
+    // 첫 번째 gridBox (DE)
+    gsap.to(gridBaseRef.current, {
+      y: '-110%',
+      ease: 'none',
+      scrollTrigger: {
+        trigger: gridBoxRef.current,
+        start: 'top 80%', // 숫자를 줄이면 영어가 늦게 니옴 / 숫자가 커지면 영어가 빨리 나옴
+        end: 'top 30%', // 숫자가 작아지면 애니메이션이 느리게 끝남 / 커지면 빨리 끝남
+        scrub: true,
+      },
+    });
+    gsap.to(gridOverlayRef.current, {
+      y: '0%',
+      ease: 'none',
+      scrollTrigger: {
+        trigger: gridBoxRef.current,
+        start: 'top 80%', // 숫자를 줄이면 영어가 늦게 니옴 / 숫자가 커지면 영어가 빨리 나옴
+        end: 'top 30%', // 숫자가 작아지면 애니메이션이 느리게 끝남 / 커지면 빨리 끝남
+        scrub: true,
+      },
+    });
+
+    // 두 번째 gridBox (LIG)
+    if (gridBox2Ref.current && gridBase2Ref.current && gridOverlay2Ref.current) {
+      gsap.to(gridBase2Ref.current, {
+        y: '-110%',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: gridBox2Ref.current,
+          start: 'top bottom', // 해당 div의 top이 뷰포트의 bottom에 닿을 때 시작 (=가장 빨리 시작)
+          end: 'top 60%', // 숫자가 작아지면 애니메이션이 느리게 끝남 / 커지면 빨리 끝남
+          scrub: true,
+        },
+      });
+      gsap.to(gridOverlay2Ref.current, {
+        y: '0%',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: gridBox2Ref.current,
+          start: 'top bottom', // 해당 div의 top이 뷰포트의 bottom에 닿을 때 시작 (=가장 빨리 시작)
+          end: 'top 60%', // 숫자가 작아지면 애니메이션이 느리게 끝남 / 커지면 빨리 끝남
+          scrub: true,
+        },
+      });
+    }
+
+    // 세 번째 gridBox
+    if (gridBox3Ref.current && gridBase3Ref.current && gridOverlay3Ref.current) {
+      gsap.to(gridBase3Ref.current, {
+        y: '-110%',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: gridBox3Ref.current,
+          start: 'top 70%', // 숫자를 줄이면 영어가 늦게 나옴 / 숫자가 커지면 영어가 빨리 나옴
+          end: 'top 30%', // 숫자가 작아지면 애니메이션이 느리게 끝남 / 커지면 빨리 끝남
+          scrub: true,
+        },
+      });
+      gsap.to(gridOverlay3Ref.current, {
+        y: '0%',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: gridBox3Ref.current,
+          start: 'top 70%', // 숫자를 줄이면 영어가 늦게 니옴 / 숫자가 커지면 영어가 빨리 나옴
+          end: 'top 30%', // 숫자가 작아지면 애니메이션이 느리게 끝남 / 커지면 빨리 끝남
+          scrub: true,
+        },
+      });
+    }
+
+    // 네 번째 gridBox (seoul)
+    if (gridBox4Ref.current && gridBase4Ref.current && gridOverlay4Ref.current) {
+      gsap.to(gridBase4Ref.current, {
+        y: '-110%',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: gridBox4Ref.current,
+          start: 'bottom 50%', // 해당 div의 bottom이 뷰포트의 50%에 닿을 때 시작 (=아주 늦게 시작)
+          end: 'bottom 25%', // 숫자가 작아지면 애니메이션이 느리게 끝남 / 커지면 빨리 끝남
+          scrub: true,
+        },
+      });
+      gsap.to(gridOverlay4Ref.current, {
+        y: '20%', // 0%으로 하자니 서울 글씨가 잘 안보이는 것 같아서 20%로 조정함.
+        ease: 'none',
+        scrollTrigger: {
+          trigger: gridBox4Ref.current,
+          start: 'bottom 50%', // 해당 div의 bottom이 뷰포트의 50%에 닿을 때 시작 (=아주 늦게 시작)
+          end: 'bottom 25%', // 숫자가 작아지면 애니메이션이 느리게 끝남 / 커지면 빨리 끝남
+          scrub: true,
+        },
+      });
+    }
 
     // cleanup
     return () => {
@@ -809,11 +930,38 @@ export default function MainPage() {
         <div ref={gridRef} className={styles.sectionGrid}>
           <div className={styles.wrapper}>
             <div className={styles.gridWrap}>
-              <div className={styles.gridBox}>
-                <p className={styles.text}>DE</p>
-                <div className={styles.img}>
-                  <img src="/images/main/grid-img01.jpg" alt="img2" />
-                </div>
+              {/* -------- DE ---------- */}
+              <div className={styles.gridBox} ref={gridBoxRef} style={{ position: 'relative' }}>
+                <div
+                  ref={gridBaseRef}
+                  className={styles.img}
+                  style={{
+                    backgroundImage: "url('/images/main/grid-img01.jpg')",
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: 'contain',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    willChange: 'transform',
+                  }}
+                />
+                <div
+                  ref={gridOverlayRef}
+                  className={styles.img}
+                  style={{
+                    backgroundImage: "url('/images/main/grid-text-05.svg')",
+                    backgroundRepeat: 'no-repeat',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    transform: 'translateY(100%)',
+                    willChange: 'transform',
+                  }}
+                />
               </div>
               <div className={styles.gridBox}>
                 <p className={styles.text}></p>
@@ -827,11 +975,38 @@ export default function MainPage() {
                   <img src="/images/main/grid-img03.jpg" alt="img2" />
                 </div>
               </div>
-              <div className={styles.gridBox}>
-                <p className={styles.text}>SEOUL</p>
-                <div className={styles.img}>
-                  <img src="/images/main/grid-img04.jpg" alt="img2" />
-                </div>
+              {/* --------- seoul --------- */}
+              <div className={styles.gridBox} ref={gridBox4Ref} style={{ position: 'relative' }}>
+                <div
+                  ref={gridBase4Ref}
+                  className={styles.img}
+                  style={{
+                    backgroundImage: "url('/images/main/grid-img04.jpg')",
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: 'contain',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    willChange: 'transform',
+                  }}
+                />
+                <div
+                  ref={gridOverlay4Ref}
+                  className={styles.img}
+                  style={{
+                    backgroundImage: "url('/images/main/grid-text-08.svg')",
+                    backgroundRepeat: 'no-repeat',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    transform: 'translateY(100%)',
+                    willChange: 'transform',
+                  }}
+                />
               </div>
               <div className={styles.gridBox}>
                 <p className={styles.text}></p>
@@ -845,12 +1020,40 @@ export default function MainPage() {
                   <img src="/images/main/grid-img06.jpg" alt="img2" />
                 </div>
               </div>
-              <div className={styles.gridBox}>
-                <p className={styles.text}>HT</p>
-                <div className={styles.img}>
-                  <img src="/images/main/grid-img07.jpg" alt="img2" />
-                </div>
+              {/* ---------- HT -------- */}
+              <div className={styles.gridBox} ref={gridBox3Ref} style={{ position: 'relative' }}>
+                <div
+                  ref={gridBase3Ref}
+                  className={styles.img}
+                  style={{
+                    backgroundImage: "url('/images/main/grid-img07.jpg')",
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: 'contain',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    willChange: 'transform',
+                  }}
+                />
+                <div
+                  ref={gridOverlay3Ref}
+                  className={styles.img}
+                  style={{
+                    backgroundImage: "url('/images/main/grid-text-07.svg')",
+                    backgroundRepeat: 'no-repeat',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    transform: 'translateY(100%)',
+                    willChange: 'transform',
+                  }}
+                />
               </div>
+
               <div className={styles.gridBox}>
                 <p className={styles.text}></p>
                 <div className={styles.img}>
@@ -863,11 +1066,38 @@ export default function MainPage() {
                   <img src="/images/main/grid-img09.jpg" alt="img2" />
                 </div>
               </div>
-              <div className={styles.gridBox}>
-                <p className={styles.text}>LIG</p>
-                <div className={styles.img}>
-                  <img src="/images/main/grid-img10.jpg" alt="img2" />
-                </div>
+              {/* --------- LIG --------- */}
+              <div className={styles.gridBox} ref={gridBox2Ref} style={{ position: 'relative' }}>
+                <div
+                  ref={gridBase2Ref}
+                  className={styles.img}
+                  style={{
+                    backgroundImage: "url('/images/main/grid-img10.jpg')",
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: 'contain',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    willChange: 'transform',
+                  }}
+                />
+                <div
+                  ref={gridOverlay2Ref}
+                  className={styles.img}
+                  style={{
+                    backgroundImage: "url('/images/main/grid-text-06.svg')",
+                    backgroundRepeat: 'no-repeat',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    transform: 'translateY(100%)',
+                    willChange: 'transform',
+                  }}
+                />
               </div>
               <div className={styles.gridBox}>
                 <p className={styles.text}></p>

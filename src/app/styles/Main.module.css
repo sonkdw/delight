@@ -400,12 +400,14 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  overflow: hidden;
 }
 
 .gridWrap .gridBox {
   width: 24.8%;
   margin-bottom: 0.2%;
   position: relative;
+  overflow: hidden;
 }
 
 .gridWrap .gridBox .text {
