@@ -381,8 +381,9 @@ export default function MainPage() {
     });
 
     // 텍스트 이동
-    tl.to(textLeftRef.current, { x: -100, duration: 1, ease: 'power2.out' }, 'textMove');
-    tl.to(textRightRef.current, { x: 100, duration: 1, ease: 'power2.out' }, 'textMove');
+    // x축의 수치로 텍스트의 움직임을 조절하시면 됩니다
+    tl.to(textLeftRef.current, { x: -200, duration: 1, ease: 'power2.out' }, 'textMove');
+    tl.to(textRightRef.current, { x: 30, duration: 1, ease: 'power2.out' }, 'textMove');
 
     // 비디오 커지며 텍스트 위로
     tl.fromTo(
@@ -661,7 +662,17 @@ export default function MainPage() {
           </div>
 
           {/* 검정색 영역 걷히면 나타나는 동영상 영역 */}
-          <div className={styles.bgBox}></div>
+          <div className={styles.bgBox}>
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://www.youtube.com/embed/ZFWOwC_pmLw?autoplay=1&mute=1&loop=1&playlist=ZFWOwC_pmLw&controls=0&showinfo=0&modestbranding=1"
+              title="YouTube video player"
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+              className={styles.video}
+            />
+          </div>
         </>
 
         <div className={styles.sectionInfo}>
@@ -676,7 +687,10 @@ export default function MainPage() {
 
               <div className={styles.infoCard}>
                 <div className={styles.cardImg}>
-                  <img src="/images/main/info01.jpg" alt="전시를 체험중인 관람객 모습 - Collage: Gwanghwa" />
+                  <img
+                    src="/images/main/info01.jpg"
+                    alt="전시를 체험중인 관람객 모습 - Collage: Gwanghwa"
+                  />
                 </div>
                 <div className={styles.overflowHidden}>
                   <p ref={text3Ref}>
@@ -692,7 +706,10 @@ export default function MainPage() {
             <div className={styles.infoCardFloating}>
               <div ref={section2Ref} className={styles.floatingBox}>
                 <div className={`${styles.keyImg} ${styles.cardImg}`}>
-                  <img src="/images/main/info02.jpg" alt="631 - 딜라이트(Delight)의 상징적 모티프인 “청사초롱”을 현대적으로 재해석한 인스톨레이션 작업" />
+                  <img
+                    src="/images/main/info02.jpg"
+                    alt="631 - 딜라이트(Delight)의 상징적 모티프인 “청사초롱”을 현대적으로 재해석한 인스톨레이션 작업"
+                  />
                 </div>
                 <div ref={animatedTextRef} className={styles.keyText}>
                   Synchronicity
@@ -702,13 +719,19 @@ export default function MainPage() {
                 <div
                   className={`${styles.floatingImg} ${styles.floatingImgLeft} ${styles.cardSlowImg2}`}
                 >
-                  <img src="/images/main/info03.jpg" alt="631 - 딜라이트(Delight)의 상징적 모티프인 “청사초롱”을 현대적으로 재해석한 인스톨레이션 작업" />
+                  <img
+                    src="/images/main/info03.jpg"
+                    alt="631 - 딜라이트(Delight)의 상징적 모티프인 “청사초롱”을 현대적으로 재해석한 인스톨레이션 작업"
+                  />
                 </div>
 
                 <div
                   className={`${styles.floatingImg} ${styles.floatingImgRight} ${styles.cardSlowImg}`}
                 >
-                  <img src="/images/main/info04.jpg" alt="Moon - 서서히 퍼지는 달빛은 어둠 속에서 서서히 드러나는 인간의 내면성과 감정의 흐름을 은유하며, 도시가 품고 있는 강인함과 생명력을 감각적으로 전달한다." />
+                  <img
+                    src="/images/main/info04.jpg"
+                    alt="Moon - 서서히 퍼지는 달빛은 어둠 속에서 서서히 드러나는 인간의 내면성과 감정의 흐름을 은유하며, 도시가 품고 있는 강인함과 생명력을 감각적으로 전달한다."
+                  />
                 </div>
 
                 <div className={styles.subText}>
@@ -725,7 +748,10 @@ export default function MainPage() {
 
             <div ref={section3Ref} className={styles.infoCard}>
               <div className={styles.cardImg}>
-                <img src="/images/main/info05.jpg" alt="12지신의 숲 Forest of the Twelve Guardians -  도시 공간 속에서 흔히 스쳐 지나칠 수 있지만, 일상 속 필수적 정보를 전달하는 ‘사인(Sign)’의 의미에 주목한 공간 미디어 인스톨레이션" />
+                <img
+                  src="/images/main/info05.jpg"
+                  alt="12지신의 숲 Forest of the Twelve Guardians -  도시 공간 속에서 흔히 스쳐 지나칠 수 있지만, 일상 속 필수적 정보를 전달하는 ‘사인(Sign)’의 의미에 주목한 공간 미디어 인스톨레이션"
+                />
               </div>
               <div className={styles.overflowHidden}>
                 <p ref={text5Ref}>도시성과 인간의 감각적 경험</p>
@@ -736,8 +762,16 @@ export default function MainPage() {
 
         {/* 네번째 섹션 */}
         <div ref={cardImgRef} className={styles.sectionBg}>
-          <img src="/images/main/bg01.jpg" alt="돌과 나무에서 시작된 이야기 A Story That Began with Stone and Wood - 공간 미디어 인스톨레이션 작품은 일상 속에서 쉽게 마주치는 돌, 나무, 그리고 인간과 자연의 손길이 오랜 시간 축적된 다양한 오브제들을 예술적 모티프로 삼아 구성되었다." className={styles.blindBg1} />
-          <img src="/images/main/bg02.jpg" alt="기억의 스펙트럼 The Spectrum of Memory - 이 작업은 개인의 기억 속 색채가 공유되고 확장되는 지점을 추적하며, 그것이 어떻게 공동의 서사로 전환되는지를 실험합니다." className={styles.blindBg2} />
+          <img
+            src="/images/main/bg01.jpg"
+            alt="돌과 나무에서 시작된 이야기 A Story That Began with Stone and Wood - 공간 미디어 인스톨레이션 작품은 일상 속에서 쉽게 마주치는 돌, 나무, 그리고 인간과 자연의 손길이 오랜 시간 축적된 다양한 오브제들을 예술적 모티프로 삼아 구성되었다."
+            className={styles.blindBg1}
+          />
+          <img
+            src="/images/main/bg02.jpg"
+            alt="기억의 스펙트럼 The Spectrum of Memory - 이 작업은 개인의 기억 속 색채가 공유되고 확장되는 지점을 추적하며, 그것이 어떻게 공동의 서사로 전환되는지를 실험합니다."
+            className={styles.blindBg2}
+          />
           <div className={styles.blind} ref={blindRef}>
             <h2>
               The past, present
@@ -764,7 +798,10 @@ export default function MainPage() {
                 </p>
               </div>
               <div className={styles.cardImg}>
-                <img src="/images/main/info06.jpg" alt="돌과 나무에서 시작된 이야기 A Story That Began with Stone and Wood - 공간 미디어 인스톨레이션 작품은 일상 속에서 쉽게 마주치는 돌, 나무, 그리고 인간과 자연의 손길이 오랜 시간 축적된 다양한 오브제들을 예술적 모티프로 삼아 구성되었다." />
+                <img
+                  src="/images/main/info06.jpg"
+                  alt="돌과 나무에서 시작된 이야기 A Story That Began with Stone and Wood - 공간 미디어 인스톨레이션 작품은 일상 속에서 쉽게 마주치는 돌, 나무, 그리고 인간과 자연의 손길이 오랜 시간 축적된 다양한 오브제들을 예술적 모티프로 삼아 구성되었다."
+                />
               </div>
 
               <div className={`${styles.subText} ${styles.overflowHidden}`}>
@@ -775,7 +812,10 @@ export default function MainPage() {
             <div ref={section6Ref} className={styles.infoCardDivide}>
               <div className={styles.divideBox}>
                 <div className={`${styles.divideImg} ${styles.divideImgLeft} ${styles.cardImg}`}>
-                  <img src="/images/main/info07.jpg" alt="Collage: Gwanghwa - 이 작품은 경복궁의 정문인 광화문과 그 뒤로 펼쳐진 북악산을 중심으로 구성되며, ”일월오봉도(日月五峯圖)”의 구도를 차용합니다. 일월오봉도는 조선 왕조의 권위와 자연 질서를 상징하는 도상으로, 왕의 공간을 장식하던 가장 상징적인 회화입니다." />
+                  <img
+                    src="/images/main/info07.jpg"
+                    alt="Collage: Gwanghwa - 이 작품은 경복궁의 정문인 광화문과 그 뒤로 펼쳐진 북악산을 중심으로 구성되며, ”일월오봉도(日月五峯圖)”의 구도를 차용합니다. 일월오봉도는 조선 왕조의 권위와 자연 질서를 상징하는 도상으로, 왕의 공간을 장식하던 가장 상징적인 회화입니다."
+                  />
                 </div>
                 <div className={`${styles.keyText} ${styles.overflowHidden}`}>
                   <p ref={text8Ref}>
@@ -795,7 +835,10 @@ export default function MainPage() {
                 delight seoul 2025
               </p>
               <div className={styles.cardImg}>
-                <img src="/images/main/info09.jpg" alt="The Door:상상의 경계, 선택의 임계점 - 이 작업은 ‘문 ’이라는 상징을 통해 인간 내면의 상상력과 탐험 욕구, 그리고 선택의 양가성을 시각적으로 구현한 설치 작품입니다. " />
+                <img
+                  src="/images/main/info09.jpg"
+                  alt="The Door:상상의 경계, 선택의 임계점 - 이 작업은 ‘문 ’이라는 상징을 통해 인간 내면의 상상력과 탐험 욕구, 그리고 선택의 양가성을 시각적으로 구현한 설치 작품입니다. "
+                />
               </div>
               <div className={`${styles.overflowHidden}`}>
                 <p ref={text9Ref}>
@@ -809,8 +852,16 @@ export default function MainPage() {
         </div>
 
         <div ref={cardImg2Ref} className={styles.sectionBg}>
-          <img src="/images/main/bg03.jpg" alt="Path: 존재와 인식의 흐름 - 이 작업은 ‘길’이라는 일상적이면서도 근본적인 도시의 구조를 통해, 사람과 사람, 공간과 기억이 어떻게 연결되고 구성되는지를 탐구합니다." className={styles.blindBg1} />
-          <img src="/images/main/bg04.jpg" alt="빛의 기억 Memory of Light - 이 작품은 데이터의 흐름 속에서 생성되는 최소 단위의 조형성을 시각적으로 재현한 설치 작업입니다." className={styles.blindBg2} />
+          <img
+            src="/images/main/bg03.jpg"
+            alt="Path: 존재와 인식의 흐름 - 이 작업은 ‘길’이라는 일상적이면서도 근본적인 도시의 구조를 통해, 사람과 사람, 공간과 기억이 어떻게 연결되고 구성되는지를 탐구합니다."
+            className={styles.blindBg1}
+          />
+          <img
+            src="/images/main/bg04.jpg"
+            alt="빛의 기억 Memory of Light - 이 작품은 데이터의 흐름 속에서 생성되는 최소 단위의 조형성을 시각적으로 재현한 설치 작업입니다."
+            className={styles.blindBg2}
+          />
           <div className={styles.blind} ref={blind2Ref}>
             <h2>
               The past, present
@@ -829,7 +880,10 @@ export default function MainPage() {
           <div className={styles.wrapper}>
             <div className={styles.infoCard}>
               <div className={styles.cardImg}>
-                <img src="/images/main/info10.jpg" alt="Neon Notelgia - 본 작업은 도시 공간 속에서 흔히 스쳐 지나칠 수 있지만, 일상 속 필수적 정보를 전달하는 ‘사인(Sign)’의 의미에 주목한 공간 미디어 인스톨레이션이다." />
+                <img
+                  src="/images/main/info10.jpg"
+                  alt="Neon Notelgia - 본 작업은 도시 공간 속에서 흔히 스쳐 지나칠 수 있지만, 일상 속 필수적 정보를 전달하는 ‘사인(Sign)’의 의미에 주목한 공간 미디어 인스톨레이션이다."
+                />
               </div>
               <div className={styles.overflowHidden}>
                 <p ref={text10Ref}>
@@ -845,7 +899,10 @@ export default function MainPage() {
             <div className={styles.infoCardFloating}>
               <div className={styles.floatingBox}>
                 <div className={`${styles.keyImg} ${styles.cardImg2}`}>
-                  <img src="/images/main/info11.jpg" alt="Resonance - 이 작업은 관람객이 디지털로 구현된 대나무 숲을 천천히 거닐도록 유도하며, 서울이라는 도시를 정의하는 ‘공식적인 언어’가 과연 진심을 담고 있는지, 아니면 더 깊은 진실을 감추 고 있는지를 스스로 질문하게 합니다." />
+                  <img
+                    src="/images/main/info11.jpg"
+                    alt="Resonance - 이 작업은 관람객이 디지털로 구현된 대나무 숲을 천천히 거닐도록 유도하며, 서울이라는 도시를 정의하는 ‘공식적인 언어’가 과연 진심을 담고 있는지, 아니면 더 깊은 진실을 감추 고 있는지를 스스로 질문하게 합니다."
+                  />
                 </div>
                 <div ref={animatedText2Ref} className={`${styles.keyText} ${styles.colorWhite}`}>
                   Resonance
@@ -853,7 +910,10 @@ export default function MainPage() {
                 <div
                   className={`${styles.floatingImg} ${styles.floatingImgLeft} ${styles.cardSlowImg2}`}
                 >
-                  <img src="/images/main/info12.jpg" alt="빛의 기억 Memory of Light - 이 작품은 데이터의 흐름 속에서 생성되는 최소 단위의 조형성을 시각적으로 재현한 설치 작업입니다." />
+                  <img
+                    src="/images/main/info12.jpg"
+                    alt="빛의 기억 Memory of Light - 이 작품은 데이터의 흐름 속에서 생성되는 최소 단위의 조형성을 시각적으로 재현한 설치 작업입니다."
+                  />
                 </div>
                 <div
                   className={`${styles.floatingImg} ${styles.floatingImgRight} ${styles.cardSlowImg}`}
@@ -889,22 +949,46 @@ export default function MainPage() {
           <div className={styles.fixedBox}>
             {/* 이미지 6개 */}
             <div ref={img1Ref} className={`${styles.image} ${styles.img1}`}>
-              <img src="/images/main/section3-08.jpg" alt="전시를 즐기는 관람객의 모습" className={styles.img} />
+              <img
+                src="/images/main/section3-08.jpg"
+                alt="전시를 즐기는 관람객의 모습"
+                className={styles.img}
+              />
             </div>
             <div ref={img2Ref} className={`${styles.image} ${styles.img2}`}>
-              <img src="/images/main/section3-13.jpg" alt="전시를 즐기는 관람객의 모습" className={styles.img} />
+              <img
+                src="/images/main/section3-13.jpg"
+                alt="전시를 즐기는 관람객의 모습"
+                className={styles.img}
+              />
             </div>
             <div ref={img3Ref} className={`${styles.image} ${styles.img3}`}>
-              <img src="/images/main/section3-14.jpg" alt="전시를 즐기는 관람객의 모습" className={styles.img} />
+              <img
+                src="/images/main/section3-14.jpg"
+                alt="전시를 즐기는 관람객의 모습"
+                className={styles.img}
+              />
             </div>
             <div ref={img4Ref} className={`${styles.image} ${styles.img4}`}>
-              <img src="/images/main/section3-02.jpg" alt="전시를 즐기는 관람객의 모습" className={styles.img} />
+              <img
+                src="/images/main/section3-02.jpg"
+                alt="전시를 즐기는 관람객의 모습"
+                className={styles.img}
+              />
             </div>
             <div ref={img5Ref} className={`${styles.image} ${styles.img5}`}>
-              <img src="/images/main/section3-05.jpg" alt="전시를 즐기는 관람객의 모습" className={styles.img} />
+              <img
+                src="/images/main/section3-05.jpg"
+                alt="전시를 즐기는 관람객의 모습"
+                className={styles.img}
+              />
             </div>
             <div ref={img6Ref} className={`${styles.image} ${styles.img6}`}>
-              <img src="/images/main/section3-06.jpg" alt="전시를 즐기는 관람객의 모습" className={styles.img} />
+              <img
+                src="/images/main/section3-06.jpg"
+                alt="전시를 즐기는 관람객의 모습"
+                className={styles.img}
+              />
             </div>
 
             {/* 텍스트 + 비디오 */}
