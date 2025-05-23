@@ -122,7 +122,7 @@ export function useSectionStaggerAnim(
 export function useImageFadeSwitch(
   triggerRef: React.RefObject<HTMLElement | null>,
   styles: { [key: string]: string },
-  setShowScrollBar: any
+  setShowScrollBar: React.Dispatch<React.SetStateAction<boolean>>
 ) {
   useEffect(() => {
     if (!triggerRef.current) return;

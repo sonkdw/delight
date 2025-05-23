@@ -15,7 +15,16 @@ import {
 
 declare global {
   interface Window {
-    daum?: any;
+    daum?: {
+      roughmap?: {
+        Lander?: new (options: {
+          timestamp: string;
+          key: string;
+          mapWidth: string;
+          mapHeight: string;
+        }) => { render: () => void };
+      };
+    };
   }
 }
 
