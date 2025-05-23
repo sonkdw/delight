@@ -15,7 +15,7 @@ export function useSectionStaggerAnim(
 
     const slideText = sectionRef.current.querySelectorAll(`.${styles.slideText}`);
     gsap.from(slideText, {
-      opacity: 0,
+      opacity: 1,
       y: 60,
       stagger: 0.18,
       duration: 1.2,

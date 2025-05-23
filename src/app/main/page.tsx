@@ -164,7 +164,7 @@ export default function MainPage() {
 
   // 뒤의 숫자로 딜레이 속도 조절하시면 됩니다!
   useShowTextAnimation(text2Ref); // 2025 5. 8 - 2025. 11. 15
-  useShowTextAnimation(text3Ref, 0.5); // 도시는 어둡고도 찬란하며
+  useShowTextAnimation(text3Ref, 0.2); // 도시는 어둡고도 찬란하며
   useShowTextAnimation(text4Ref, 0.4); // 정보의 고정성과 유동성
   useShowTextAnimation(text5Ref, 0.5); // 도시성과 인간의 감각적 경험
   useShowTextAnimation(text6Ref); // 도시는 어둡고도 찬란하며, 차갑고도 뜨겁다.
@@ -472,7 +472,7 @@ export default function MainPage() {
             {/* 두번째 섹션 */}
             <div ref={sectionRef}>
               <div className={`${styles.textRight}`}>
-                <p ref={text2Ref}>2025 5. 8 - 2025. 11. 15</p>
+                <p className={styles.textDeco} ref={text2Ref}>2025. 5. 8 - 2025. 11. 15</p>
               </div>
 
               <div className={styles.infoCard}>

@@ -217,6 +217,11 @@ body {
   text-align: right;
 }
 
+.textDeco{
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+}
+
 .infoCard {
   max-width: 960px;
   margin: 0 auto;
