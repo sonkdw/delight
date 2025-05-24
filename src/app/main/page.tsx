@@ -1064,7 +1064,7 @@ export default function MainPage() {
                     left: 0,
                     width: '100%',
                     height: '100%',
-                    willChange: 'transform',
+                    zIndex: 9,
                   }}
                 />
                 <div
@@ -1078,8 +1078,7 @@ export default function MainPage() {
                     left: 0,
                     width: '100%',
                     height: '100%',
-                    transform: 'translateY(100%)',
-                    willChange: 'transform',
+
                   }}
                 />
               </div>
@@ -1109,7 +1108,7 @@ export default function MainPage() {
                     left: 0,
                     width: '100%',
                     height: '100%',
-                    willChange: 'transform',
+                    zIndex: 9,
                   }}
                 />
                 <div
@@ -1123,8 +1122,6 @@ export default function MainPage() {
                     left: 0,
                     width: '100%',
                     height: '100%',
-                    transform: 'translateY(100%)',
-                    willChange: 'transform',
                   }}
                 />
               </div>
@@ -1154,7 +1151,7 @@ export default function MainPage() {
                     left: 0,
                     width: '100%',
                     height: '100%',
-                    willChange: 'transform',
+                    zIndex: 9,
                   }}
                 />
                 <div
@@ -1168,8 +1165,6 @@ export default function MainPage() {
                     left: 0,
                     width: '100%',
                     height: '100%',
-                    transform: 'translateY(100%)',
-                    willChange: 'transform',
                   }}
                 />
               </div>
@@ -1200,7 +1195,7 @@ export default function MainPage() {
                     left: 0,
                     width: '100%',
                     height: '100%',
-                    willChange: 'transform',
+                    zIndex: 9,
                   }}
                 />
                 <div
@@ -1214,8 +1209,6 @@ export default function MainPage() {
                     left: 0,
                     width: '100%',
                     height: '100%',
-                    transform: 'translateY(100%)',
-                    willChange: 'transform',
                   }}
                 />
               </div>
