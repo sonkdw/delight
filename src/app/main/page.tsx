@@ -541,7 +541,7 @@ export default function MainPage() {
         },
       });
       gsap.to(gridOverlay2Ref.current, {
-        y: '10%',
+        y: '0%',
         ease: 'none',
         scrollTrigger: {
           trigger: gridBox2Ref.current,
