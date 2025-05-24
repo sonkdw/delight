@@ -13,6 +13,7 @@ import {
   useSectionStaggerAnim,
   useShowTextAnimation,
 } from '../hook/gsapHooks';
+import { useIsMobile } from '../hook/useMediaQuery';
 
 declare global {
   interface Window {
@@ -134,6 +135,8 @@ export default function MainPage() {
 
   const [showScrollBar, setShowScrollBar] = useState(false);
   const [showScrollBar2, setShowScrollBar2] = useState(false);
+
+  const isMobile = useIsMobile();
 
   const handleFaqToggle = (idx: number) => {
     setOpenFaqIndex(idx === openFaqIndex ? null : idx);
@@ -351,7 +354,7 @@ export default function MainPage() {
       { x: 120, y: 120 },
       { x: -60, y: 130 },
       { x: 100, y: -100 },
-      { x: -150, y: 100 },
+      { x: 10, y: -100 },
     ];
 
     const tl = gsap.timeline({
@@ -397,24 +400,66 @@ export default function MainPage() {
     tl.to(textRightRef.current, { opacity: 0, duration: 0.6, ease: 'power2.out' }, 'textMove+=0.3');
 
     // 비디오 커지며 텍스트 위로
-    tl.fromTo(
-      videoDivRef.current,
-      {
-        opacity: 1,
-        scale: 0,
-        duration: 1.5,
-        ease: 'power3.out',
+    // tl.fromTo(
+    //   videoDivRef.current,
+    //   {
+    //     opacity: 1,
+    //     scale: 0,
+    //     duration: 1.5,
+    //     ease: 'power3.out',
+    //   },
+    //   {
+    //     opacity: 1,
+    //     width: '80vw',
+    //     height: '80vh',
+    //     scale: 1,
+    //     duration: 1.5,
+    //     ease: 'power3.out',
+    //   },
+    //   '-=.9'
+    // );
+
+    // 비디오 커지며 텍스트 위로
+    ScrollTrigger.matchMedia({
+      // 데스크탑
+      '(min-width: 769px)': () => {
+        tl.fromTo(
+          videoDivRef.current,
+          {
+            opacity: 1,
+            scale: 0,
+          },
+          {
+            opacity: 1,
+            width: '80vw',
+            height: '80vh',
+            scale: 1,
+            duration: 1.5,
+            ease: 'power3.out',
+          },
+          '-=.9'
+        );
       },
-      {
-        opacity: 1,
-        width: '80vw',
-        height: '80vh',
-        scale: 1,
-        duration: 1.5,
-        ease: 'power3.out',
+      // 모바일
+      '(max-width: 768px)': () => {
+        tl.fromTo(
+          videoDivRef.current,
+          {
+            opacity: 1,
+            scale: 0,
+          },
+          {
+            opacity: 1,
+            width: '90vw',
+            height: '50vh',
+            scale: 1,
+            duration: 1.2,
+            ease: 'power3.out',
+          },
+          '-=.9'
+        );
       },
-      '-=.9'
-    );
+    });
 
     ScrollTrigger.refresh();
 
@@ -496,12 +541,12 @@ export default function MainPage() {
         },
       });
       gsap.to(gridOverlay2Ref.current, {
-        y: '0%',
+        y: '10%',
         ease: 'none',
         scrollTrigger: {
           trigger: gridBox2Ref.current,
-          start: 'top bottom', // 해당 div의 top이 뷰포트의 bottom에 닿을 때 시작 (=가장 빨리 시작)
-          end: 'top 60%', // 숫자가 작아지면 애니메이션이 느리게 끝남 / 커지면 빨리 끝남
+          start: 'bottom 50%',
+          end: 'top 40%',
           scrub: true,
         },
       });
@@ -543,14 +588,32 @@ export default function MainPage() {
           scrub: true,
         },
       });
-      gsap.to(gridOverlay4Ref.current, {
-        y: '20%', // 0%으로 하자니 서울 글씨가 잘 안보이는 것 같아서 20%로 조정함.
-        ease: 'none',
-        scrollTrigger: {
-          trigger: gridBox4Ref.current,
-          start: 'bottom 50%', // 해당 div의 bottom이 뷰포트의 50%에 닿을 때 시작 (=아주 늦게 시작)
-          end: 'bottom 25%', // 숫자가 작아지면 애니메이션이 느리게 끝남 / 커지면 빨리 끝남
-          scrub: true,
+      gsap.matchMedia({
+        // 데스크탑
+        '(min-width: 769px)': () => {
+          gsap.to(gridOverlay4Ref.current, {
+            y: '20%',
+            ease: 'none',
+            scrollTrigger: {
+              trigger: gridBox4Ref.current,
+              start: 'bottom 50%',
+              end: 'bottom 25%',
+              scrub: true,
+            },
+          });
+        },
+        // 모바일
+        '(max-width: 768px)': () => {
+          gsap.to(gridOverlay4Ref.current, {
+            y: '0%',
+            ease: 'none',
+            scrollTrigger: {
+              trigger: gridBox4Ref.current,
+              start: 'top 90%',
+              end: 'top 20%',
+              scrub: true,
+            },
+          });
         },
       });
     }
@@ -744,7 +807,9 @@ export default function MainPage() {
                   <br />
                   of Simulacra
                 </div>
-                <div className={`${styles.floatingImg} ${styles.floatingImgLeft} ${styles.cardSlowImg2}`}>
+                <div
+                  className={`${styles.floatingImg} ${styles.floatingImgLeft} ${styles.cardSlowImg2}`}
+                >
                   <img
                     src="/images/main/info03.jpg"
                     alt="631 - 딜라이트(Delight)의 상징적 모티프인 “청사초롱”을 현대적으로 재해석한 인스톨레이션 작업"
@@ -950,8 +1015,8 @@ export default function MainPage() {
 
                 <div className={`${styles.overflowHidden} ${styles.subText}`}>
                   <p ref={text11Ref}>
-                    언어로 설명되기 전의 순간,<br />
-                    그 안에 숨어있는 진짜 아름다움은 무엇일까?
+                    언어로 설명되기 전의 순간,
+                    <br />그 안에 숨어있는 진짜 아름다움은 무엇일까?
                   </p>
                 </div>
               </div>
@@ -1076,7 +1141,6 @@ export default function MainPage() {
                     left: 0,
                     width: '100%',
                     height: '100%',
-
                   }}
                 />
               </div>
@@ -1113,7 +1177,9 @@ export default function MainPage() {
                   ref={gridOverlay4Ref}
                   className={styles.img}
                   style={{
-                    backgroundImage: "url('/images/main/grid-text-08.svg')",
+                    backgroundImage: isMobile
+                      ? "url('/images/main/grid-text-06.svg')"
+                      : "url('/images/main/grid-text-08.svg')",
                     backgroundRepeat: 'no-repeat',
                     position: 'absolute',
                     top: 0,
@@ -1200,7 +1266,9 @@ export default function MainPage() {
                   ref={gridOverlay2Ref}
                   className={styles.img}
                   style={{
-                    backgroundImage: "url('/images/main/grid-text-06.svg')",
+                    backgroundImage: isMobile
+                      ? "url('/images/main/grid-text-08.svg')"
+                      : "url('/images/main/grid-text-06.svg')",
                     backgroundRepeat: 'no-repeat',
                     position: 'absolute',
                     top: 0,
@@ -1294,10 +1362,14 @@ export default function MainPage() {
             <div className={styles.locationWrap}>
               <div className={styles.location}>
                 {/* 지도 */}
-                <div
+                {/* <div
                   id="daumRoughmapContainer1747889978369"
                   className="root_daum_roughmap root_daum_roughmap_landing"
-                />
+                /> */}
+                {/* 임시 지도 이미지 */}
+                <div>
+                  <img src="/images/main/location.png" alt="map" />
+                </div>
               </div>
               <div className={styles.textWrap}>
                 <div className={styles.row}>

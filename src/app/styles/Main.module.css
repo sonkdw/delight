@@ -414,7 +414,8 @@
 }
 
 .divideImg.divideImgLeft {
-  transform: translateY(140px);
+  /* transform: translateY(140px); */
+  transform: translateY(40px);
 }
 
 .divideImg.divideImgRight {
@@ -588,8 +589,7 @@
     bottom: -140px;
   }
 
-
-  .marqueeText{
+  .marqueeText {
     font-size: 50px;
     top: 50px;
   }
@@ -667,7 +667,7 @@
     height: 318px;
   }
 
-  .videoBox{
+  .videoBox {
     height: 220px !important;
   }
 
@@ -675,26 +675,34 @@
     width: auto;
   }
 
-  .gridWrap .gridBox{
+  .gridWrap .gridBox {
     width: 49.5%;
   }
 
-
-  .gridWrap .gridBox.gridBox1{
+  .gridWrap .gridBox.gridBox1 {
     order: 1;
   }
 
-  .gridWrap .gridBox.gridBox2{
+  .gridWrap .gridBox.gridBox2 {
     order: 2;
   }
 
-  .gridWrap .gridBox.gridBox3{
+  .gridWrap .gridBox.gridBox3 {
     order: 3;
   }
 
-  .gridWrap .gridBox.gridBox4{
+  .gridWrap .gridBox.gridBox4 {
     order: 4;
   }
 
+  .videoBox {
+    height: 0px;
+  }
 
+  .divideImgRight.cardImg img,
+  .divideImgRight.cardImg img {
+    width: 100%;
+    display: block;
+    transform-origin: 50% 140% 0;
+  }
 }
