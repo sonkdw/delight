@@ -363,7 +363,8 @@ export default function MainPage() {
         start: 'top top',
         end: '+=3000',
         scrub: true,
-        pin: true,
+        // pin: true,
+        pin: false,
         anticipatePin: 2,
       },
     });
@@ -400,66 +401,66 @@ export default function MainPage() {
     tl.to(textRightRef.current, { opacity: 0, duration: 0.6, ease: 'power2.out' }, 'textMove+=0.3');
 
     // 비디오 커지며 텍스트 위로
-    // tl.fromTo(
-    //   videoDivRef.current,
-    //   {
-    //     opacity: 1,
-    //     scale: 0,
-    //     duration: 1.5,
-    //     ease: 'power3.out',
-    //   },
-    //   {
-    //     opacity: 1,
-    //     width: '80vw',
-    //     height: '80vh',
-    //     scale: 1,
-    //     duration: 1.5,
-    //     ease: 'power3.out',
-    //   },
-    //   '-=.9'
-    // );
+    tl.fromTo(
+      videoDivRef.current,
+      {
+        opacity: 1,
+        scale: 0,
+        duration: 1.5,
+        ease: 'power3.out',
+      },
+      {
+        opacity: 1,
+        width: '80vw',
+        height: '80vh',
+        scale: 1,
+        duration: 1.5,
+        ease: 'power3.out',
+      },
+      '-=.9'
+    );
 
     // 비디오 커지며 텍스트 위로
-    ScrollTrigger.matchMedia({
-      // 데스크탑
-      '(min-width: 769px)': () => {
-        tl.fromTo(
-          videoDivRef.current,
-          {
-            opacity: 1,
-            scale: 0,
-          },
-          {
-            opacity: 1,
-            width: '80vw',
-            height: '80vh',
-            scale: 1,
-            duration: 1.5,
-            ease: 'power3.out',
-          },
-          '-=.9'
-        );
-      },
-      // 모바일
-      '(max-width: 768px)': () => {
-        tl.fromTo(
-          videoDivRef.current,
-          {
-            opacity: 1,
-            scale: 0,
-          },
-          {
-            opacity: 1,
-            width: '90vw',
-            height: '50vh',
-            scale: 1,
-            duration: 1.2,
-            ease: 'power3.out',
-          },
-          '-=.9'
-        );
-      },
-    });
+    // ScrollTrigger.matchMedia({
+    //   // 데스크탑
+    //   '(min-width: 769px)': () => {
+    //     tl.fromTo(
+    //       videoDivRef.current,
+    //       {
+    //         opacity: 1,
+    //         scale: 0,
+    //       },
+    //       {
+    //         opacity: 1,
+    //         width: '80vw',
+    //         height: '80vh',
+    //         scale: 1,
+    //         duration: 1.5,
+    //         ease: 'power3.out',
+    //       },
+    //       '-=.9'
+    //     );
+    //   },
+    //   // 모바일
+    //   '(max-width: 768px)': () => {
+    //     tl.fromTo(
+    //       videoDivRef.current,
+    //       {
+    //         opacity: 1,
+    //         scale: 0,
+    //       },
+    //       {
+    //         opacity: 1,
+    //         width: '90vw',
+    //         height: '50vh',
+    //         scale: 1,
+    //         duration: 1.2,
+    //         ease: 'power3.out',
+    //       },
+    //       '-=.9'
+    //     );
+    //   },
+    // });
 
     // ScrollTrigger.refresh();
 
