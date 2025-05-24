@@ -744,9 +744,7 @@ export default function MainPage() {
                   <br />
                   of Simulacra
                 </div>
-                <div
-                  className={`${styles.floatingImg} ${styles.floatingImgLeft} ${styles.cardSlowImg2}`}
-                >
+                <div className={`${styles.floatingImg} ${styles.floatingImgLeft} ${styles.cardSlowImg2}`}>
                   <img
                     src="/images/main/info03.jpg"
                     alt="631 - 딜라이트(Delight)의 상징적 모티프인 “청사초롱”을 현대적으로 재해석한 인스톨레이션 작업"
@@ -950,10 +948,10 @@ export default function MainPage() {
                   <img src="/images/main/info13.jpg" alt="전시를 즐기는 관람객의 모습" />
                 </div>
 
-                <div className={styles.overflowHidden}>
+                <div className={`${styles.overflowHidden} ${styles.subText}`}>
                   <p ref={text11Ref}>
-                    언어로 설명되기 전의 순간,
-                    <br />그 안에 숨어있는 진짜 아름다움은 무엇일까?
+                    언어로 설명되기 전의 순간,<br />
+                    그 안에 숨어있는 진짜 아름다움은 무엇일까?
                   </p>
                 </div>
               </div>
@@ -1007,7 +1005,7 @@ export default function MainPage() {
             </div>
             <div ref={img5Ref} className={`${styles.image} ${styles.img5}`}>
               <img
-                src="/images/main/section3-05.jpg"
+                src="/images/main/section3-07.jpg"
                 alt="전시를 즐기는 관람객의 모습"
                 className={styles.img}
               />

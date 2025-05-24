@@ -93,7 +93,7 @@
   /* transform: translate(-50%, -50%); */
   overflow: hidden;
   background: black;
-  border-radius: 30px;
+  border-radius: 12px;
 }
 
 .videoBox iframe {
@@ -105,7 +105,7 @@
 /* 이미지 공통 스타일 */
 .image {
   position: absolute;
-  border-radius: 12px;
+  border-radius: 6px;
   overflow: hidden;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
   transform: scale(0.2);
@@ -121,40 +121,40 @@
 }
 
 .img1 {
-  left: 20%;
-  top: 12vh;
+  left: 30%;
+  top: 6%;
   width: 320px;
   height: 410px;
 }
 .img2 {
-  left: 32vw;
-  top: 10vh;
+  right: 30%;
+  top: 15%;
   width: 136px;
   height: 180px;
 }
 
 .img3 {
-  left: 56vw;
-  top: 7vh;
-  width: 186px;
-  height: 256px;
+  left: 10%;
+  top: 7%;
+  width: 400px;
+  height: 500px;
 }
 .img4 {
-  left: 77vw;
+  right: 30%;
   top: 18vh;
   width: 222px;
   height: 236px;
 }
 .img5 {
-  left: 14vw;
-  top: 62vh;
+  left: 15%;
+  bottom: 15%;
   width: 320px;
   height: 150px;
 }
 
 .img6 {
-  left: 56vw;
-  top: 48vh;
+  right: 15%;
+  bottom: 10%;
   width: 489px;
   height: 318px;
 }
@@ -324,9 +324,9 @@
   transform: translate(-50%, -50%);
   font-size: 68px;
 
-  font-family: 'Montserrat', sans-serif;
   font-weight: 800;
   text-align: center;
+  line-height: 1.2;
 }
 .colorWhite {
   color: #fff;
@@ -570,7 +570,7 @@
 
   .floatingBox {
     width: 80%;
-    margin: 16vh auto;
+    margin: 16vh auto 30vh;
   }
 
   .floatingBox .floatingImgLeft {
@@ -586,6 +586,12 @@
   .floatingBox .subText {
     right: 0;
     bottom: -140px;
+  }
+
+
+  .marqueeText{
+    font-size: 50px;
+    top: 50px;
   }
 
   .row {
@@ -625,14 +631,14 @@
 
   /* 카드 이미지 6개 */
   .img1 {
-    left: 9%;
-    top: 12vh;
+    left: 10%;
+    top: 0;
     width: 320px;
     height: 410px;
   }
   .img2 {
-    left: 32vw;
-    top: 10vh;
+    left: 15%;
+    top: 10%;
     width: 136px;
     height: 180px;
   }
@@ -643,14 +649,14 @@
     height: 256px;
   }
   .img4 {
-    left: 47vw;
-    top: 18vh;
+    right: 10%;
+    top: 10%;
     width: 222px;
     height: 236px;
   }
   .img5 {
-    left: 14vw;
-    top: 62vh;
+    left: 0;
+    bottom: 20%;
     width: 320px;
     height: 150px;
   }
@@ -661,7 +667,34 @@
     height: 318px;
   }
 
+  .videoBox{
+    height: 220px !important;
+  }
+
   .leftTitle {
     width: auto;
   }
+
+  .gridWrap .gridBox{
+    width: 49.5%;
+  }
+
+
+  .gridWrap .gridBox.gridBox1{
+    order: 1;
+  }
+
+  .gridWrap .gridBox.gridBox2{
+    order: 2;
+  }
+
+  .gridWrap .gridBox.gridBox3{
+    order: 3;
+  }
+
+  .gridWrap .gridBox.gridBox4{
+    order: 4;
+  }
+
+
 }
