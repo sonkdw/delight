@@ -461,7 +461,7 @@ export default function MainPage() {
       },
     });
 
-    ScrollTrigger.refresh();
+    // ScrollTrigger.refresh();
 
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
