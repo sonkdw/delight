@@ -923,7 +923,7 @@ export default function MainPage() {
 
             <div ref={section7Ref} className={styles.infoCard}>
               <p ref={delightSeoulMarqueeRef} className={styles.marqueeText}>
-                delight seoul 2025
+                {/* delight seoul 2025 */}
               </p>
               <div className={styles.cardImg}>
                 <img
