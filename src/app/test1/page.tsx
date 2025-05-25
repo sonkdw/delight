@@ -33,37 +33,37 @@ declare global {
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 gsap.registerPlugin(SplitText);
 
-const faqList = [
-  {
-    question: '관람 가능한 연령은 어떻게 되나요?',
-    answer:
-      '보호자 없이 입장이 가능한 연령은 14세(중학생) 이상입니다. 36개월 미만은 무료입장이 가능하며 관련 증빙 서류를 필수로 지참하셔야 합니다.',
-  },
-  {
-    question: '재입장이 가능한가요?',
-    answer: '티켓은 1회 입장 기준이며, 퇴장 시 재입장이 불가합니다.',
-  },
-  {
-    question: '전시장 내 유모차, 휠체어 이용이 가능한가요?',
-    answer:
-      '유모차, 휠체어 이용이 가능하지만 대여 서비스는 제공하지 않습니다. 전시가 지하 3층부터 지상 5층으로 이동하는 전시장 구조입니다. 계단 및 엘리베이터로 이동은 가능하나, 혼잡도에 따라 이동에 불편함이 있을 수 있습니다.',
-  },
-  {
-    question: '관람 시 사진 및 영상 촬영을 해도 되나요?',
-    answer:
-      '본 전시는 관람 시 사진 및 영상 촬영이 가능합니다. 단, 대형 전문 장비 등은 이용하실 수 없습니다.',
-  },
-  {
-    question: '주차 시설이 있나요?',
-    answer:
-      '본 전시장은 주차장 시설이 없으니, 인근 주차장을 이용하시거나 가급적 대중교통을 이용해 주시기 바랍니다.',
-  },
-  {
-    question: '기타 안내사항',
-    answer:
-      '사용한 티켓은 환불 불가합니다.\n관객 부주의로 상해를 입었을 경우 책임은 관객에게 있으며, 전시장에서는 이에 대한 책임을 지지 않습니다.\n전시장 내 음료와 음식물 반입이 불가합니다.\n반려동물 출입이 불가합니다.',
-  },
-];
+// const faqList = [
+//   {
+//     question: '관람 가능한 연령은 어떻게 되나요?',
+//     answer:
+//       '보호자 없이 입장이 가능한 연령은 14세(중학생) 이상입니다. 36개월 미만은 무료입장이 가능하며 관련 증빙 서류를 필수로 지참하셔야 합니다.',
+//   },
+//   {
+//     question: '재입장이 가능한가요?',
+//     answer: '티켓은 1회 입장 기준이며, 퇴장 시 재입장이 불가합니다.',
+//   },
+//   {
+//     question: '전시장 내 유모차, 휠체어 이용이 가능한가요?',
+//     answer:
+//       '유모차, 휠체어 이용이 가능하지만 대여 서비스는 제공하지 않습니다. 전시가 지하 3층부터 지상 5층으로 이동하는 전시장 구조입니다. 계단 및 엘리베이터로 이동은 가능하나, 혼잡도에 따라 이동에 불편함이 있을 수 있습니다.',
+//   },
+//   {
+//     question: '관람 시 사진 및 영상 촬영을 해도 되나요?',
+//     answer:
+//       '본 전시는 관람 시 사진 및 영상 촬영이 가능합니다. 단, 대형 전문 장비 등은 이용하실 수 없습니다.',
+//   },
+//   {
+//     question: '주차 시설이 있나요?',
+//     answer:
+//       '본 전시장은 주차장 시설이 없으니, 인근 주차장을 이용하시거나 가급적 대중교통을 이용해 주시기 바랍니다.',
+//   },
+//   {
+//     question: '기타 안내사항',
+//     answer:
+//       '사용한 티켓은 환불 불가합니다.\n관객 부주의로 상해를 입었을 경우 책임은 관객에게 있으며, 전시장에서는 이에 대한 책임을 지지 않습니다.\n전시장 내 음료와 음식물 반입이 불가합니다.\n반려동물 출입이 불가합니다.',
+//   },
+// ];
 
 export default function MainPage() {
   const img1Ref = useRef<HTMLDivElement | null>(null);
@@ -131,16 +131,16 @@ export default function MainPage() {
   const gridOverlay4Ref = useRef<HTMLDivElement>(null);
   const gridBase4Ref = useRef<HTMLDivElement>(null);
 
-  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+  // const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
   const [showScrollBar, setShowScrollBar] = useState(false);
   const [showScrollBar2, setShowScrollBar2] = useState(false);
 
   const isMobile = useIsMobile();
 
-  const handleFaqToggle = (idx: number) => {
-    setOpenFaqIndex(idx === openFaqIndex ? null : idx);
-  };
+  // const handleFaqToggle = (idx: number) => {
+  //   setOpenFaqIndex(idx === openFaqIndex ? null : idx);
+  // };
 
   // 스크롤 스무더
   useEffect(() => {
@@ -183,23 +183,6 @@ export default function MainPage() {
       },
       '+=0.1'
     );
-
-    // // 3. 로고 퇴장
-    // tl.to(logoRef.current, {
-    //   opacity: 0,
-    //   y: -30,
-    //   duration: 0.6,
-    //   ease: 'expo.in',
-    // });
-    //
-    // // 4. 텍스트 퇴장 (로고 퇴장 끝나고 바로)
-    // tl.to(split.chars, {
-    //   opacity: 0,
-    //   y: -30,
-    //   duration: 0.6,
-    //   stagger: 0.02,
-    //   ease: 'expo.in',
-    // });
 
     return () => split.revert();
   }, []);
@@ -921,9 +904,9 @@ export default function MainPage() {
               </div>
             </div>
 
-            <div ref={section7Ref} className={styles.infoCard}>
+            {/* <div ref={section7Ref} className={styles.infoCard}>
               <p ref={delightSeoulMarqueeRef} className={styles.marqueeText}>
-                {/* delight seoul 2025 */}
+                delight seoul 2025
               </p>
               <div className={styles.cardImg}>
                 <img
@@ -938,7 +921,7 @@ export default function MainPage() {
                   우리가 진실이라고 믿는 것은 어디까지인가?
                 </p>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -1319,11 +1302,11 @@ export default function MainPage() {
         </div>
 
         {/* faq */}
-        <div className={styles.sectionFaq}>
+        {/* <div className={styles.sectionFaq}>
           <div className={styles.wrapper}>
             <div ref={faqMarqueeRef} className={styles.marqueeTitle}>
-              {/* FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ
-              FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ */}
+              FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ
+              FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ
             </div>
             <div className={styles.accorWrap}>
               {faqList.map((faq, idx) => (
@@ -1348,25 +1331,25 @@ export default function MainPage() {
               ))}
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* location */}
-        <div className={styles.sectionLocation}>
+        {/* <div className={styles.sectionLocation}>
           <div className={styles.wrapper}>
             <div ref={mapMarqueeRef} className={styles.marqueeTitle}>
-              {/* LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION
               LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION
-              LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION */}
+              LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION
+              LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION
             </div>
 
             <div className={styles.locationWrap}>
               <div className={styles.location}>
                 {/* 지도 */}
-                {/* <div
+        {/* <div
                   id="daumRoughmapContainer1747889978369"
                   className="root_daum_roughmap root_daum_roughmap_landing"
                 /> */}
-                {/* 임시 지도 이미지 */}
+        {/* 임시 지도 이미지 
                 <div>
                   <img src="/images/main/location.png" alt="map" />
                 </div>
@@ -1395,7 +1378,7 @@ export default function MainPage() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <footer className={styles.footer}>
           <div className={styles.wrapper}>
