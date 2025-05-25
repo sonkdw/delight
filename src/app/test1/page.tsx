@@ -106,7 +106,7 @@ export default function MainPage() {
   // const cardScaleContainerRef = useRef<HTMLDivElement>(null);
 
   const gridRef = useRef(null);
-  const videoDivRef = useRef(null);
+  // const videoDivRef = useRef(null);
   // const textLeftRef = useRef(null);
   // const textRightRef = useRef(null);
 
@@ -504,7 +504,7 @@ export default function MainPage() {
         if (!img) return;
         const appearStart = 0.05 * i;
         const appearEnd = appearStart + 0.32;
-        let localPercent = clamp((percent - appearStart) / (appearEnd - appearStart), 0, 1);
+        const localPercent = clamp((percent - appearStart) / (appearEnd - appearStart), 0, 1);
 
         let scale: number, opacity: number, x: number, y: number;
         if (localPercent <= 0) {
@@ -535,20 +535,20 @@ export default function MainPage() {
       });
 
       // 텍스트 이동
-      let textMove = clamp((percent - 0.05) / 0.4, 0, 1);
+      const textMove = clamp((percent - 0.05) / 0.4, 0, 1);
       if (leftTitleRef.current && rightTitleRef.current) {
         leftTitleRef.current.style.transform = `translateX(${-200 * textMove}px)`;
         rightTitleRef.current.style.transform = `translateX(${30 * textMove}px)`;
 
         // 텍스트 opacity
-        let textFade = clamp((percent - 0.47) / 0.13, 0, 1);
+        const textFade = clamp((percent - 0.47) / 0.13, 0, 1);
         leftTitleRef.current.style.opacity = String(1 - textFade);
         rightTitleRef.current.style.opacity = String(1 - textFade);
       }
 
       // 비디오 애니메이션
       if (videoBoxRef.current) {
-        let videoAppear = clamp((percent - 0.65) / 0.32, 0, 1);
+        const videoAppear = clamp((percent - 0.65) / 0.32, 0, 1);
         videoBoxRef.current.style.opacity = String(videoAppear);
         videoBoxRef.current.style.transform = `translate(-50%,-50%) scale(${0.3 + 0.7 * videoAppear})`;
       }
