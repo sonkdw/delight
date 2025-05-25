@@ -594,7 +594,7 @@
 
 @media all and (max-width: 767px) {
   .container {
-    display: none !important;
+    /* display: none !important; */
   }
 
   .sectionTop .logo {
