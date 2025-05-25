@@ -1321,10 +1321,10 @@ export default function MainPage() {
         {/* faq */}
         <div className={styles.sectionFaq}>
           <div className={styles.wrapper}>
-            <div ref={faqMarqueeRef} className={styles.marqueeTitle}>
+            {/* <div ref={faqMarqueeRef} className={styles.marqueeTitle}>
               FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ
               FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ
-            </div>
+            </div> */}
             <div className={styles.accorWrap}>
               {faqList.map((faq, idx) => (
                 <div className={styles.accorCol} key={idx}>
@@ -1353,11 +1353,11 @@ export default function MainPage() {
         {/* location */}
         <div className={styles.sectionLocation}>
           <div className={styles.wrapper}>
-            <div ref={mapMarqueeRef} className={styles.marqueeTitle}>
+            {/* <div ref={mapMarqueeRef} className={styles.marqueeTitle}>
               LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION
               LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION
               LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION
-            </div>
+            </div> */}
 
             <div className={styles.locationWrap}>
               <div className={styles.location}>
