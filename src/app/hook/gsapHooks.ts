@@ -30,7 +30,7 @@ export function useSectionStaggerAnim(
     const cardImg = sectionRef.current.querySelectorAll(`.${styles.cardImg}`);
     gsap.from(cardImg, {
       opacity: 0,
-      y: 100,
+      y: 50,
       scale: 1,
       // stagger: 0.15,
       duration: 1.5,
@@ -42,51 +42,6 @@ export function useSectionStaggerAnim(
         scrub: false,
       },
     });
-
-    // const cardImg2 = sectionRef.current.querySelectorAll(`.${styles.cardImg2}`);
-    // gsap.from(cardImg2, {
-    //   opacity: 1,
-    //   y: 200,
-    //   scale: 1,
-    //   duration: 0.5,
-    //   ease: 'power3.inOut',
-    //   scrollTrigger: {
-    //     trigger: sectionRef.current,
-    //     start: 'top -30%',
-    //     toggleActions: 'play none none reverse',
-    //     scrub: false,
-    //   },
-    // });
-
-    // const cardSlowImg = sectionRef.current.querySelectorAll(`.${styles.cardSlowImg}`);
-    // gsap.from(cardSlowImg, {
-    //   opacity: 0,
-    //   y: 80,
-    //   scale: 1,
-    //   duration: 1.9,
-    //   delay: 1.0,
-    //   ease: 'power3.inOut',
-    //   scrollTrigger: {
-    //     trigger: sectionRef.current,
-    //     toggleActions: 'play none none reverse',
-    //     // scrub: true,
-    //   },
-    // });
-
-    // const cardSlowImg2 = sectionRef.current.querySelectorAll(`.${styles.cardSlowImg2}`);
-    // gsap.from(cardSlowImg2, {
-    //   opacity: 0,
-    //   y: 60,
-    //   scale: 1,
-    //   duration: 1.0,
-    //   delay: 1.7,
-    //   ease: 'power2.inOut',
-    //   scrollTrigger: {
-    //     trigger: sectionRef.current,
-    //     toggleActions: 'play none none reverse',
-    //     // scrub: true,
-    //   },
-    // });
 
     const cardImgIn = sectionRef.current.querySelectorAll(`.${styles.cardImg} img`);
     gsap.from(cardImgIn, {

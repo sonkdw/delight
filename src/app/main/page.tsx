@@ -896,18 +896,17 @@ export default function MainPage() {
               </div>
             </div>
 
-            <div
-              ref={section7Ref}
-              className={`${styles.infoCard} ${styles.delightSeoulMarqueeContainer}`}
-            >
+            <div ref={section7Ref} className={` ${styles.delightSeoulMarqueeContainer}`}>
               <p ref={delightSeoulMarqueeRef} className={styles.marqueeText}>
                 delight seoul 2025
               </p>
-              <div className={`${styles.cardImg} ${styles.marginInline}`}>
-                <img
-                  src="/images/main/info09.jpg"
-                  alt="The Door:상상의 경계, 선택의 임계점 - 이 작업은 ‘문 ’이라는 상징을 통해 인간 내면의 상상력과 탐험 욕구, 그리고 선택의 양가성을 시각적으로 구현한 설치 작품입니다. "
-                />
+              <div className={styles.infoCard}>
+                <div className={`${styles.cardImg} ${styles.marginInline}`}>
+                  <img
+                    src="/images/main/info09.jpg"
+                    alt="The Door:상상의 경계, 선택의 임계점 - 이 작업은 ‘문 ’이라는 상징을 통해 인간 내면의 상상력과 탐험 욕구, 그리고 선택의 양가성을 시각적으로 구현한 설치 작품입니다. "
+                  />
+                </div>
               </div>
               <div className={`${styles.overflowHidden}`}>
                 <p ref={text9Ref} className={`${styles.wrapperInline} ${styles.wrapperBottom}`}>
@@ -992,7 +991,7 @@ export default function MainPage() {
                 </div>
 
                 <div className={`${styles.overflowHidden} ${styles.subText}`}>
-                  <p ref={text11Ref}>
+                  <p ref={text11Ref} style={{ width: '100vw' }}>
                     언어로 설명되기 전의 순간,
                     <br />그 안에 숨어있는 진짜 아름다움은 무엇일까?
                   </p>
@@ -1015,6 +1014,7 @@ export default function MainPage() {
           </div>
         </div>
 
+        {/* 이미지 날라오는 모션 */}
         <div ref={cardScaleContainerRef} className={styles.container}>
           <div className={styles.fixedBox}>
             {/* 이미지 6개 */}
