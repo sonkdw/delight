@@ -636,7 +636,7 @@ export default function MainPage() {
 
     // 짧으면 -20vw, 길면 텍스트 길이만큼
     const moveX =
-      textWidth > containerWidth ? -(textWidth - containerWidth) : -0.2 * window.innerWidth;
+      textWidth > containerWidth ? -(textWidth - containerWidth) : -0.3 * window.innerWidth;
 
     gsap.fromTo(
       textEl,
