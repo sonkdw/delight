@@ -66,12 +66,12 @@ const faqList = [
 ];
 
 export default function MainPage() {
-  const img1Ref = useRef<HTMLDivElement | null>(null);
-  const img2Ref = useRef<HTMLDivElement | null>(null);
-  const img3Ref = useRef<HTMLDivElement | null>(null);
-  const img4Ref = useRef<HTMLDivElement | null>(null);
-  const img5Ref = useRef<HTMLDivElement | null>(null);
-  const img6Ref = useRef<HTMLDivElement | null>(null);
+  // const img1Ref = useRef<HTMLDivElement | null>(null);
+  // const img2Ref = useRef<HTMLDivElement | null>(null);
+  // const img3Ref = useRef<HTMLDivElement | null>(null);
+  // const img4Ref = useRef<HTMLDivElement | null>(null);
+  // const img5Ref = useRef<HTMLDivElement | null>(null);
+  // const img6Ref = useRef<HTMLDivElement | null>(null);
   const textRef = useRef(null);
   const text2Ref = useRef(null);
   const text3Ref = useRef(null);
