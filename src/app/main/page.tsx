@@ -347,7 +347,7 @@ export default function MainPage() {
         end: '+=3000',
         scrub: true,
         pin: true,
-        anticipatePin: 2,
+        // anticipatePin: 2,
       },
     });
 
