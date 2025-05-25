@@ -608,112 +608,112 @@ export default function MainPage() {
   }, []);
 
   // 딜라이트 서울 마퀴
-  useEffect(() => {
-    if (!delightSeoulMarqueeRef.current) return;
-    gsap.fromTo(
-      delightSeoulMarqueeRef.current,
-      { x: 0, y: 0 },
-      {
-        x: '-20vw', // 이동거리
-        ease: 'none',
-        scrollTrigger: {
-          trigger: delightSeoulMarqueeRef.current,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: true,
-        },
-      }
-    );
-  }, []);
+  // useEffect(() => {
+  //   if (!delightSeoulMarqueeRef.current) return;
+  //   gsap.fromTo(
+  //     delightSeoulMarqueeRef.current,
+  //     { x: 0, y: 0 },
+  //     {
+  //       x: '-20vw', // 이동거리
+  //       ease: 'none',
+  //       scrollTrigger: {
+  //         trigger: delightSeoulMarqueeRef.current,
+  //         start: 'top bottom',
+  //         end: 'bottom top',
+  //         scrub: true,
+  //       },
+  //     }
+  //   );
+  // }, []);
 
   // faq 마퀴
-  useEffect(() => {
-    if (!faqMarqueeRef.current) return;
-    gsap.fromTo(
-      faqMarqueeRef.current,
-      { x: '-50vw', y: 0, rotate: -2 },
-      {
-        x: '0vw', // 이동거리
-        rotate: -2,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: faqMarqueeRef.current,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: true,
-        },
-      }
-    );
-  }, []);
+  // useEffect(() => {
+  //   if (!faqMarqueeRef.current) return;
+  //   gsap.fromTo(
+  //     faqMarqueeRef.current,
+  //     { x: '-50vw', y: 0, rotate: -2 },
+  //     {
+  //       x: '0vw', // 이동거리
+  //       rotate: -2,
+  //       ease: 'none',
+  //       scrollTrigger: {
+  //         trigger: faqMarqueeRef.current,
+  //         start: 'top bottom',
+  //         end: 'bottom top',
+  //         scrub: true,
+  //       },
+  //     }
+  //   );
+  // }, []);
 
   // location 마퀴
-  useEffect(() => {
-    if (!mapMarqueeRef.current) return;
-    gsap.fromTo(
-      mapMarqueeRef.current,
-      { x: '-50vw', y: 0, rotate: -2 },
-      {
-        x: '0vw', // 이동거리
-        rotate: -2,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: mapMarqueeRef.current,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: true,
-        },
-      }
-    );
-  }, []);
+  // useEffect(() => {
+  //   if (!mapMarqueeRef.current) return;
+  //   gsap.fromTo(
+  //     mapMarqueeRef.current,
+  //     { x: '-50vw', y: 0, rotate: -2 },
+  //     {
+  //       x: '0vw', // 이동거리
+  //       rotate: -2,
+  //       ease: 'none',
+  //       scrollTrigger: {
+  //         trigger: mapMarqueeRef.current,
+  //         start: 'top bottom',
+  //         end: 'bottom top',
+  //         scrub: true,
+  //       },
+  //     }
+  //   );
+  // }, []);
 
   // location 지도
-  useEffect(() => {
-    const scriptId = 'daum-roughmap-script';
+  // useEffect(() => {
+  //   const scriptId = 'daum-roughmap-script';
 
-    // roughmapLoader.js 중복 삽입 방지
-    if (!document.getElementById(scriptId)) {
-      const script = document.createElement('script');
-      script.id = scriptId;
-      script.src = 'https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js';
-      script.async = true;
-      document.body.appendChild(script);
+  //   // roughmapLoader.js 중복 삽입 방지
+  //   if (!document.getElementById(scriptId)) {
+  //     const script = document.createElement('script');
+  //     script.id = scriptId;
+  //     script.src = 'https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js';
+  //     script.async = true;
+  //     document.body.appendChild(script);
 
-      script.onload = () => {
-        // 스크립트 완전히 로드된 후에만 render 실행!
-        if (
-          window.daum &&
-          window.daum.roughmap &&
-          typeof window.daum.roughmap.Lander === 'function'
-        ) {
-          new window.daum.roughmap.Lander({
-            timestamp: '1747889978369',
-            key: '2o4s2',
-            mapWidth: '800',
-            mapHeight: '360',
-          }).render();
-        }
-      };
-    } else {
-      // 이미 있으면 polling (스크립트가 비동기로 로드될 수 있어서)
-      const checkAndRender = () => {
-        if (
-          window.daum &&
-          window.daum.roughmap &&
-          typeof window.daum.roughmap.Lander === 'function'
-        ) {
-          new window.daum.roughmap.Lander({
-            timestamp: '1747889978369',
-            key: '2o4s2',
-            mapWidth: '800',
-            mapHeight: '360',
-          }).render();
-        } else {
-          setTimeout(checkAndRender, 100);
-        }
-      };
-      checkAndRender();
-    }
-  }, []);
+  //     script.onload = () => {
+  //       // 스크립트 완전히 로드된 후에만 render 실행!
+  //       if (
+  //         window.daum &&
+  //         window.daum.roughmap &&
+  //         typeof window.daum.roughmap.Lander === 'function'
+  //       ) {
+  //         new window.daum.roughmap.Lander({
+  //           timestamp: '1747889978369',
+  //           key: '2o4s2',
+  //           mapWidth: '800',
+  //           mapHeight: '360',
+  //         }).render();
+  //       }
+  //     };
+  //   } else {
+  //     // 이미 있으면 polling (스크립트가 비동기로 로드될 수 있어서)
+  //     const checkAndRender = () => {
+  //       if (
+  //         window.daum &&
+  //         window.daum.roughmap &&
+  //         typeof window.daum.roughmap.Lander === 'function'
+  //       ) {
+  //         new window.daum.roughmap.Lander({
+  //           timestamp: '1747889978369',
+  //           key: '2o4s2',
+  //           mapWidth: '800',
+  //           mapHeight: '360',
+  //         }).render();
+  //       } else {
+  //         setTimeout(checkAndRender, 100);
+  //       }
+  //     };
+  //     checkAndRender();
+  //   }
+  // }, []);
 
   return (
     <div id="smooth-wrapper" className={styles.noise}>
