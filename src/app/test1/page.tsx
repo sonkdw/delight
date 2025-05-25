@@ -110,7 +110,7 @@ export default function MainPage() {
   const textLeftRef = useRef(null);
   const textRightRef = useRef(null);
 
-  // const delightSeoulMarqueeRef = useRef<HTMLDivElement>(null);
+  const delightSeoulMarqueeRef = useRef<HTMLDivElement>(null);
   // const faqMarqueeRef = useRef<HTMLDivElement>(null);
   // const mapMarqueeRef = useRef<HTMLDivElement>(null);
 
@@ -608,23 +608,23 @@ export default function MainPage() {
   }, []);
 
   // 딜라이트 서울 마퀴
-  // useEffect(() => {
-  //   if (!delightSeoulMarqueeRef.current) return;
-  //   gsap.fromTo(
-  //     delightSeoulMarqueeRef.current,
-  //     { x: 0, y: 0 },
-  //     {
-  //       x: '-20vw', // 이동거리
-  //       ease: 'none',
-  //       scrollTrigger: {
-  //         trigger: delightSeoulMarqueeRef.current,
-  //         start: 'top bottom',
-  //         end: 'bottom top',
-  //         scrub: true,
-  //       },
-  //     }
-  //   );
-  // }, []);
+  useEffect(() => {
+    if (!delightSeoulMarqueeRef.current) return;
+    gsap.fromTo(
+      delightSeoulMarqueeRef.current,
+      { x: 0, y: 0 },
+      {
+        x: '-20vw', // 이동거리
+        ease: 'none',
+        scrollTrigger: {
+          trigger: delightSeoulMarqueeRef.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+        },
+      }
+    );
+  }, []);
 
   // faq 마퀴
   // useEffect(() => {
@@ -904,7 +904,7 @@ export default function MainPage() {
               </div>
             </div>
 
-            {/* <div ref={section7Ref} className={styles.infoCard}>
+            <div ref={section7Ref} className={styles.infoCard}>
               <p ref={delightSeoulMarqueeRef} className={styles.marqueeText}>
                 delight seoul 2025
               </p>
@@ -921,7 +921,7 @@ export default function MainPage() {
                   우리가 진실이라고 믿는 것은 어디까지인가?
                 </p>
               </div>
-            </div> */}
+            </div>
           </div>
         </div>
 
