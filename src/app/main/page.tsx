@@ -861,7 +861,7 @@ export default function MainPage() {
                   소란스러우나 고요하고, 무심하지만 다정하다.
                 </p>
               </div>
-              <div className={`${styles.cardImg} ${styles.marginInline}`}>
+              <div className={`${styles.divideImgCenter} ${styles.cardImg} ${styles.marginInline}`}>
                 <img
                   src="/images/main/info06.jpg"
                   alt="돌과 나무에서 시작된 이야기 A Story That Began with Stone and Wood - 공간 미디어 인스톨레이션 작품은 일상 속에서 쉽게 마주치는 돌, 나무, 그리고 인간과 자연의 손길이 오랜 시간 축적된 다양한 오브제들을 예술적 모티프로 삼아 구성되었다."

@@ -743,7 +743,13 @@
     height: 0px;
   }
 
-  .divideImgRight.cardImg img,
+  .divideImgCenter.cardImg img {
+    width: 100%;
+    display: block;
+    transform-origin: 50% 120% 0;
+  }
+
+  .divideImgLeft.cardImg img,
   .divideImgRight.cardImg img {
     width: 100%;
     display: block;
