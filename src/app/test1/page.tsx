@@ -565,21 +565,21 @@ export default function MainPage() {
   }, []);
 
   // 비디오가 뷰포트에 들어오면 재생
-  const [inView, setInView] = useState(false);
+  // const [inView, setInView] = useState(false);
 
-  useEffect(() => {
-    if (!videoDivRef.current) return;
-    const observer = new window.IntersectionObserver(
-      ([entry]) => {
-        setInView(entry.isIntersecting);
-      },
-      {
-        threshold: 0.3, // 30% 이상 보이면 inView true
-      }
-    );
-    observer.observe(videoDivRef.current);
-    return () => observer.disconnect();
-  }, []);
+  // useEffect(() => {
+  //   if (!videoDivRef.current) return;
+  //   const observer = new window.IntersectionObserver(
+  //     ([entry]) => {
+  //       setInView(entry.isIntersecting);
+  //     },
+  //     {
+  //       threshold: 0.3, // 30% 이상 보이면 inView true
+  //     }
+  //   );
+  //   observer.observe(videoDivRef.current);
+  //   return () => observer.disconnect();
+  // }, []);
 
   // 그리드 ref
   useEffect(() => {
