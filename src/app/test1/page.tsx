@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import styles from '../styles/TestPage.module.css';
+import styles from '../styles/Main.module.css';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollSmoother } from 'gsap/ScrollSmoother';
@@ -608,16 +608,44 @@ export default function MainPage() {
   }, []);
 
   // 딜라이트 서울 마퀴
+  // useEffect(() => {
+  //   if (!delightSeoulMarqueeRef.current) return;
+  //   gsap.fromTo(
+  //     delightSeoulMarqueeRef.current,
+  //     { x: 0, y: 0 },
+  //     {
+  //       x: '-20vw', // 이동거리
+  //       ease: 'none',
+  //       scrollTrigger: {
+  //         trigger: delightSeoulMarqueeRef.current,
+  //         start: 'top bottom',
+  //         end: 'bottom top',
+  //         scrub: true,
+  //       },
+  //     }
+  //   );
+  // }, []);
+
   useEffect(() => {
     if (!delightSeoulMarqueeRef.current) return;
+
+    const textEl = delightSeoulMarqueeRef.current;
+    const containerEl = textEl.parentElement;
+    const textWidth = textEl.offsetWidth;
+    const containerWidth = containerEl ? containerEl.offsetWidth : 0;
+
+    // 짧으면 -20vw, 길면 텍스트 길이만큼
+    const moveX =
+      textWidth > containerWidth ? -(textWidth - containerWidth) : -0.2 * window.innerWidth;
+
     gsap.fromTo(
-      delightSeoulMarqueeRef.current,
+      textEl,
       { x: 0, y: 0 },
       {
-        x: '-20vw', // 이동거리
+        x: moveX,
         ease: 'none',
         scrollTrigger: {
-          trigger: delightSeoulMarqueeRef.current,
+          trigger: textEl,
           start: 'top bottom',
           end: 'bottom top',
           scrub: true,

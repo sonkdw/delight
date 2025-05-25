@@ -432,8 +432,10 @@
   font-family: 'Montserrat', sans-serif;
   font-weight: 800;
   width: 100%;
+  min-width: 100%;
   position: relative;
   top: 80px;
+  white-space: nowrap;
 }
 
 .sectionGrid {
