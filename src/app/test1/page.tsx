@@ -110,9 +110,9 @@ export default function MainPage() {
   const textLeftRef = useRef(null);
   const textRightRef = useRef(null);
 
-  const delightSeoulMarqueeRef = useRef<HTMLDivElement>(null);
-  const faqMarqueeRef = useRef<HTMLDivElement>(null);
-  const mapMarqueeRef = useRef<HTMLDivElement>(null);
+  // const delightSeoulMarqueeRef = useRef<HTMLDivElement>(null);
+  // const faqMarqueeRef = useRef<HTMLDivElement>(null);
+  // const mapMarqueeRef = useRef<HTMLDivElement>(null);
 
   // 그리드
   const gridBoxRef = useRef<HTMLDivElement>(null);
