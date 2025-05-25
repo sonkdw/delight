@@ -1085,7 +1085,6 @@ export default function MainPage() {
           </div>
         </div> */}
         <>
-          <div className="spacer">스크롤 다운</div>
           <section className="sticky-section" ref={stickySectionRef}>
             <div className="sticky-content">
               <div className="images-wrap">
@@ -1119,21 +1118,10 @@ export default function MainPage() {
               </div>
             </div>
           </section>
-          <div className="spacer">The End</div>
           <style jsx>{`
-            .spacer {
-              height: 100vh;
-              background: #e9e9e9;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              color: #bbb;
-              font-size: 2rem;
-            }
             .sticky-section {
               position: relative;
               height: 260vh;
-              background: #fff;
             }
             .sticky-content {
               position: sticky;
@@ -1217,6 +1205,7 @@ export default function MainPage() {
               transition:
                 transform 0.4s,
                 opacity 0.4s;
+              white-space: nowrap;
             }
             .rightTitle {
               position: relative;
