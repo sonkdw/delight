@@ -416,6 +416,18 @@
   font-size: 32px;
 }
 
+.display * {
+  font-family: 'Noto Serif Display', serif;
+  font-weight: 500;
+  letter-spacing: 0.3rem;
+}
+
+.blind h3 {
+  font-family: 'Noto Serif Display', serif;
+  font-weight: 500;
+  letter-spacing: 0.1rem;
+}
+
 .divideBox {
   display: flex;
   justify-content: space-between;

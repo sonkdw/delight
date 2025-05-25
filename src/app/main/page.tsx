@@ -101,7 +101,6 @@ export default function MainPage() {
   const cardImg2Ref = useRef(null);
 
   const animatedTextRef = useRef<HTMLDivElement>(null);
-  const animatedText2Ref = useRef<HTMLDivElement>(null);
 
   const cardScaleContainerRef = useRef<HTMLDivElement>(null);
 
@@ -248,28 +247,6 @@ export default function MainPage() {
           ease: 'power3.inOut',
           scrollTrigger: {
             trigger: animatedTextRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse',
-          },
-        }
-      );
-    }
-
-    if (animatedText2Ref.current) {
-      // 1. 단어 단위 래핑
-      const split = new SplitText(animatedText2Ref.current, { type: 'words' });
-
-      // 2. 단어별 애니메이션: opacity 0 → 1
-      gsap.fromTo(
-        split.words,
-        { opacity: 0 },
-        {
-          opacity: 1,
-          stagger: 0.27,
-          duration: 0.45, // 등장속도
-          ease: 'power3.inOut',
-          scrollTrigger: {
-            trigger: animatedText2Ref.current,
             start: 'top 80%',
             toggleActions: 'play none none reverse',
           },
@@ -592,19 +569,12 @@ export default function MainPage() {
     if (!delightSeoulMarqueeRef.current) return;
 
     const textEl = delightSeoulMarqueeRef.current;
-    const containerEl = textEl.parentElement;
-    const textWidth = textEl.offsetWidth;
-    const containerWidth = containerEl ? containerEl.offsetWidth : 0;
-
-    // 짧으면 -20vw, 길면 텍스트 길이만큼
-    const moveX =
-      textWidth > containerWidth ? -(textWidth - containerWidth) : -0.3 * window.innerWidth;
 
     gsap.fromTo(
       textEl,
-      { x: 0, y: 0 },
+      { x: 120, y: 0 },
       {
-        x: moveX,
+        x: '-10vw',
         ease: 'none',
         scrollTrigger: {
           trigger: textEl,
@@ -775,7 +745,11 @@ export default function MainPage() {
                     alt="631 - 딜라이트(Delight)의 상징적 모티프인 “청사초롱”을 현대적으로 재해석한 인스톨레이션 작업"
                   />
                 </div>
-                <div ref={animatedTextRef} className={styles.keyText}>
+                <div
+                  ref={animatedTextRef}
+                  className={`${styles.keyText} ${styles.display}`}
+                  style={{ fontFamily: 'Noto Serif Display' }}
+                >
                   Synchronicity
                   <br />
                   of Simulacra
@@ -855,10 +829,10 @@ export default function MainPage() {
           <div className={styles.wrapperTop}>
             <div ref={section5Ref} className={styles.infoCard}>
               <div className={`${styles.overflowHidden} `}>
-                <p ref={text6Ref} className={styles.wrapperInline}>
-                  도시는 어둡고도 찬란하며, 차갑고도 뜨겁다.
-                  <br />
-                  소란스러우나 고요하고, 무심하지만 다정하다.
+                <p ref={text6Ref} className={isMobile ? styles.wrapperInline : undefined}>
+                  지금, 여기 <br />
+                  익숙하면서도 낯선 <br />
+                  공존의 장면
                 </p>
               </div>
               <div className={`${styles.divideImgCenter} ${styles.cardImg} ${styles.marginInline}`}>
@@ -869,7 +843,7 @@ export default function MainPage() {
               </div>
 
               <div className={`${styles.subText} ${styles.overflowHidden}`}>
-                <p ref={text7Ref} className={styles.wrapperInline}>
+                <p ref={text7Ref} className={isMobile ? styles.wrapperInline : undefined}>
                   빛의 기억, 어둠과 빛
                 </p>
               </div>
@@ -885,7 +859,9 @@ export default function MainPage() {
                 </div>
                 <div className={`${styles.keyText} ${styles.overflowHidden}`}>
                   <p ref={text8Ref}>
-                    끊임없이 넘쳐흐르는
+                    끊임없이
+                    {isMobile ? <br /> : ''}
+                    넘쳐흐르는
                     <br />
                     사각의 흐름
                   </p>
@@ -909,7 +885,10 @@ export default function MainPage() {
                 </div>
               </div>
               <div className={`${styles.overflowHidden}`}>
-                <p ref={text9Ref} className={`${styles.wrapperInline} ${styles.wrapperBottom}`}>
+                <p
+                  ref={text9Ref}
+                  className={`${styles.wrapperBottom} ${isMobile ? styles.wrapperInline : styles.infoCard}`}
+                >
                   무엇이 숨겨지고 있고, 무엇이 드러나는가?
                   <br />
                   우리가 진실이라고 믿는 것은 어디까지인가?
@@ -947,7 +926,7 @@ export default function MainPage() {
         <div ref={section8Ref} className={`${styles.sectionInfo} ${styles.marginTopVh}`}>
           <div className={styles.wrapper}>
             <div className={styles.infoCard}>
-              <div className={styles.cardImg}>
+              <div className={`${styles.cardImg} ${styles.divideImgCenter}`}>
                 <img
                   src="/images/main/info10.jpg"
                   alt="Neon Notelgia - 본 작업은 도시 공간 속에서 흔히 스쳐 지나칠 수 있지만, 일상 속 필수적 정보를 전달하는 ‘사인(Sign)’의 의미에 주목한 공간 미디어 인스톨레이션이다."
@@ -972,8 +951,8 @@ export default function MainPage() {
                     alt="Resonance - 이 작업은 관람객이 디지털로 구현된 대나무 숲을 천천히 거닐도록 유도하며, 서울이라는 도시를 정의하는 ‘공식적인 언어’가 과연 진심을 담고 있는지, 아니면 더 깊은 진실을 감추 고 있는지를 스스로 질문하게 합니다."
                   />
                 </div>
-                <div ref={animatedText2Ref} className={`${styles.keyText} ${styles.colorWhite}`}>
-                  Resonance
+                <div className={`${styles.blind} ${styles.keyText} ${styles.colorWhite}`}>
+                  <h3>Resonance</h3>
                 </div>
                 <div
                   className={`${styles.floatingImg} ${styles.floatingImgLeft} ${styles.cardSlowImg2}`}
