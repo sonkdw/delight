@@ -103,12 +103,12 @@ export default function MainPage() {
   const animatedTextRef = useRef<HTMLDivElement>(null);
   const animatedText2Ref = useRef<HTMLDivElement>(null);
 
-  const cardScaleContainerRef = useRef<HTMLDivElement>(null);
+  // const cardScaleContainerRef = useRef<HTMLDivElement>(null);
 
   const gridRef = useRef(null);
   const videoDivRef = useRef(null);
-  const textLeftRef = useRef(null);
-  const textRightRef = useRef(null);
+  // const textLeftRef = useRef(null);
+  // const textRightRef = useRef(null);
 
   const delightSeoulMarqueeRef = useRef<HTMLDivElement>(null);
   const faqMarqueeRef = useRef<HTMLDivElement>(null);
