@@ -1351,7 +1351,7 @@ export default function MainPage() {
         </div> */}
 
         {/* location */}
-        <div className={styles.sectionLocation}>
+        {/* <div className={styles.sectionLocation}>
           <div className={styles.wrapper}>
             <div ref={mapMarqueeRef} className={styles.marqueeTitle}>
               LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION
@@ -1362,11 +1362,11 @@ export default function MainPage() {
             <div className={styles.locationWrap}>
               <div className={styles.location}>
                 {/* 지도 */}
-                {/* <div
+        {/* <div
                   id="daumRoughmapContainer1747889978369"
                   className="root_daum_roughmap root_daum_roughmap_landing"
                 /> */}
-                {/* 임시 지도 이미지 */}
+        {/* 임시 지도 이미지
                 <div>
                   <img src="/images/main/location.png" alt="map" />
                 </div>
@@ -1395,7 +1395,7 @@ export default function MainPage() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <footer className={styles.footer}>
           <div className={styles.wrapper}>
