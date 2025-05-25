@@ -890,16 +890,16 @@ export default function MainPage() {
 
         {/* 다섯번째 섹션 */}
         <div className={`${styles.sectionInfo}`}>
-          <div className={styles.wrapper}>
+          <div className={styles.wrapperTop}>
             <div ref={section5Ref} className={styles.infoCard}>
-              <div className={`${styles.overflowHidden}`}>
-                <p ref={text6Ref}>
+              <div className={`${styles.overflowHidden} `}>
+                <p ref={text6Ref} className={styles.wrapperInline}>
                   도시는 어둡고도 찬란하며, 차갑고도 뜨겁다.
                   <br />
                   소란스러우나 고요하고, 무심하지만 다정하다.
                 </p>
               </div>
-              <div className={styles.cardImg}>
+              <div className={`${styles.cardImg} ${styles.marginInline}`}>
                 <img
                   src="/images/main/info06.jpg"
                   alt="돌과 나무에서 시작된 이야기 A Story That Began with Stone and Wood - 공간 미디어 인스톨레이션 작품은 일상 속에서 쉽게 마주치는 돌, 나무, 그리고 인간과 자연의 손길이 오랜 시간 축적된 다양한 오브제들을 예술적 모티프로 삼아 구성되었다."
@@ -907,11 +907,13 @@ export default function MainPage() {
               </div>
 
               <div className={`${styles.subText} ${styles.overflowHidden}`}>
-                <p ref={text7Ref}>빛의 기억, 어둠과 빛</p>
+                <p ref={text7Ref} className={styles.wrapperInline}>
+                  빛의 기억, 어둠과 빛
+                </p>
               </div>
             </div>
 
-            <div ref={section6Ref} className={styles.infoCardDivide}>
+            <div ref={section6Ref} className={`${styles.infoCardDivide} ${styles.wrapperInline}`}>
               <div className={styles.divideBox}>
                 <div className={`${styles.divideImg} ${styles.divideImgLeft} ${styles.cardImg}`}>
                   <img
@@ -939,14 +941,14 @@ export default function MainPage() {
               <p ref={delightSeoulMarqueeRef} className={styles.marqueeText}>
                 delight seoul 2025
               </p>
-              <div className={styles.cardImg}>
+              <div className={`${styles.cardImg} ${styles.marginInline}`}>
                 <img
                   src="/images/main/info09.jpg"
                   alt="The Door:상상의 경계, 선택의 임계점 - 이 작업은 ‘문 ’이라는 상징을 통해 인간 내면의 상상력과 탐험 욕구, 그리고 선택의 양가성을 시각적으로 구현한 설치 작품입니다. "
                 />
               </div>
               <div className={`${styles.overflowHidden}`}>
-                <p ref={text9Ref}>
+                <p ref={text9Ref} className={`${styles.wrapperInline} ${styles.wrapperBottom}`}>
                   무엇이 숨겨지고 있고, 무엇이 드러나는가?
                   <br />
                   우리가 진실이라고 믿는 것은 어디까지인가?
