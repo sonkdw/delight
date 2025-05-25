@@ -904,7 +904,10 @@ export default function MainPage() {
               </div>
             </div>
 
-            <div ref={section7Ref} className={styles.infoCard}>
+            <div
+              ref={section7Ref}
+              className={`${styles.infoCard} ${styles.delightSeoulMarqueeContainer}`}
+            >
               <p ref={delightSeoulMarqueeRef} className={styles.marqueeText}>
                 delight seoul 2025
               </p>
