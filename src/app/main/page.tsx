@@ -142,19 +142,22 @@ export default function MainPage() {
   };
 
   // 스크롤 스무더
-  // useEffect(() => {
-  //   const smoother = ScrollSmoother.create({
-  //     wrapper: '#smooth-wrapper',
-  //     content: '#smooth-content',
-  //     smooth: 1, // 부드러움 정도, 1~2 추천
-  //     effects: true, // 패럴랙스 효과용, 기본 true
-  //   });
+  useEffect(() => {
+    if (isMobile === undefined) return;
 
-  //   // cleanup
-  //   return () => {
-  //     if (smoother) smoother.kill();
-  //   };
-  // }, []);
+    if (!isMobile) {
+      const smoother = ScrollSmoother.create({
+        wrapper: '#smooth-wrapper',
+        content: '#smooth-content',
+        smooth: 1, // 부드러움 정도, 1~2 추천
+        effects: true, // 패럴랙스 효과용, 기본 true
+      });
+      // cleanup
+      return () => {
+        if (smoother) smoother.kill();
+      };
+    }
+  }, [isMobile]);
 
   // 로고 텍스트 스플릿
   useEffect(() => {
