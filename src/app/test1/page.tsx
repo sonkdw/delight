@@ -313,142 +313,255 @@ export default function MainPage() {
   }, []);
 
   // 이미지 날라오는 모션
+  // useEffect(() => {
+  //   if (
+  //     !cardScaleContainerRef.current ||
+  //     !img1Ref.current ||
+  //     !img2Ref.current ||
+  //     !img3Ref.current ||
+  //     !img4Ref.current ||
+  //     !img5Ref.current ||
+  //     !img6Ref.current ||
+  //     !videoDivRef.current ||
+  //     !textLeftRef.current ||
+  //     !textRightRef.current
+  //   )
+  //     return;
+
+  //   gsap.registerPlugin(ScrollTrigger);
+
+  //   const scrollSection = cardScaleContainerRef.current;
+  //   const moveSettings = [
+  //     { x: -200, y: 0 },
+  //     { x: 80, y: -60 },
+  //     { x: 120, y: 120 },
+  //     { x: -60, y: 130 },
+  //     { x: 100, y: -100 },
+  //     { x: 10, y: -100 },
+  //   ];
+
+  //   const tl = gsap.timeline({
+  //     scrollTrigger: {
+  //       trigger: scrollSection,
+  //       start: 'top top',
+  //       end: '+=3000',
+  //       scrub: true,
+  //       pin: false,
+  //       anticipatePin: 2,
+  //     },
+  //   });
+
+  //   const imageRefs = [img1Ref, img4Ref, img6Ref, img5Ref, img3Ref, img2Ref];
+
+  //   imageRefs.forEach((imgRef, i) => {
+  //     const { x, y } = moveSettings[i];
+  //     tl.to(
+  //       imgRef.current,
+  //       {
+  //         duration: 0.8,
+  //         keyframes: [
+  //           { scale: 0.3, opacity: 0, x: 0, y: 0, duration: 0 },
+  //           { scale: 0.8, opacity: 1, x: (x * 2) / 3, y: (y * 2) / 3, ease: 'none' },
+  //           { scale: 1, opacity: 0, x, y, ease: 'none' },
+  //         ],
+  //       },
+  //       `-=${i === 0 ? 0 : 0.6}`
+  //     );
+  //   });
+
+  //   // 텍스트 이동
+  //   // x축의 수치로 텍스트의 움직임을 조절하시면 됩니다
+  //   tl.to(textLeftRef.current, { x: -200, duration: 1, ease: 'power2.out' }, 'textMove');
+  //   tl.to(textRightRef.current, { x: 30, duration: 1, ease: 'power2.out' }, 'textMove');
+
+  //   // opacity 조정
+  //   tl.to(
+  //     textLeftRef.current,
+  //     { opacity: 0, duration: 0.6, ease: 'power2.out' },
+  //     'textMove+=0.3' // 0.3초 뒤에 opacity 시작
+  //   );
+  //   tl.to(textRightRef.current, { opacity: 0, duration: 0.6, ease: 'power2.out' }, 'textMove+=0.3');
+
+  //   // 비디오 커지며 텍스트 위로
+  //   tl.fromTo(
+  //     videoDivRef.current,
+  //     {
+  //       opacity: 1,
+  //       scale: 0,
+  //       duration: 1.5,
+  //       ease: 'power3.out',
+  //     },
+  //     {
+  //       opacity: 1,
+  //       width: '80vw',
+  //       height: '80vh',
+  //       scale: 1,
+  //       duration: 1.5,
+  //       ease: 'power3.out',
+  //     },
+  //     '-=.9'
+  //   );
+
+  //   // 비디오 커지며 텍스트 위로
+  //   // ScrollTrigger.matchMedia({
+  //   //   // 데스크탑
+  //   //   '(min-width: 769px)': () => {
+  //   //     tl.fromTo(
+  //   //       videoDivRef.current,
+  //   //       {
+  //   //         opacity: 1,
+  //   //         scale: 0,
+  //   //       },
+  //   //       {
+  //   //         opacity: 1,
+  //   //         width: '80vw',
+  //   //         height: '80vh',
+  //   //         scale: 1,
+  //   //         duration: 1.5,
+  //   //         ease: 'power3.out',
+  //   //       },
+  //   //       '-=.9'
+  //   //     );
+  //   //   },
+  //   //   // 모바일
+  //   //   '(max-width: 768px)': () => {
+  //   //     tl.fromTo(
+  //   //       videoDivRef.current,
+  //   //       {
+  //   //         opacity: 1,
+  //   //         scale: 0,
+  //   //       },
+  //   //       {
+  //   //         opacity: 1,
+  //   //         width: '90vw',
+  //   //         height: '50vh',
+  //   //         scale: 1,
+  //   //         duration: 1.2,
+  //   //         ease: 'power3.out',
+  //   //       },
+  //   //       '-=.9'
+  //   //     );
+  //   //   },
+  //   // });
+
+  //   // ScrollTrigger.refresh();
+
+  //   return () => {
+  //     ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+  //   };
+  // }, []);
+
+  // 이미지 날라오는 모션
+  const moveSettings = [
+    { x: -200, y: 0 },
+    { x: 80, y: -60 },
+    { x: 120, y: 120 },
+    { x: -60, y: 130 },
+    { x: 100, y: -100 },
+    { x: 10, y: -100 },
+  ];
+
+  const imgSrcs = [
+    '/images/main/section3-08.jpg', // img1
+    '/images/main/section3-13.jpg', // img2
+    '/images/main/section3-14.jpg', // img3
+    '/images/main/section3-02.jpg', // img4
+    '/images/main/section3-07.jpg', // img5
+    '/images/main/section3-06.jpg', // img6
+  ];
+
+  const stickySectionRef = useRef<HTMLElement | null>(null);
+  const imageRefs = [
+    useRef<HTMLImageElement | null>(null),
+    useRef<HTMLImageElement | null>(null),
+    useRef<HTMLImageElement | null>(null),
+    useRef<HTMLImageElement | null>(null),
+    useRef<HTMLImageElement | null>(null),
+    useRef<HTMLImageElement | null>(null),
+  ];
+  const leftTitleRef = useRef<HTMLSpanElement | null>(null);
+  const rightTitleRef = useRef<HTMLSpanElement | null>(null);
+  const videoBoxRef = useRef<HTMLDivElement | null>(null);
+
+  function clamp(val: number, min: number, max: number): number {
+    return Math.max(min, Math.min(val, max));
+  }
+
   useEffect(() => {
-    if (
-      !cardScaleContainerRef.current ||
-      !img1Ref.current ||
-      !img2Ref.current ||
-      !img3Ref.current ||
-      !img4Ref.current ||
-      !img5Ref.current ||
-      !img6Ref.current ||
-      !videoDivRef.current ||
-      !textLeftRef.current ||
-      !textRightRef.current
-    )
-      return;
+    const handleScroll = () => {
+      if (!stickySectionRef.current) return;
 
-    gsap.registerPlugin(ScrollTrigger);
+      const rect = stickySectionRef.current.getBoundingClientRect();
+      const sectionHeight = stickySectionRef.current.offsetHeight;
+      const scrollable = sectionHeight - window.innerHeight;
+      const progressRaw = clamp(-rect.top, 0, scrollable);
+      const percent = scrollable > 0 ? progressRaw / scrollable : 0;
 
-    const scrollSection = cardScaleContainerRef.current;
-    const moveSettings = [
-      { x: -200, y: 0 },
-      { x: 80, y: -60 },
-      { x: 120, y: 120 },
-      { x: -60, y: 130 },
-      { x: 100, y: -100 },
-      { x: 10, y: -100 },
-    ];
+      // 이미지 애니메이션
+      const order = [0, 3, 5, 4, 2, 1]; // img1, img4, img6, img5, img3, img2
+      order.forEach((imgIdx, i) => {
+        const img = imageRefs[imgIdx].current;
+        if (!img) return;
+        const appearStart = 0.05 * i;
+        const appearEnd = appearStart + 0.32;
+        let localPercent = clamp((percent - appearStart) / (appearEnd - appearStart), 0, 1);
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: scrollSection,
-        start: 'top top',
-        end: '+=3000',
-        scrub: true,
-        pin: false,
-        anticipatePin: 2,
-      },
-    });
+        let scale: number, opacity: number, x: number, y: number;
+        if (localPercent <= 0) {
+          scale = 0.3;
+          opacity = 0;
+          x = 0;
+          y = 0;
+        } else if (localPercent < 0.7) {
+          const p = localPercent / 0.7;
+          scale = 0.3 + 0.5 * p;
+          opacity = 1 * p;
+          x = moveSettings[i].x * (2 / 3) * p;
+          y = moveSettings[i].y * (2 / 3) * p;
+        } else if (localPercent < 1) {
+          const p = (localPercent - 0.7) / 0.3;
+          scale = 0.8 + 0.2 * p;
+          opacity = 1 - p;
+          x = moveSettings[i].x * (2 / 3) + moveSettings[i].x * (1 / 3) * p;
+          y = moveSettings[i].y * (2 / 3) + moveSettings[i].y * (1 / 3) * p;
+        } else {
+          scale = 1;
+          opacity = 0;
+          x = moveSettings[i].x;
+          y = moveSettings[i].y;
+        }
+        img.style.transform = `scale(${scale}) translate(${x}px,${y}px)`;
+        img.style.opacity = String(opacity);
+      });
 
-    const imageRefs = [img1Ref, img4Ref, img6Ref, img5Ref, img3Ref, img2Ref];
+      // 텍스트 이동
+      let textMove = clamp((percent - 0.05) / 0.4, 0, 1);
+      if (leftTitleRef.current && rightTitleRef.current) {
+        leftTitleRef.current.style.transform = `translateX(${-200 * textMove}px)`;
+        rightTitleRef.current.style.transform = `translateX(${30 * textMove}px)`;
 
-    imageRefs.forEach((imgRef, i) => {
-      const { x, y } = moveSettings[i];
-      tl.to(
-        imgRef.current,
-        {
-          duration: 0.8,
-          keyframes: [
-            { scale: 0.3, opacity: 0, x: 0, y: 0, duration: 0 },
-            { scale: 0.8, opacity: 1, x: (x * 2) / 3, y: (y * 2) / 3, ease: 'none' },
-            { scale: 1, opacity: 0, x, y, ease: 'none' },
-          ],
-        },
-        `-=${i === 0 ? 0 : 0.6}`
-      );
-    });
+        // 텍스트 opacity
+        let textFade = clamp((percent - 0.47) / 0.13, 0, 1);
+        leftTitleRef.current.style.opacity = String(1 - textFade);
+        rightTitleRef.current.style.opacity = String(1 - textFade);
+      }
 
-    // 텍스트 이동
-    // x축의 수치로 텍스트의 움직임을 조절하시면 됩니다
-    tl.to(textLeftRef.current, { x: -200, duration: 1, ease: 'power2.out' }, 'textMove');
-    tl.to(textRightRef.current, { x: 30, duration: 1, ease: 'power2.out' }, 'textMove');
-
-    // opacity 조정
-    tl.to(
-      textLeftRef.current,
-      { opacity: 0, duration: 0.6, ease: 'power2.out' },
-      'textMove+=0.3' // 0.3초 뒤에 opacity 시작
-    );
-    tl.to(textRightRef.current, { opacity: 0, duration: 0.6, ease: 'power2.out' }, 'textMove+=0.3');
-
-    // 비디오 커지며 텍스트 위로
-    tl.fromTo(
-      videoDivRef.current,
-      {
-        opacity: 1,
-        scale: 0,
-        duration: 1.5,
-        ease: 'power3.out',
-      },
-      {
-        opacity: 1,
-        width: '80vw',
-        height: '80vh',
-        scale: 1,
-        duration: 1.5,
-        ease: 'power3.out',
-      },
-      '-=.9'
-    );
-
-    // 비디오 커지며 텍스트 위로
-    // ScrollTrigger.matchMedia({
-    //   // 데스크탑
-    //   '(min-width: 769px)': () => {
-    //     tl.fromTo(
-    //       videoDivRef.current,
-    //       {
-    //         opacity: 1,
-    //         scale: 0,
-    //       },
-    //       {
-    //         opacity: 1,
-    //         width: '80vw',
-    //         height: '80vh',
-    //         scale: 1,
-    //         duration: 1.5,
-    //         ease: 'power3.out',
-    //       },
-    //       '-=.9'
-    //     );
-    //   },
-    //   // 모바일
-    //   '(max-width: 768px)': () => {
-    //     tl.fromTo(
-    //       videoDivRef.current,
-    //       {
-    //         opacity: 1,
-    //         scale: 0,
-    //       },
-    //       {
-    //         opacity: 1,
-    //         width: '90vw',
-    //         height: '50vh',
-    //         scale: 1,
-    //         duration: 1.2,
-    //         ease: 'power3.out',
-    //       },
-    //       '-=.9'
-    //     );
-    //   },
-    // });
-
-    // ScrollTrigger.refresh();
-
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      // 비디오 애니메이션
+      if (videoBoxRef.current) {
+        let videoAppear = clamp((percent - 0.65) / 0.32, 0, 1);
+        videoBoxRef.current.style.opacity = String(videoAppear);
+        videoBoxRef.current.style.transform = `translate(-50%,-50%) scale(${0.3 + 0.7 * videoAppear})`;
+      }
     };
+
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll);
+    handleScroll();
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
+    // eslint-disable-next-line
   }, []);
 
   // 비디오가 뷰포트에 들어오면 재생
@@ -1035,9 +1148,10 @@ export default function MainPage() {
           </div>
         </div>
 
-        <div ref={cardScaleContainerRef} className={styles.container}>
+        {/* 이미지 날라가는 모션 */}
+        {/* <div ref={cardScaleContainerRef} className={styles.container}>
           <div className={styles.fixedBox}>
-            {/* 이미지 6개 */}
+            {/* 이미지 6개 
             <div ref={img1Ref} className={`${styles.image} ${styles.img1}`}>
               <img
                 src="/images/main/section3-08.jpg"
@@ -1081,7 +1195,7 @@ export default function MainPage() {
               />
             </div>
 
-            {/* 텍스트 + 비디오 */}
+            {/* 텍스트 + 비디오 
             <div className={styles.centerTitle}>
               <span ref={textLeftRef} className={styles.leftTitle}>
                 딜라이트
@@ -1106,7 +1220,197 @@ export default function MainPage() {
               </span>
             </div>
           </div>
-        </div>
+        </div> */}
+        <>
+          <div className="spacer">스크롤 다운</div>
+          <section className="sticky-section" ref={stickySectionRef}>
+            <div className="sticky-content">
+              <div className="images-wrap">
+                {imgSrcs.map((src, idx) => (
+                  <img
+                    key={src}
+                    ref={imageRefs[idx]}
+                    className={`my-img img${idx + 1}`}
+                    src={src}
+                    alt={`관람객${idx + 1}`}
+                  />
+                ))}
+              </div>
+              <div className="centerTitle">
+                <span className="leftTitle" ref={leftTitleRef}>
+                  딜라이트
+                </span>
+                <div className="videoBox" ref={videoBoxRef}>
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src="https://www.youtube.com/embed/ZFWOwC_pmLw?autoplay=1&mute=1&loop=1&playlist=ZFWOwC_pmLw&controls=0&showinfo=0&modestbranding=1"
+                    title="YouTube video player"
+                    allow="autoplay; encrypted-media"
+                    allowFullScreen
+                  />
+                </div>
+                <span className="rightTitle" ref={rightTitleRef}>
+                  서울
+                </span>
+              </div>
+            </div>
+          </section>
+          <div className="spacer">The End</div>
+          <style jsx>{`
+            .spacer {
+              height: 100vh;
+              background: #e9e9e9;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: #bbb;
+              font-size: 2rem;
+            }
+            .sticky-section {
+              position: relative;
+              height: 260vh;
+              background: #fff;
+            }
+            .sticky-content {
+              position: sticky;
+              top: 0;
+              height: 100vh;
+              width: 100vw;
+              overflow: hidden;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+            .images-wrap {
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              width: 100%;
+              height: 100%;
+              pointer-events: none;
+            }
+            .my-img {
+              position: absolute;
+              width: 220px;
+              height: 300px;
+              object-fit: cover;
+              border-radius: 1.5rem;
+              opacity: 0;
+              transform: scale(0.3) translate(0, 0);
+              transition:
+                transform 0.5s cubic-bezier(0.5, 1.5, 0.5, 1),
+                opacity 0.5s;
+              box-shadow: 0 2px 24px 0 rgba(80, 80, 80, 0.12);
+            }
+            .my-img.img1 {
+              left: 8%;
+              top: 15%;
+            }
+            .my-img.img2 {
+              right: 12%;
+              top: 22%;
+            }
+            .my-img.img3 {
+              left: 15%;
+              bottom: 9%;
+            }
+            .my-img.img4 {
+              right: 16%;
+              bottom: 13%;
+            }
+            .my-img.img5 {
+              left: 42%;
+              top: 6%;
+            }
+            .my-img.img6 {
+              left: 57%;
+              bottom: 10%;
+            }
+            .centerTitle {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              font-size: 2.5rem;
+              font-weight: 800;
+              text-align: center;
+              z-index: 2;
+              color: #1a1a1a;
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              justify-content: center;
+              font-family: 'SUIT', sans-serif;
+              letter-spacing: 2px;
+            }
+            .leftTitle {
+              position: relative;
+              width: 10rem;
+              padding-right: 0.5rem;
+              text-align: end;
+              transition:
+                transform 0.4s,
+                opacity 0.4s;
+            }
+            .rightTitle {
+              position: relative;
+              padding-left: 0.5rem;
+              text-align: start;
+              transition:
+                transform 0.4s,
+                opacity 0.4s;
+            }
+            .videoBox {
+              position: absolute;
+              left: 50%;
+              top: 52%;
+              transform: translate(-50%, -50%) scale(0);
+              width: 80vw;
+              max-width: 760px;
+              height: 44vw;
+              max-height: 430px;
+              z-index: 10;
+              background: #111;
+              border-radius: 16px;
+              overflow: hidden;
+              opacity: 0;
+              transition:
+                opacity 0.8s cubic-bezier(0.5, 1.5, 0.5, 1),
+                transform 0.7s cubic-bezier(0.5, 1.5, 0.5, 1);
+              box-shadow: 0 10px 48px 0 rgba(10, 10, 10, 0.15);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+            .videoBox iframe {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+            @media (max-width: 768px) {
+              .videoBox {
+                width: 95vw;
+                height: 40vw;
+                max-width: 95vw;
+                max-height: 220px;
+              }
+              .centerTitle {
+                font-size: 1.2rem;
+              }
+              .leftTitle,
+              .rightTitle {
+                width: 4rem;
+              }
+              .my-img {
+                width: 110px;
+                height: 140px;
+              }
+            }
+          `}</style>
+        </>
 
         <div ref={gridRef} className={styles.sectionGrid}>
           <div className={styles.wrapper}>
