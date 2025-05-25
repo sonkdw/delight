@@ -33,37 +33,37 @@ declare global {
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 gsap.registerPlugin(SplitText);
 
-// const faqList = [
-//   {
-//     question: '관람 가능한 연령은 어떻게 되나요?',
-//     answer:
-//       '보호자 없이 입장이 가능한 연령은 14세(중학생) 이상입니다. 36개월 미만은 무료입장이 가능하며 관련 증빙 서류를 필수로 지참하셔야 합니다.',
-//   },
-//   {
-//     question: '재입장이 가능한가요?',
-//     answer: '티켓은 1회 입장 기준이며, 퇴장 시 재입장이 불가합니다.',
-//   },
-//   {
-//     question: '전시장 내 유모차, 휠체어 이용이 가능한가요?',
-//     answer:
-//       '유모차, 휠체어 이용이 가능하지만 대여 서비스는 제공하지 않습니다. 전시가 지하 3층부터 지상 5층으로 이동하는 전시장 구조입니다. 계단 및 엘리베이터로 이동은 가능하나, 혼잡도에 따라 이동에 불편함이 있을 수 있습니다.',
-//   },
-//   {
-//     question: '관람 시 사진 및 영상 촬영을 해도 되나요?',
-//     answer:
-//       '본 전시는 관람 시 사진 및 영상 촬영이 가능합니다. 단, 대형 전문 장비 등은 이용하실 수 없습니다.',
-//   },
-//   {
-//     question: '주차 시설이 있나요?',
-//     answer:
-//       '본 전시장은 주차장 시설이 없으니, 인근 주차장을 이용하시거나 가급적 대중교통을 이용해 주시기 바랍니다.',
-//   },
-//   {
-//     question: '기타 안내사항',
-//     answer:
-//       '사용한 티켓은 환불 불가합니다.\n관객 부주의로 상해를 입었을 경우 책임은 관객에게 있으며, 전시장에서는 이에 대한 책임을 지지 않습니다.\n전시장 내 음료와 음식물 반입이 불가합니다.\n반려동물 출입이 불가합니다.',
-//   },
-// ];
+const faqList = [
+  {
+    question: '관람 가능한 연령은 어떻게 되나요?',
+    answer:
+      '보호자 없이 입장이 가능한 연령은 14세(중학생) 이상입니다. 36개월 미만은 무료입장이 가능하며 관련 증빙 서류를 필수로 지참하셔야 합니다.',
+  },
+  {
+    question: '재입장이 가능한가요?',
+    answer: '티켓은 1회 입장 기준이며, 퇴장 시 재입장이 불가합니다.',
+  },
+  {
+    question: '전시장 내 유모차, 휠체어 이용이 가능한가요?',
+    answer:
+      '유모차, 휠체어 이용이 가능하지만 대여 서비스는 제공하지 않습니다. 전시가 지하 3층부터 지상 5층으로 이동하는 전시장 구조입니다. 계단 및 엘리베이터로 이동은 가능하나, 혼잡도에 따라 이동에 불편함이 있을 수 있습니다.',
+  },
+  {
+    question: '관람 시 사진 및 영상 촬영을 해도 되나요?',
+    answer:
+      '본 전시는 관람 시 사진 및 영상 촬영이 가능합니다. 단, 대형 전문 장비 등은 이용하실 수 없습니다.',
+  },
+  {
+    question: '주차 시설이 있나요?',
+    answer:
+      '본 전시장은 주차장 시설이 없으니, 인근 주차장을 이용하시거나 가급적 대중교통을 이용해 주시기 바랍니다.',
+  },
+  {
+    question: '기타 안내사항',
+    answer:
+      '사용한 티켓은 환불 불가합니다.\n관객 부주의로 상해를 입었을 경우 책임은 관객에게 있으며, 전시장에서는 이에 대한 책임을 지지 않습니다.\n전시장 내 음료와 음식물 반입이 불가합니다.\n반려동물 출입이 불가합니다.',
+  },
+];
 
 export default function MainPage() {
   const img1Ref = useRef<HTMLDivElement | null>(null);
@@ -111,8 +111,8 @@ export default function MainPage() {
   const textRightRef = useRef(null);
 
   const delightSeoulMarqueeRef = useRef<HTMLDivElement>(null);
-  // const faqMarqueeRef = useRef<HTMLDivElement>(null);
-  // const mapMarqueeRef = useRef<HTMLDivElement>(null);
+  const faqMarqueeRef = useRef<HTMLDivElement>(null);
+  const mapMarqueeRef = useRef<HTMLDivElement>(null);
 
   // 그리드
   const gridBoxRef = useRef<HTMLDivElement>(null);
@@ -131,16 +131,16 @@ export default function MainPage() {
   const gridOverlay4Ref = useRef<HTMLDivElement>(null);
   const gridBase4Ref = useRef<HTMLDivElement>(null);
 
-  // const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
   const [showScrollBar, setShowScrollBar] = useState(false);
   const [showScrollBar2, setShowScrollBar2] = useState(false);
 
   const isMobile = useIsMobile();
 
-  // const handleFaqToggle = (idx: number) => {
-  //   setOpenFaqIndex(idx === openFaqIndex ? null : idx);
-  // };
+  const handleFaqToggle = (idx: number) => {
+    setOpenFaqIndex(idx === openFaqIndex ? null : idx);
+  };
 
   // 스크롤 스무더
   useEffect(() => {
@@ -608,24 +608,6 @@ export default function MainPage() {
   }, []);
 
   // 딜라이트 서울 마퀴
-  // useEffect(() => {
-  //   if (!delightSeoulMarqueeRef.current) return;
-  //   gsap.fromTo(
-  //     delightSeoulMarqueeRef.current,
-  //     { x: 0, y: 0 },
-  //     {
-  //       x: '-20vw', // 이동거리
-  //       ease: 'none',
-  //       scrollTrigger: {
-  //         trigger: delightSeoulMarqueeRef.current,
-  //         start: 'top bottom',
-  //         end: 'bottom top',
-  //         scrub: true,
-  //       },
-  //     }
-  //   );
-  // }, []);
-
   useEffect(() => {
     if (!delightSeoulMarqueeRef.current) return;
 
@@ -655,93 +637,93 @@ export default function MainPage() {
   }, []);
 
   // faq 마퀴
-  // useEffect(() => {
-  //   if (!faqMarqueeRef.current) return;
-  //   gsap.fromTo(
-  //     faqMarqueeRef.current,
-  //     { x: '-50vw', y: 0, rotate: -2 },
-  //     {
-  //       x: '0vw', // 이동거리
-  //       rotate: -2,
-  //       ease: 'none',
-  //       scrollTrigger: {
-  //         trigger: faqMarqueeRef.current,
-  //         start: 'top bottom',
-  //         end: 'bottom top',
-  //         scrub: true,
-  //       },
-  //     }
-  //   );
-  // }, []);
+  useEffect(() => {
+    if (!faqMarqueeRef.current) return;
+    gsap.fromTo(
+      faqMarqueeRef.current,
+      { x: '-50vw', y: 0, rotate: -2 },
+      {
+        x: '0vw', // 이동거리
+        rotate: -2,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: faqMarqueeRef.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+        },
+      }
+    );
+  }, []);
 
   // location 마퀴
-  // useEffect(() => {
-  //   if (!mapMarqueeRef.current) return;
-  //   gsap.fromTo(
-  //     mapMarqueeRef.current,
-  //     { x: '-50vw', y: 0, rotate: -2 },
-  //     {
-  //       x: '0vw', // 이동거리
-  //       rotate: -2,
-  //       ease: 'none',
-  //       scrollTrigger: {
-  //         trigger: mapMarqueeRef.current,
-  //         start: 'top bottom',
-  //         end: 'bottom top',
-  //         scrub: true,
-  //       },
-  //     }
-  //   );
-  // }, []);
+  useEffect(() => {
+    if (!mapMarqueeRef.current) return;
+    gsap.fromTo(
+      mapMarqueeRef.current,
+      { x: '-50vw', y: 0, rotate: -2 },
+      {
+        x: '0vw', // 이동거리
+        rotate: -2,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: mapMarqueeRef.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+        },
+      }
+    );
+  }, []);
 
   // location 지도
-  // useEffect(() => {
-  //   const scriptId = 'daum-roughmap-script';
+  useEffect(() => {
+    const scriptId = 'daum-roughmap-script';
 
-  //   // roughmapLoader.js 중복 삽입 방지
-  //   if (!document.getElementById(scriptId)) {
-  //     const script = document.createElement('script');
-  //     script.id = scriptId;
-  //     script.src = 'https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js';
-  //     script.async = true;
-  //     document.body.appendChild(script);
+    // roughmapLoader.js 중복 삽입 방지
+    if (!document.getElementById(scriptId)) {
+      const script = document.createElement('script');
+      script.id = scriptId;
+      script.src = 'https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js';
+      script.async = true;
+      document.body.appendChild(script);
 
-  //     script.onload = () => {
-  //       // 스크립트 완전히 로드된 후에만 render 실행!
-  //       if (
-  //         window.daum &&
-  //         window.daum.roughmap &&
-  //         typeof window.daum.roughmap.Lander === 'function'
-  //       ) {
-  //         new window.daum.roughmap.Lander({
-  //           timestamp: '1747889978369',
-  //           key: '2o4s2',
-  //           mapWidth: '800',
-  //           mapHeight: '360',
-  //         }).render();
-  //       }
-  //     };
-  //   } else {
-  //     // 이미 있으면 polling (스크립트가 비동기로 로드될 수 있어서)
-  //     const checkAndRender = () => {
-  //       if (
-  //         window.daum &&
-  //         window.daum.roughmap &&
-  //         typeof window.daum.roughmap.Lander === 'function'
-  //       ) {
-  //         new window.daum.roughmap.Lander({
-  //           timestamp: '1747889978369',
-  //           key: '2o4s2',
-  //           mapWidth: '800',
-  //           mapHeight: '360',
-  //         }).render();
-  //       } else {
-  //         setTimeout(checkAndRender, 100);
-  //       }
-  //     };
-  //     checkAndRender();
-  //   }
-  // }, []);
+      script.onload = () => {
+        // 스크립트 완전히 로드된 후에만 render 실행!
+        if (
+          window.daum &&
+          window.daum.roughmap &&
+          typeof window.daum.roughmap.Lander === 'function'
+        ) {
+          new window.daum.roughmap.Lander({
+            timestamp: '1747889978369',
+            key: '2o4s2',
+            mapWidth: '800',
+            mapHeight: '360',
+          }).render();
+        }
+      };
+    } else {
+      // 이미 있으면 polling (스크립트가 비동기로 로드될 수 있어서)
+      const checkAndRender = () => {
+        if (
+          window.daum &&
+          window.daum.roughmap &&
+          typeof window.daum.roughmap.Lander === 'function'
+        ) {
+          new window.daum.roughmap.Lander({
+            timestamp: '1747889978369',
+            key: '2o4s2',
+            mapWidth: '800',
+            mapHeight: '360',
+          }).render();
+        } else {
+          setTimeout(checkAndRender, 100);
+        }
+      };
+      checkAndRender();
+    }
+  }, []);
 
   return (
     <div id="smooth-wrapper" className={styles.noise}>
@@ -1335,7 +1317,7 @@ export default function MainPage() {
         </div>
 
         {/* faq */}
-        {/* <div className={styles.sectionFaq}>
+        <div className={styles.sectionFaq}>
           <div className={styles.wrapper}>
             <div ref={faqMarqueeRef} className={styles.marqueeTitle}>
               FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ FAQ
@@ -1364,10 +1346,10 @@ export default function MainPage() {
               ))}
             </div>
           </div>
-        </div> */}
+        </div>
 
         {/* location */}
-        {/* <div className={styles.sectionLocation}>
+        <div className={styles.sectionLocation}>
           <div className={styles.wrapper}>
             <div ref={mapMarqueeRef} className={styles.marqueeTitle}>
               LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION
@@ -1378,11 +1360,11 @@ export default function MainPage() {
             <div className={styles.locationWrap}>
               <div className={styles.location}>
                 {/* 지도 */}
-        {/* <div
+                {/* <div
                   id="daumRoughmapContainer1747889978369"
                   className="root_daum_roughmap root_daum_roughmap_landing"
                 /> */}
-        {/* 임시 지도 이미지 
+                {/* 임시 지도 이미지  */}
                 <div>
                   <img src="/images/main/location.png" alt="map" />
                 </div>
@@ -1411,7 +1393,7 @@ export default function MainPage() {
               </div>
             </div>
           </div>
-        </div> */}
+        </div>
 
         <footer className={styles.footer}>
           <div className={styles.wrapper}>
