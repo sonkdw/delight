@@ -6,6 +6,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollSmoother } from 'gsap/ScrollSmoother';
 import { SplitText } from 'gsap/SplitText';
+import faqList from '@/data/faqs.json';
 import {
   // usePinnedImageSwitch,
   useImageFadeSwitch,
@@ -32,38 +33,6 @@ declare global {
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 gsap.registerPlugin(SplitText);
-
-const faqList = [
-  {
-    question: '관람 가능한 연령은 어떻게 되나요?',
-    answer:
-      '보호자 없이 입장이 가능한 연령은 14세(중학생) 이상입니다. 36개월 미만은 무료입장이 가능하며 관련 증빙 서류를 필수로 지참하셔야 합니다.',
-  },
-  {
-    question: '재입장이 가능한가요?',
-    answer: '티켓은 1회 입장 기준이며, 퇴장 시 재입장이 불가합니다.',
-  },
-  {
-    question: '전시장 내 유모차, 휠체어 이용이 가능한가요?',
-    answer:
-      '유모차, 휠체어 이용이 가능하지만 대여 서비스는 제공하지 않습니다. 전시가 지하 3층부터 지상 5층으로 이동하는 전시장 구조입니다. 계단 및 엘리베이터로 이동은 가능하나, 혼잡도에 따라 이동에 불편함이 있을 수 있습니다.',
-  },
-  {
-    question: '관람 시 사진 및 영상 촬영을 해도 되나요?',
-    answer:
-      '본 전시는 관람 시 사진 및 영상 촬영이 가능합니다. 단, 대형 전문 장비 등은 이용하실 수 없습니다.',
-  },
-  {
-    question: '주차 시설이 있나요?',
-    answer:
-      '본 전시장은 주차장 시설이 없으니, 인근 주차장을 이용하시거나 가급적 대중교통을 이용해 주시기 바랍니다.',
-  },
-  {
-    question: '기타 안내사항',
-    answer:
-      '사용한 티켓은 환불 불가합니다.\n관객 부주의로 상해를 입었을 경우 책임은 관객에게 있으며, 전시장에서는 이에 대한 책임을 지지 않습니다.\n전시장 내 음료와 음식물 반입이 불가합니다.\n반려동물 출입이 불가합니다.',
-  },
-];
 
 export default function MainPage() {
   const img1Ref = useRef<HTMLDivElement | null>(null);
@@ -137,6 +106,9 @@ export default function MainPage() {
 
   const isMobile = useIsMobile();
 
+  // 첫번째 비디오 url 유무 플래그 (임시)
+  const topVideoUrl = false;
+
   const handleFaqToggle = (idx: number) => {
     setOpenFaqIndex(idx === openFaqIndex ? null : idx);
   };
@@ -204,21 +176,23 @@ export default function MainPage() {
 
   // 첫번째 섹션 검정색 영역의 높이를 줄이는 gsap
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+    if (topVideoUrl) {
+      gsap.registerPlugin(ScrollTrigger);
 
-    const sectionTop = sectionTopRef.current;
+      const sectionTop = sectionTopRef.current;
 
-    if (sectionTop) {
-      gsap.to(sectionTop, {
-        height: '0vh',
-        ease: 'power3.inOut',
-        scrollTrigger: {
-          trigger: sectionTop,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: false,
-        },
-      });
+      if (sectionTop) {
+        gsap.to(sectionTop, {
+          height: '0vh',
+          ease: 'power3.inOut',
+          scrollTrigger: {
+            trigger: sectionTop,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: false,
+          },
+        });
+      }
     }
   }, []);
 

@@ -180,7 +180,7 @@ body {
 /* Noto serif Display Medium */
 @font-face {
   font-family: 'Noto Serif Display';
-  src: url('/fonts/NotoSerifDisplay/NotoSerifDisplay_Condensed-Medium') format('truetype');
+  src: url('/fonts/NotoSerifDisplay/NotoSerifDisplay_Condensed-Medium.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
 }
