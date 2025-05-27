@@ -109,7 +109,7 @@
   z-index: 10;
   /* transform: translate(-50%, -50%); */
   overflow: hidden;
-  background: black;
+  background: rgb(0, 0, 0);
   border-radius: 12px;
 }
 
@@ -453,6 +453,7 @@
 
 .delightSeoulMarqueeContainer {
   overflow: hidden;
+  padding-bottom: 10rem;
 }
 
 .marqueeText {
@@ -592,11 +593,82 @@
 .footer .footerLogo {
 }
 
-@media all and (max-width: 767px) {
-  .container {
-    /* display: none !important; */
-  }
+.pivotScSection {
+  background-image: url('/images/main/bg03.jpg');
+  height: 100vh;
+}
 
+.pivotScSection h2 {
+  color: white;
+  font-weight: 800;
+  font-size: 42px;
+  font-family: 'Montserrat', sans-serif;
+  justify-self: center;
+  padding-top: 10rem;
+}
+
+.pivotScSection p {
+  color: white;
+  text-align-last: center;
+  padding-top: 40px;
+}
+
+/* Sticky Gallery css */
+.sgContainer {
+  display: flex;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 80px 0;
+  min-height: 200vh;
+  justify-content: space-between;
+}
+.sgLeft {
+  position: relative;
+  height: 100vh;
+  font-size: 32px;
+  color: #222;
+  font-weight: 700;
+  padding-top: 5rem;
+}
+.sgLeftTop {
+  font-size: 18px;
+  color: #444;
+  font-weight: 700;
+}
+.sgRight {
+  flex: 2;
+  padding: 0 0 0 40px;
+  width: 100%;
+}
+
+.sgRight p {
+  padding-block: 60px;
+  font-weight: 700;
+  justify-self: center;
+}
+.sgImageBlock {
+  justify-self: right;
+  margin-bottom: 80px;
+  text-align: center;
+}
+.sgImg {
+  max-width: 100%;
+  border-radius: 16px;
+  /* box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07); */
+  width: 720px;
+  /* max-width: 720px;
+  height: 402px;
+  object-fit: cover; */
+}
+
+.sgCaption {
+  margin-top: 18px;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+@media all and (max-width: 767px) {
   .sectionTop .logo {
     width: 180px;
   }
@@ -766,5 +838,9 @@
     width: 100%;
     display: block;
     transform-origin: 50% 140% 0;
+  }
+
+  .sgContainer {
+    padding-inline: 1.5rem;
   }
 }

@@ -28,7 +28,42 @@ declare global {
         }) => { render: () => void };
       };
     };
+    naver?: NaverGlobal;
   }
+}
+
+interface NaverGlobal {
+  maps: {
+    Map: new (element: HTMLElement, options?: NaverMapOptions) => NaverMapInstance;
+    LatLng: new (lat: number, lng: number) => NaverLatLngInstance;
+    Marker: new (options: {
+      position: NaverLatLngInstance;
+      map: NaverMapInstance;
+      title?: string;
+      [key: string]: any;
+    }) => any;
+    // 필요하면 다른 지도 객체들도 여기에 추가
+  };
+}
+
+interface NaverMapOptions {
+  center?: NaverLatLngInstance;
+  zoom?: number;
+  [key: string]: any;
+}
+
+interface NaverMapInstance {
+  setCenter: (latlng: NaverLatLngInstance) => void;
+  setZoom: (level: number) => void;
+  // 필요한 메소드만 추가
+  [key: string]: any;
+}
+
+interface NaverLatLngInstance {
+  // 좌표 객체, 실제로는 lat/lng 프로퍼티만 있으면 충분
+  lat: () => number;
+  lng: () => number;
+  [key: string]: any;
 }
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
@@ -53,6 +88,9 @@ export default function MainPage() {
   const text10Ref = useRef(null);
   const text11Ref = useRef(null);
   const text12Ref = useRef(null);
+  const text13Ref = useRef(null);
+  const text14Ref = useRef(null);
+  const text15Ref = useRef(null);
   const logoRef = useRef(null);
   const sectionTopRef = useRef(null);
   const sectionRef = useRef<HTMLDivElement | null>(null);
@@ -65,6 +103,7 @@ export default function MainPage() {
   const section8Ref = useRef(null);
   const section9Ref = useRef(null);
   const section10Ref = useRef<HTMLDivElement | null>(null);
+  const section11Ref = useRef<HTMLDivElement | null>(null);
 
   const cardImgRef = useRef(null);
   const cardImg2Ref = useRef(null);
@@ -74,7 +113,7 @@ export default function MainPage() {
   const cardScaleContainerRef = useRef<HTMLDivElement>(null);
 
   const gridRef = useRef(null);
-  const videoDivRef = useRef(null);
+  const videoDivRef = useRef<HTMLDivElement>(null);
   const textLeftRef = useRef(null);
   const textRightRef = useRef(null);
 
@@ -107,7 +146,10 @@ export default function MainPage() {
   const isMobile = useIsMobile();
 
   // 첫번째 비디오 url 유무 플래그 (임시)
-  const topVideoUrl = false;
+  const topVideoUrl = true;
+
+  // 두번째 비디오 url 유무 플래그 (임시)
+  const bottomVideoUrl = false;
 
   const handleFaqToggle = (idx: number) => {
     setOpenFaqIndex(idx === openFaqIndex ? null : idx);
@@ -169,10 +211,13 @@ export default function MainPage() {
   useShowTextAnimation(text6Ref); // 도시는 어둡고도 찬란하며, 차갑고도 뜨겁다.
   useShowTextAnimation(text7Ref); // 빛의 기억, 어둠과 빛
   useShowTextAnimation(text8Ref); // 끊임없이 넘쳐흐르는 사각의 흐름
-  useShowTextAnimation(text9Ref, 0.5); // 무엇이 숨겨지고 있고, 무엇이 드러나는가?
+  useShowTextAnimation(text9Ref, 1); // 무엇이 숨겨지고 있고, 무엇이 드러나는가?
   useShowTextAnimation(text10Ref, 0.4); // 우리가 기억하는 서울,
   useShowTextAnimation(text11Ref); // 언어로 설명되기 전의 순간,
   useShowTextAnimation(text12Ref); // 축적된 서사와 데이터의 집합,
+  useShowTextAnimation(text13Ref); // London - Seoul - Paris
+  useShowTextAnimation(text14Ref); // 끊임없이 넘쳐흐르는 사각의 흐름
+  useShowTextAnimation(text15Ref, 0.5); // Delight seoul 2025
 
   // 첫번째 섹션 검정색 영역의 높이를 줄이는 gsap
   useEffect(() => {
@@ -207,6 +252,7 @@ export default function MainPage() {
   useSectionStaggerAnim(section8Ref, styles);
   useSectionStaggerAnim(section9Ref, styles);
   useSectionImgShowAnim(section10Ref, styles);
+  useSectionImgShowAnim(section11Ref, styles);
 
   useEffect(() => {
     if (animatedTextRef.current) {
@@ -348,14 +394,33 @@ export default function MainPage() {
           },
           {
             opacity: 1,
-            width: '80vw',
-            height: '80vh',
+            width: bottomVideoUrl ? '80vw' : '100vw',
+            height: bottomVideoUrl ? '80vh' : '100vh',
             scale: 1,
             duration: 1.5,
             ease: 'power3.out',
           },
           '-=.9'
         );
+        setTimeout(() => {
+          // 등장 애니메이션이 완료된 후에 실행
+          const pinSpacer = document.querySelectorAll('.pin-spacer');
+          if (pinSpacer) {
+            gsap.set(pinSpacer, { height: '80vh' }); // 초기값
+
+            gsap.to(pinSpacer, {
+              height: '0vh',
+              ease: 'power3.inOut',
+              scrollTrigger: {
+                trigger: pinSpacer,
+                start: 'top top',
+                end: '+=80vh', // 80vh 만큼 스크롤 구간에서 0으로 줄어듦
+                scrub: true, // 스크롤 위치에 따라 양방향 트랜지션!
+                pin: false, // 이미 pin 걸려 있으니 false
+              },
+            });
+          }
+        }, 2000); // 등장 애니 duration(1.5s)보다 살짝 길게
       },
       // 모바일
       '(max-width: 768px)': () => {
@@ -367,14 +432,35 @@ export default function MainPage() {
           },
           {
             opacity: 1,
-            width: '90vw',
-            height: '50vh',
+            width: bottomVideoUrl ? '90vw' : '100vw',
+            height: bottomVideoUrl ? '50vh' : '100vh',
             scale: 1,
             duration: 1.2,
             ease: 'power3.out',
           },
           '-=.9'
         );
+
+        setTimeout(() => {
+          // 등장 애니메이션이 완료된 후에 실행
+          const pinSpacer = document.querySelectorAll('.pin-spacer');
+          if (pinSpacer) {
+            gsap.set(pinSpacer, { height: '80vh' }); // 초기값
+
+            gsap.to(pinSpacer, {
+              height: '0vh',
+              ease: 'power3.inOut',
+              scrollTrigger: {
+                trigger: pinSpacer,
+                start: 'top top',
+                end: '+=80vh', // 80vh 만큼 스크롤 구간에서 0으로 줄어듦
+                scrub: true, // 스크롤 위치에 따라 양방향 트랜지션!
+                pin: false, // 이미 pin 걸려 있으니 false
+              },
+            });
+          }
+        }, 2000); // 등장 애니 duration(1.5s)보다 살짝 길게
+
         ScrollTrigger.refresh();
       },
     });
@@ -651,6 +737,92 @@ export default function MainPage() {
     }
   }, []);
 
+  // sticky gallery
+  const containerRef = useRef<HTMLDivElement>(null);
+  const leftRef = useRef<HTMLDivElement>(null);
+  const rightRef = useRef<HTMLDivElement>(null);
+  const rightImg1Ref = useRef<HTMLDivElement>(null);
+  const rightImg2Ref = useRef<HTMLDivElement>(null);
+  const rightImg3Ref = useRef<HTMLDivElement>(null);
+
+  useSectionStaggerAnim(rightImg1Ref, styles);
+  useSectionStaggerAnim(rightImg2Ref, styles);
+  useSectionStaggerAnim(rightImg3Ref, styles);
+
+  useEffect(() => {
+    if (!rightRef.current || !leftRef.current) return;
+
+    ScrollTrigger.create({
+      trigger: rightRef.current,
+      start: 'top top',
+      end: () => `bottom 40%`,
+      pin: leftRef.current,
+      pinSpacing: false,
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
+
+  const mapRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // 스크립트가 이미 있으면 생성 생략
+    if (window.naver && window.naver.maps) {
+      createMap();
+      return;
+    }
+    // 동적 스크립트 삽입
+    const script = document.createElement('script');
+    script.src = 'https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=wusfcf60wp';
+    script.async = true;
+    script.onload = createMap;
+    document.body.appendChild(script);
+
+    function createMap() {
+      if (window.naver && mapRef.current) {
+        const map = new window.naver.maps.Map(mapRef.current, {
+          center: new window.naver.maps.LatLng(37.5665, 126.978),
+          zoom: 15,
+        });
+        new window.naver.maps.Marker({
+          position: new window.naver.maps.LatLng(37.5665, 126.978),
+          map,
+          title: '서울시청',
+        });
+      }
+    }
+    // cleanup 필요시 추가
+  }, []);
+
+  // 가로스크롤 섹션
+  const pivotContainerRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!pivotContainerRef.current || !innerRef.current) return;
+
+    const totalWidth = innerRef.current.scrollWidth - pivotContainerRef.current.offsetWidth;
+
+    gsap.to(innerRef.current, {
+      x: -totalWidth,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: pivotContainerRef.current,
+        start: 'top top',
+        end: () => `+=${totalWidth}`, // 가로로 스크롤할 전체 길이만큼
+        scrub: true,
+        pin: true,
+        anticipatePin: 1,
+      },
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
+  }, []);
+
   return (
     <div id="smooth-wrapper" className={styles.noise}>
       <div id="smooth-content">
@@ -803,64 +975,65 @@ export default function MainPage() {
         {/* 다섯번째 섹션 */}
         <div className={`${styles.sectionInfo}`}>
           <div className={styles.wrapperTop}>
-            <div ref={section5Ref} className={styles.infoCard}>
-              <div className={`${styles.overflowHidden} `}>
-                <p ref={text6Ref} className={isMobile ? styles.wrapperInline : undefined}>
-                  지금, 여기 <br />
-                  익숙하면서도 낯선 <br />
-                  공존의 장면
-                </p>
+            <div ref={containerRef} className={styles.sgContainer}>
+              <div ref={leftRef} className={styles.sgLeft}>
+                <span className={styles.sgLeftTop}>지금, 여기</span>
+                <br />
+                익숙하면서도 낯선
+                <br />
+                공존의 장면
               </div>
-              <div className={`${styles.divideImgCenter} ${styles.cardImg} ${styles.marginInline}`}>
-                <img
-                  src="/images/main/info06.jpg"
-                  alt="돌과 나무에서 시작된 이야기 A Story That Began with Stone and Wood - 공간 미디어 인스톨레이션 작품은 일상 속에서 쉽게 마주치는 돌, 나무, 그리고 인간과 자연의 손길이 오랜 시간 축적된 다양한 오브제들을 예술적 모티프로 삼아 구성되었다."
-                />
-              </div>
+              <div ref={rightRef} className={styles.sgRight}>
+                <div ref={rightImg1Ref} className={styles.infoCard}>
+                  <div className={styles.cardImg}>
+                    <img
+                      className={styles.sgImg}
+                      src="/images/main/info06.jpg"
+                      alt="돌과 나무에서 시작된 이야기 A Story That Began with Stone and Wood - 공간 미디어 인스톨레이션 작품은 일상 속에서 쉽게 마주치는 돌, 나무, 그리고 인간과 자연의 손길이 오랜 시간 축적된 다양한 오브제들을 예술적 모티프로 삼아 구성되었다."
+                    />
+                  </div>
+                </div>
 
-              <div className={`${styles.subText} ${styles.overflowHidden}`}>
-                <p ref={text7Ref} className={isMobile ? styles.wrapperInline : undefined}>
-                  빛의 기억, 어둠과 빛
-                </p>
+                <p ref={text13Ref}>LONDON - SEOUL - PARIS</p>
+
+                <div ref={rightImg2Ref} className={styles.infoCard}>
+                  <div className={`${styles.cardImg}`}>
+                    <img
+                      className={styles.sgImg}
+                      src="/images/main/info07-1.jpg"
+                      alt="Collage: Gwanghwa - 이 작품은 경복궁의 정문인 광화문과 그 뒤로 펼쳐진 북악산을 중심으로 구성되며, ”일월오봉도(日月五峯圖)”의 구도를 차용합니다. 일월오봉도는 조선 왕조의 권위와 자연 질서를 상징하는 도상으로, 왕의 공간을 장식하던 가장 상징적인 회화입니다."
+                    />
+                  </div>
+                </div>
+
+                <p ref={text14Ref}>끊임없이 넘쳐흐르는 사각의 흐름</p>
+
+                <div ref={rightImg3Ref} className={styles.infoCard}>
+                  <div className={` ${styles.cardImg}`}>
+                    <img
+                      className={styles.sgImg}
+                      src="/images/main/info08-1.jpg"
+                      alt="관람객 모습 - Collage: Gwanghwa"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div ref={section6Ref} className={`${styles.infoCardDivide} ${styles.wrapperInline}`}>
-              <div className={styles.divideBox}>
-                <div className={`${styles.divideImg} ${styles.divideImgLeft} ${styles.cardImg}`}>
-                  <img
-                    src="/images/main/info07.jpg"
-                    alt="Collage: Gwanghwa - 이 작품은 경복궁의 정문인 광화문과 그 뒤로 펼쳐진 북악산을 중심으로 구성되며, ”일월오봉도(日月五峯圖)”의 구도를 차용합니다. 일월오봉도는 조선 왕조의 권위와 자연 질서를 상징하는 도상으로, 왕의 공간을 장식하던 가장 상징적인 회화입니다."
-                  />
-                </div>
-                <div className={`${styles.keyText} ${styles.overflowHidden}`}>
-                  <p ref={text8Ref}>
-                    끊임없이
-                    {isMobile ? <br /> : ''}
-                    넘쳐흐르는
-                    <br />
-                    사각의 흐름
-                  </p>
-                </div>
-                <div className={`${styles.divideImg} ${styles.divideImgRight} ${styles.cardImg}`}>
-                  <img src="/images/main/info08.jpg" alt="관람객 모습 - Collage: Gwanghwa" />
-                </div>
-              </div>
-            </div>
-
+            {/* test */}
             <div ref={section7Ref} className={` ${styles.delightSeoulMarqueeContainer}`}>
               <p ref={delightSeoulMarqueeRef} className={styles.marqueeText}>
                 delight seoul 2025
               </p>
-              <div className={styles.infoCard}>
+              {/* <div className={styles.infoCard}>
                 <div className={`${styles.cardImg} ${styles.marginInline}`}>
                   <img
                     src="/images/main/info09.jpg"
                     alt="The Door:상상의 경계, 선택의 임계점 - 이 작업은 ‘문 ’이라는 상징을 통해 인간 내면의 상상력과 탐험 욕구, 그리고 선택의 양가성을 시각적으로 구현한 설치 작품입니다. "
                   />
                 </div>
-              </div>
-              <div className={`${styles.overflowHidden}`}>
+              </div> */}
+              {/* <div className={`${styles.overflowHidden}`}>
                 <p
                   ref={text9Ref}
                   className={`${styles.wrapperBottom} ${isMobile ? styles.wrapperInline : styles.infoCard}`}
@@ -869,12 +1042,69 @@ export default function MainPage() {
                   <br />
                   우리가 진실이라고 믿는 것은 어디까지인가?
                 </p>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
 
-        <div ref={cardImg2Ref} className={styles.sectionBg}>
+        {/* new */}
+        <div className={styles.pivotScSection} ref={pivotContainerRef}>
+          <div className={`${styles.overflowHidden}`}>
+            <h2 ref={text15Ref}>Delight seoul 2025</h2>
+            <p
+              ref={text9Ref}
+              className={`${styles.wrapperBottom} ${isMobile ? styles.wrapperInline : styles.infoCard}`}
+            >
+              무엇이 숨겨지고 있고, 무엇이 드러나는가?
+              <br />
+              우리가 진실이라고 믿는 것은 어디까지인가?
+            </p>
+          </div>
+          {/* 가로스크롤 */}
+          <div
+            style={{
+              position: 'relative',
+              width: '100%',
+              height: '500px', // 섹션 높이
+              overflow: 'hidden',
+            }}
+          >
+            <div
+              ref={innerRef}
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                width: 'max-content', // 자식만큼 가로로
+                gap: '10px',
+                borderRadius: '16px',
+              }}
+            >
+              {/* 이미지 3개 */}
+              <img
+                src="/images/main/info10.jpg"
+                alt="Neon Notelgia - 본 작업은 도시 공간 속에서 흔히 스쳐 지나칠 수 있지만, 일상 속 필수적 정보를 전달하는 ‘사인(Sign)’의 의미에 주목한 공간 미디어 인스톨레이션이다."
+                width={656}
+                height={373}
+              />
+              <img
+                src="/images/main/info11-1.jpg"
+                alt="Neon Notelgia - 본 작업은 도시 공간 속에서 흔히 스쳐 지나칠 수 있지만, 일상 속 필수적 정보를 전달하는 ‘사인(Sign)’의 의미에 주목한 공간 미디어 인스톨레이션이다."
+                width={656}
+                height={373}
+              />
+              <img
+                src="/images/main/info14.jpg"
+                alt="Neon Notelgia - 본 작업은 도시 공간 속에서 흔히 스쳐 지나칠 수 있지만, 일상 속 필수적 정보를 전달하는 ‘사인(Sign)’의 의미에 주목한 공간 미디어 인스톨레이션이다."
+                width={656}
+                height={373}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* new fin */}
+
+        {/* <div ref={cardImg2Ref} className={styles.sectionBg}>
           <img
             src="/images/main/bg03.jpg"
             alt="Path: 존재와 인식의 흐름 - 이 작업은 ‘길’이라는 일상적이면서도 근본적인 도시의 구조를 통해, 사람과 사람, 공간과 기억이 어떻게 연결되고 구성되는지를 탐구합니다."
@@ -892,14 +1122,13 @@ export default function MainPage() {
               and future of seoul
             </h2>
 
-            {/* 막대기 등장 */}
             <div className={`${styles.scrollBar} ${showScrollBar2 ? styles.show : ''}`}>
               <div className={styles.bar} key={Date.now()}></div>
             </div>
           </div>
-        </div>
+        </div> */}
 
-        <div ref={section8Ref} className={`${styles.sectionInfo} ${styles.marginTopVh}`}>
+        {/* <div ref={section8Ref} className={`${styles.sectionInfo} ${styles.marginTopVh}`}>
           <div className={styles.wrapper}>
             <div className={styles.infoCard}>
               <div className={`${styles.cardImg} ${styles.divideImgCenter}`}>
@@ -967,7 +1196,9 @@ export default function MainPage() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
+
+        {/* 테스트 */}
 
         {/* 이미지 날라오는 모션 */}
         <div ref={cardScaleContainerRef} className={styles.container}>
@@ -1023,7 +1254,7 @@ export default function MainPage() {
               </span>
 
               <div ref={videoDivRef} className={styles.videoBox}>
-                {inView && (
+                {bottomVideoUrl && inView && (
                   <iframe
                     width="100%"
                     height="100%"
@@ -1299,6 +1530,7 @@ export default function MainPage() {
                   id="daumRoughmapContainer1747889978369"
                   className="root_daum_roughmap root_daum_roughmap_landing"
                 /> */}
+                {/* <div ref={mapRef} style={{ width: '100%', height: '400px' }} /> */}
                 {/* 임시 지도 이미지  */}
                 <div>
                   <img src="/images/main/location.png" alt="map" />

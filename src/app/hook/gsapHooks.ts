@@ -28,6 +28,7 @@ export function useSectionStaggerAnim(
     });
 
     const cardImg = sectionRef.current.querySelectorAll(`.${styles.cardImg}`);
+
     gsap.from(cardImg, {
       opacity: 0,
       y: 50,
