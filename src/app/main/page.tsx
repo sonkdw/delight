@@ -141,7 +141,6 @@ export default function MainPage() {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
   const [showScrollBar, setShowScrollBar] = useState(false);
-  const [showScrollBar2, setShowScrollBar2] = useState(false);
 
   const isMobile = useIsMobile();
 
@@ -280,7 +279,6 @@ export default function MainPage() {
 
   // 스크롤 시 이미지 교체 모션
   useImageFadeSwitch(cardImgRef, styles, setShowScrollBar);
-  useImageFadeSwitch(cardImg2Ref, styles, setShowScrollBar2);
 
   const blindRef = useRef(null); // .blind DOM 참조
 
@@ -746,7 +744,7 @@ export default function MainPage() {
     };
   }, []);
 
-  const mapRef = useRef<HTMLDivElement>(null);
+  // const mapRef = useRef<HTMLDivElement>(null);
 
   // useEffect(() => {
   //   // 스크립트가 이미 있으면 생성 생략
