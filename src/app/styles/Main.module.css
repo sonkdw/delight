@@ -306,9 +306,11 @@
   gap: 16px;
 }
 
-.infoCardDivide > div:first-child {
-  margin-top: 150px;
+.infoCardDivide .cardImg{
+  width: 50%;
 }
+
+
 
 
 .cardImg,
@@ -918,7 +920,4 @@
   }
 
 
-  .infoCardDivide > div:first-child{
-    margin-top: 50px;
-  }
 }
