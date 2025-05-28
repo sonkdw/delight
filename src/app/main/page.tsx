@@ -106,7 +106,7 @@ export default function MainPage() {
   const section11Ref = useRef<HTMLDivElement | null>(null);
 
   const cardImgRef = useRef(null);
-  const cardImg2Ref = useRef(null);
+  // const cardImg2Ref = useRef(null);
 
   const animatedTextRef = useRef<HTMLDivElement>(null);
 
