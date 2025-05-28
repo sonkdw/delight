@@ -724,27 +724,20 @@ export default function MainPage() {
 
   // 스크롤에 따른 텍스트 변화
   useEffect(() => {
-    const target = rightImg3Ref.current;
-    if (!target) return;
+    const targets = [rightImg1Ref.current, rightImg2Ref.current];
+    if (targets.some((el) => !el)) return;
 
     const observer = new window.IntersectionObserver(
-      ([entry]) => {
-        // 1. 먼저 opacity를 0으로 페이드 아웃
+      (entries) => {
+        // 1,2 둘 중 하나라도 화면에 보이면 true
+        const anyVisible = entries.some((entry) => entry.isIntersecting);
+
         gsap.to(leftRef.current, {
           opacity: 0,
           duration: 0.3,
           onComplete: () => {
-            // 2. 텍스트 변경 (여기서는 opacity는 0 상태)
-            if (entry.isIntersecting) {
-              setSgText(
-                <>
-                  <br />
-                  끊임없이 넘쳐흐르는 <br />
-                  사각의 흐름
-                </>
-              );
-            } else {
-              setSgText(
+            setSgText(
+              anyVisible ? (
                 <>
                   <span className={styles.sgLeftTop}>지금, 여기</span>
                   <br />
@@ -752,9 +745,14 @@ export default function MainPage() {
                   <br />
                   공존의 장면
                 </>
-              );
-            }
-            // 3. 텍스트가 바뀐 후, 아주 잠깐(예: 10~30ms) 대기 후 opacity 1로!
+              ) : (
+                <>
+                  <br />
+                  끊임없이 넘쳐흐르는 <br />
+                  사각의 흐름
+                </>
+              )
+            );
             setTimeout(() => {
               gsap.to(leftRef.current, { opacity: 1, duration: 0.3 });
             }, 30);
@@ -763,7 +761,10 @@ export default function MainPage() {
       },
       { threshold: 0.1 }
     );
-    observer.observe(target);
+
+    // 두 타겟 모두 감시
+    targets.forEach((el) => observer.observe(el as HTMLElement));
+
     return () => observer.disconnect();
   }, []);
 
