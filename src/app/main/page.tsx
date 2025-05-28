@@ -28,43 +28,43 @@ declare global {
         }) => { render: () => void };
       };
     };
-    naver?: NaverGlobal;
+    // naver?: NaverGlobal;
   }
 }
 
-interface NaverGlobal {
-  maps: {
-    Map: new (element: HTMLElement, options?: NaverMapOptions) => NaverMapInstance;
-    LatLng: new (lat: number, lng: number) => NaverLatLngInstance;
-    Marker: new (options: {
-      position: NaverLatLngInstance;
-      map: NaverMapInstance;
-      title?: string;
-      [key: string]: any;
-    }) => any;
-    // 필요하면 다른 지도 객체들도 여기에 추가
-  };
-}
+// interface NaverGlobal {
+//   maps: {
+//     Map: new (element: HTMLElement, options?: NaverMapOptions) => NaverMapInstance;
+//     LatLng: new (lat: number, lng: number) => NaverLatLngInstance;
+//     Marker: new (options: {
+//       position: NaverLatLngInstance;
+//       map: NaverMapInstance;
+//       title?: string;
+//       [key: string]: any;
+//     }) => any;
+//     // 필요하면 다른 지도 객체들도 여기에 추가
+//   };
+// }
 
-interface NaverMapOptions {
-  center?: NaverLatLngInstance;
-  zoom?: number;
-  [key: string]: any;
-}
+// interface NaverMapOptions {
+//   center?: NaverLatLngInstance;
+//   zoom?: number;
+//   [key: string]: any;
+// }
 
-interface NaverMapInstance {
-  setCenter: (latlng: NaverLatLngInstance) => void;
-  setZoom: (level: number) => void;
-  // 필요한 메소드만 추가
-  [key: string]: any;
-}
+// interface NaverMapInstance {
+//   setCenter: (latlng: NaverLatLngInstance) => void;
+//   setZoom: (level: number) => void;
+//   // 필요한 메소드만 추가
+//   [key: string]: any;
+// }
 
-interface NaverLatLngInstance {
-  // 좌표 객체, 실제로는 lat/lng 프로퍼티만 있으면 충분
-  lat: () => number;
-  lng: () => number;
-  [key: string]: any;
-}
+// interface NaverLatLngInstance {
+//   // 좌표 객체, 실제로는 lat/lng 프로퍼티만 있으면 충분
+//   lat: () => number;
+//   lng: () => number;
+//   [key: string]: any;
+// }
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 gsap.registerPlugin(SplitText);
@@ -748,34 +748,34 @@ export default function MainPage() {
 
   const mapRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    // 스크립트가 이미 있으면 생성 생략
-    if (window.naver && window.naver.maps) {
-      createMap();
-      return;
-    }
-    // 동적 스크립트 삽입
-    const script = document.createElement('script');
-    script.src = 'https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=wusfcf60wp';
-    script.async = true;
-    script.onload = createMap;
-    document.body.appendChild(script);
+  // useEffect(() => {
+  //   // 스크립트가 이미 있으면 생성 생략
+  //   if (window.naver && window.naver.maps) {
+  //     createMap();
+  //     return;
+  //   }
+  //   // 동적 스크립트 삽입
+  //   const script = document.createElement('script');
+  //   script.src = 'https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=wusfcf60wp';
+  //   script.async = true;
+  //   script.onload = createMap;
+  //   document.body.appendChild(script);
 
-    function createMap() {
-      if (window.naver && mapRef.current) {
-        const map = new window.naver.maps.Map(mapRef.current, {
-          center: new window.naver.maps.LatLng(37.5665, 126.978),
-          zoom: 15,
-        });
-        new window.naver.maps.Marker({
-          position: new window.naver.maps.LatLng(37.5665, 126.978),
-          map,
-          title: '서울시청',
-        });
-      }
-    }
-    // cleanup 필요시 추가
-  }, []);
+  //   function createMap() {
+  //     if (window.naver && mapRef.current) {
+  //       const map = new window.naver.maps.Map(mapRef.current, {
+  //         center: new window.naver.maps.LatLng(37.5665, 126.978),
+  //         zoom: 15,
+  //       });
+  //       new window.naver.maps.Marker({
+  //         position: new window.naver.maps.LatLng(37.5665, 126.978),
+  //         map,
+  //         title: '서울시청',
+  //       });
+  //     }
+  //   }
+  //   // cleanup 필요시 추가
+  // }, []);
 
   // 가로스크롤 섹션
   const pivotContainerRef = useRef<HTMLDivElement>(null);
