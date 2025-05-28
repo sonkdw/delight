@@ -104,10 +104,7 @@
 
 .videoBox {
   position: absolute;
-  /* top: 50%; */
-  /* left: 50%; */
   z-index: 10;
-  /* transform: translate(-50%, -50%); */
   overflow: hidden;
   background: rgb(0, 0, 0);
   border-radius: 12px;
@@ -286,6 +283,7 @@
   top: 0;
   height: 100vh; /* 조정 필요 */
   overscroll-behavior: none;
+  place-content: center;
 }
 
 .textRight {
@@ -393,6 +391,20 @@
   z-index: 2;
   opacity: 0;
   transition: opacity 0.3s;
+}
+
+.sectionBg .blindText {
+  color: white;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 52px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 100%;
 }
 
 .sectionBg .blind {
@@ -650,7 +662,6 @@
   box-sizing: border-box;
 }
 
-
 .sgRight p {
   padding-block: 20px;
   font-weight: 700;
@@ -664,11 +675,7 @@
 .sgImg {
   max-width: 100%;
   border-radius: 16px;
-  /* box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07); */
   width: 720px;
-  /* max-width: 720px;
-  height: 402px;
-  object-fit: cover; */
 }
 
 .sgCaption {
@@ -852,8 +859,9 @@
 
   .sgContainer {
     padding-inline: 1.5rem;
+    min-height: 95vh;
   }
-  .sgLeftTop{
+  .sgLeftTop {
     font-size: 14px;
   }
   .sgLeft {
@@ -862,14 +870,29 @@
     width: 40%;
   }
 
-  .sgRight{
+  .sgRight {
     width: 60%;
     padding: 50px 0;
   }
 
-  .sgRight p{
+  .sgRight p {
     font-size: 16px;
     padding-block: 0;
+  }
 
+  .sgImg {
+    width: 100%;
+    display: block;
+    transform-origin: 50% 190% 0 !important;
+  }
+
+  .pivotScSection h2 {
+    padding-inline: 1.5rem;
+    text-align: center;
+    font-size: 33px;
+  }
+
+  .sectionBg .blindText {
+    font-size: 28px;
   }
 }

@@ -8,7 +8,6 @@ import { ScrollSmoother } from 'gsap/ScrollSmoother';
 import { SplitText } from 'gsap/SplitText';
 import faqList from '@/data/faqs.json';
 import {
-  // usePinnedImageSwitch,
   useImageFadeSwitch,
   useSectionImgShowAnim,
   useSectionStaggerAnim,
@@ -91,6 +90,7 @@ export default function MainPage() {
   const text13Ref = useRef(null);
   const text14Ref = useRef(null);
   const text15Ref = useRef(null);
+  const text16Ref = useRef(null);
   const logoRef = useRef(null);
   const sectionTopRef = useRef(null);
   const sectionRef = useRef<HTMLDivElement | null>(null);
@@ -106,7 +106,6 @@ export default function MainPage() {
   const section11Ref = useRef<HTMLDivElement | null>(null);
 
   const cardImgRef = useRef(null);
-  // const cardImg2Ref = useRef(null);
 
   const animatedTextRef = useRef<HTMLDivElement>(null);
 
@@ -139,8 +138,6 @@ export default function MainPage() {
   const gridBase4Ref = useRef<HTMLDivElement>(null);
 
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
-
-  const [showScrollBar, setShowScrollBar] = useState(false);
 
   const isMobile = useIsMobile();
 
@@ -217,6 +214,7 @@ export default function MainPage() {
   useShowTextAnimation(text13Ref); // London - Seoul - Paris
   useShowTextAnimation(text14Ref); // 끊임없이 넘쳐흐르는 사각의 흐름
   useShowTextAnimation(text15Ref, 0.5); // Delight seoul 2025
+  useShowTextAnimation(text16Ref, 0.5); // Delight seoul 2025
 
   // 첫번째 섹션 검정색 영역의 높이를 줄이는 gsap
   useEffect(() => {
@@ -278,35 +276,36 @@ export default function MainPage() {
   }, []);
 
   // 스크롤 시 이미지 교체 모션
-  useImageFadeSwitch(cardImgRef, styles, setShowScrollBar);
+  useImageFadeSwitch(cardImgRef, styles);
 
-  const blindRef = useRef(null); // .blind DOM 참조
-
-  useEffect(() => {
-    const observer = new window.IntersectionObserver(
-      ([entry]) => {
-        setShowScrollBar(entry.isIntersecting); // 화면에 보이면 true
-      },
-      { threshold: 0.3 } // 30% 이상 보이면 트리거
-    );
-    if (blindRef.current) observer.observe(blindRef.current);
-    return () => {
-      if (blindRef.current) observer.unobserve(blindRef.current);
-    };
-  }, []);
-
-  const blind2Ref = useRef(null); // .blind DOM 참조
+  // 가로스크롤 섹션
+  const pivotContainerRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const observer = new window.IntersectionObserver(
-      ([entry]) => {
-        setShowScrollBar(entry.isIntersecting); // 화면에 보이면 true
+    if (!pivotContainerRef.current || !innerRef.current) return;
+
+    const totalWidth = innerRef.current.scrollWidth - pivotContainerRef.current.offsetWidth;
+
+    // 모바일이면 스크롤 길이 넉넉하게
+    const scrollLen = isMobile ? totalWidth * 1.7 : totalWidth;
+
+    gsap.to(innerRef.current, {
+      x: -totalWidth,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: pivotContainerRef.current,
+        start: 'top top',
+        end: () => `+=${scrollLen}`, // 가로로 스크롤할 전체 길이만큼
+        scrub: true,
+        pin: true,
+
+        anticipatePin: 1,
       },
-      { threshold: 0.3 } // 30% 이상 보이면 트리거
-    );
-    if (blind2Ref.current) observer.observe(blind2Ref.current);
+    });
+
     return () => {
-      if (blind2Ref.current) observer.unobserve(blind2Ref.current);
+      ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);
 
@@ -419,26 +418,6 @@ export default function MainPage() {
           },
           '-=.9'
         );
-
-        // setTimeout(() => {
-        //   // 등장 애니메이션이 완료된 후에 실행
-        //   const pinSpacer = document.querySelectorAll('.pin-spacer');
-        //   if (pinSpacer) {
-        //     gsap.set(pinSpacer, { height: '80vh' }); // 초기값
-
-        //     gsap.to(pinSpacer, {
-        //       height: '0vh',
-        //       ease: 'power3.inOut',
-        //       scrollTrigger: {
-        //         trigger: pinSpacer,
-        //         start: 'top top',
-        //         end: '+=80vh', // 80vh 만큼 스크롤 구간에서 0으로 줄어듦
-        //         scrub: true, // 스크롤 위치에 따라 양방향 트랜지션!
-        //         pin: false, // 이미 pin 걸려 있으니 false
-        //       },
-        //     });
-        //   }
-        // }, 2000); // 등장 애니 duration(1.5s)보다 살짝 길게
 
         ScrollTrigger.refresh();
       },
@@ -667,55 +646,6 @@ export default function MainPage() {
     );
   }, []);
 
-  // location 지도
-  useEffect(() => {
-    const scriptId = 'daum-roughmap-script';
-
-    // roughmapLoader.js 중복 삽입 방지
-    if (!document.getElementById(scriptId)) {
-      const script = document.createElement('script');
-      script.id = scriptId;
-      script.src = 'https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js';
-      script.async = true;
-      document.body.appendChild(script);
-
-      script.onload = () => {
-        // 스크립트 완전히 로드된 후에만 render 실행!
-        if (
-          window.daum &&
-          window.daum.roughmap &&
-          typeof window.daum.roughmap.Lander === 'function'
-        ) {
-          new window.daum.roughmap.Lander({
-            timestamp: '1747889978369',
-            key: '2o4s2',
-            mapWidth: '800',
-            mapHeight: '360',
-          }).render();
-        }
-      };
-    } else {
-      // 이미 있으면 polling (스크립트가 비동기로 로드될 수 있어서)
-      const checkAndRender = () => {
-        if (
-          window.daum &&
-          window.daum.roughmap &&
-          typeof window.daum.roughmap.Lander === 'function'
-        ) {
-          new window.daum.roughmap.Lander({
-            timestamp: '1747889978369',
-            key: '2o4s2',
-            mapWidth: '800',
-            mapHeight: '360',
-          }).render();
-        } else {
-          setTimeout(checkAndRender, 100);
-        }
-      };
-      checkAndRender();
-    }
-  }, []);
-
   // sticky gallery
   const containerRef = useRef<HTMLDivElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
@@ -744,6 +674,7 @@ export default function MainPage() {
     };
   }, []);
 
+  // 네이버 지도 관련 함수
   // const mapRef = useRef<HTMLDivElement>(null);
 
   // useEffect(() => {
@@ -775,34 +706,6 @@ export default function MainPage() {
   //   // cleanup 필요시 추가
   // }, []);
 
-  // 가로스크롤 섹션
-  const pivotContainerRef = useRef<HTMLDivElement>(null);
-  const innerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!pivotContainerRef.current || !innerRef.current) return;
-
-    const totalWidth = innerRef.current.scrollWidth - pivotContainerRef.current.offsetWidth;
-    console.log(totalWidth);
-
-    gsap.to(innerRef.current, {
-      x: -totalWidth,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: pivotContainerRef.current,
-        start: 'top top',
-        end: () => `+=${totalWidth}`, // 가로로 스크롤할 전체 길이만큼
-        scrub: true,
-        pin: true,
-        anticipatePin: 1,
-      },
-    });
-
-    return () => {
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-    };
-  }, []);
-
   return (
     <div id="smooth-wrapper" className={styles.noise}>
       <div id="smooth-content">
@@ -825,14 +728,16 @@ export default function MainPage() {
 
           {/* 검정색 영역 걷히면 나타나는 동영상 영역 */}
           <div className={styles.bgBox}>
-            <iframe
+            <video
+              src="/videos/intro.mp4"
               width="100%"
               height="100%"
-              src="https://www.youtube.com/embed/ZFWOwC_pmLw?autoplay=1&mute=1&loop=1&playlist=ZFWOwC_pmLw&controls=0&showinfo=0&modestbranding=1"
-              title="YouTube video player"
-              allow="autoplay; encrypted-media"
-              allowFullScreen
+              autoPlay
+              muted
+              loop
+              playsInline
               className={styles.video}
+              style={{ objectFit: 'cover' }}
             />
           </div>
         </>
@@ -938,17 +843,8 @@ export default function MainPage() {
             alt="기억의 스펙트럼 The Spectrum of Memory - 이 작업은 개인의 기억 속 색채가 공유되고 확장되는 지점을 추적하며, 그것이 어떻게 공동의 서사로 전환되는지를 실험합니다."
             className={styles.blindBg2}
           />
-          <div className={styles.blind} ref={blindRef}>
-            <h2>
-              The past, present
-              <br />
-              and future of seoul
-            </h2>
-
-            {/* 막대기 등장 */}
-            <div className={`${styles.scrollBar} ${showScrollBar ? styles.show : ''}`}>
-              <div className={styles.bar} key={Date.now()}></div>
-            </div>
+          <div ref={text16Ref} className={styles.blindText}>
+            LONDON - SEOUL - PARIS
           </div>
         </div>
 
@@ -1000,7 +896,6 @@ export default function MainPage() {
               </div>
             </div>
 
-            {/* test */}
             <div ref={section7Ref} className={` ${styles.delightSeoulMarqueeContainer}`}>
               <p ref={delightSeoulMarqueeRef} className={styles.marqueeText}>
                 delight seoul 2025
@@ -1009,7 +904,7 @@ export default function MainPage() {
           </div>
         </div>
 
-        {/* new */}
+        {/* 가로스크롤 영역 */}
         <div className={styles.pivotScSection} ref={pivotContainerRef}>
           <div className={`${styles.overflowHidden}`}>
             <h2 ref={text15Ref}>Delight seoul 2025</h2>
@@ -1041,7 +936,6 @@ export default function MainPage() {
                 borderRadius: '16px',
               }}
             >
-              {/* 이미지 3개 */}
               <img
                 src="/images/main/info10.jpg"
                 alt="Neon Notelgia - 본 작업은 도시 공간 속에서 흔히 스쳐 지나칠 수 있지만, 일상 속 필수적 정보를 전달하는 ‘사인(Sign)’의 의미에 주목한 공간 미디어 인스톨레이션이다."
@@ -1069,102 +963,6 @@ export default function MainPage() {
             </div>
           </div>
         </div>
-
-        {/* new fin */}
-
-        {/* <div ref={cardImg2Ref} className={styles.sectionBg}>
-          <img
-            src="/images/main/bg03.jpg"
-            alt="Path: 존재와 인식의 흐름 - 이 작업은 ‘길’이라는 일상적이면서도 근본적인 도시의 구조를 통해, 사람과 사람, 공간과 기억이 어떻게 연결되고 구성되는지를 탐구합니다."
-            className={styles.blindBg1}
-          />
-          <img
-            src="/images/main/bg04.jpg"
-            alt="빛의 기억 Memory of Light - 이 작품은 데이터의 흐름 속에서 생성되는 최소 단위의 조형성을 시각적으로 재현한 설치 작업입니다."
-            className={styles.blindBg2}
-          />
-          <div className={styles.blind} ref={blind2Ref}>
-            <h2>
-              The past, present
-              <br />
-              and future of seoul
-            </h2>
-
-            <div className={`${styles.scrollBar} ${showScrollBar2 ? styles.show : ''}`}>
-              <div className={styles.bar} key={Date.now()}></div>
-            </div>
-          </div>
-        </div> */}
-
-        {/* <div ref={section8Ref} className={`${styles.sectionInfo} ${styles.marginTopVh}`}>
-          <div className={styles.wrapper}>
-            <div className={styles.infoCard}>
-              <div className={`${styles.cardImg} ${styles.divideImgCenter}`}>
-                <img
-                  src="/images/main/info10.jpg"
-                  alt="Neon Notelgia - 본 작업은 도시 공간 속에서 흔히 스쳐 지나칠 수 있지만, 일상 속 필수적 정보를 전달하는 ‘사인(Sign)’의 의미에 주목한 공간 미디어 인스톨레이션이다."
-                />
-              </div>
-              <div className={styles.overflowHidden}>
-                <p ref={text10Ref}>
-                  우리가 기억하는 서울,
-                  <br />
-                  잊고 있었던 서울,
-                  <br />
-                  그리고 상상 속의 서울
-                </p>
-              </div>
-            </div>
-
-            <div className={styles.infoCardFloating}>
-              <div ref={section10Ref} className={styles.floatingBox}>
-                <div className={`${styles.keyImg} ${styles.centerCardImg}`}>
-                  <img
-                    src="/images/main/info11.jpg"
-                    alt="Resonance - 이 작업은 관람객이 디지털로 구현된 대나무 숲을 천천히 거닐도록 유도하며, 서울이라는 도시를 정의하는 ‘공식적인 언어’가 과연 진심을 담고 있는지, 아니면 더 깊은 진실을 감추 고 있는지를 스스로 질문하게 합니다."
-                  />
-                </div>
-                <div className={`${styles.blind} ${styles.keyText} ${styles.colorWhite}`}>
-                  <h3>Resonance</h3>
-                </div>
-                <div
-                  className={`${styles.floatingImg} ${styles.floatingImgLeft} ${styles.cardSlowImg2}`}
-                >
-                  <img
-                    src="/images/main/info12.jpg"
-                    alt="빛의 기억 Memory of Light - 이 작품은 데이터의 흐름 속에서 생성되는 최소 단위의 조형성을 시각적으로 재현한 설치 작업입니다."
-                  />
-                </div>
-
-                <div
-                  className={`${styles.floatingImg} ${styles.floatingImgRight} ${styles.cardSlowImg}`}
-                >
-                  <img src="/images/main/info13.jpg" alt="전시를 즐기는 관람객의 모습" />
-                </div>
-
-                <div className={`${styles.overflowHidden} ${styles.subText}`}>
-                  <p ref={text11Ref} style={{ width: '100vw' }}>
-                    언어로 설명되기 전의 순간,
-                    <br />그 안에 숨어있는 진짜 아름다움은 무엇일까?
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className={styles.infoCard}>
-              <div className={styles.cardImg}>
-                <img src="/images/main/info14.jpg" alt="전시 모습 중" />
-              </div>
-              <div className={styles.overflowHidden}>
-                <p ref={text12Ref}>
-                  축적된 서사와 데이터의 집합,
-                  <br />
-                  무의식적 기억의 형식
-                </p>
-              </div>
-            </div>
-          </div>
-        </div> */}
 
         {/* 이미지 날라오는 모션 */}
         <div ref={cardScaleContainerRef} className={styles.container}>
@@ -1220,8 +1018,8 @@ export default function MainPage() {
               </span>
 
               <div ref={videoDivRef} className={styles.videoBox}>
-                {bottomVideoUrl ? (
-                  inView && (
+                {inView ? (
+                  bottomVideoUrl ? (
                     <iframe
                       width="100%"
                       height="100%"
@@ -1231,14 +1029,18 @@ export default function MainPage() {
                       allowFullScreen
                       className={styles.video}
                     />
+                  ) : (
+                    <video
+                      src="/videos/outro.mp4"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className={styles.video}
+                      style={{ objectFit: 'cover', height: '100%' }}
+                    />
                   )
-                ) : (
-                  <img
-                    src="/images/main/section3-06.jpg"
-                    alt="전시를 즐기는 관람객의 모습"
-                    className={styles.img}
-                  />
-                )}
+                ) : null}
               </div>
 
               <span ref={textRightRef} className={styles.rightTitle}>
@@ -1499,12 +1301,13 @@ export default function MainPage() {
 
             <div className={styles.locationWrap}>
               <div className={styles.location}>
-                {/* 지도 */}
+                {/* 네이버 지도 */}
                 {/* <div
                   id="daumRoughmapContainer1747889978369"
                   className="root_daum_roughmap root_daum_roughmap_landing"
                 /> */}
                 {/* <div ref={mapRef} style={{ width: '100%', height: '400px' }} /> */}
+
                 {/* 임시 지도 이미지  */}
                 <div>
                   <img src="/images/main/location.png" alt="map" />

@@ -133,8 +133,7 @@ export function useSectionImgShowAnim(
 
 export function useImageFadeSwitch(
   triggerRef: React.RefObject<HTMLElement | null>,
-  styles: { [key: string]: string },
-  setShowScrollBar: React.Dispatch<React.SetStateAction<boolean>>
+  styles: { [key: string]: string }
 ) {
   useEffect(() => {
     if (!triggerRef.current) return;
@@ -166,25 +165,6 @@ export function useImageFadeSwitch(
         start: 'top center',
         end: 'bottom center',
         scrub: true,
-      },
-    });
-
-    gsap.to(bg3, {
-      opacity: 1,
-      scrollTrigger: {
-        trigger: triggerRef.current,
-        start: `+=200`,
-        end: '+=200',
-        scrub: true,
-        onUpdate: () => {
-          // 실시간으로 blind의 opacity 값을 체크
-          const currentOpacity = Number(gsap.getProperty(bg3, 'opacity'));
-          if (currentOpacity > 0.6) {
-            setShowScrollBar(true);
-          } else {
-            setShowScrollBar(false);
-          }
-        },
       },
     });
 
