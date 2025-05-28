@@ -606,18 +606,17 @@
   font-size: 42px;
   font-family: 'Montserrat', sans-serif;
   justify-self: center;
-  padding-top: 15rem;
+  padding-top: 6rem;
 }
 
 .pivotScSection p {
   color: white;
   text-align-last: center;
-  padding-top: 40px;
+  padding-top: 20px;
 }
 
 .pivotScSection img {
   border-radius: 16px;
-  padding-top: 4rem;
 }
 
 /* Sticky Gallery css */
@@ -635,21 +634,25 @@
   font-size: 32px;
   color: #222;
   font-weight: 700;
-  padding-top: 5rem;
+  padding: 5rem 4rem;
+  box-sizing: border-box;
+  width: 50%;
 }
 .sgLeftTop {
   font-size: 18px;
   color: #444;
-  font-weight: 700;
+  font-weight: 800;
 }
 .sgRight {
   flex: 2;
-  padding: 0 0 0 40px;
-  width: 100%;
+  padding: 4rem 40px;
+  width: 50%;
+  box-sizing: border-box;
 }
 
+
 .sgRight p {
-  padding-block: 60px;
+  padding-block: 20px;
   font-weight: 700;
   justify-self: center;
 }
@@ -849,5 +852,24 @@
 
   .sgContainer {
     padding-inline: 1.5rem;
+  }
+  .sgLeftTop{
+    font-size: 14px;
+  }
+  .sgLeft {
+    padding: 50px 1rem;
+    font-size: 18px;
+    width: 40%;
+  }
+
+  .sgRight{
+    width: 60%;
+    padding: 50px 0;
+  }
+
+  .sgRight p{
+    font-size: 16px;
+    padding-block: 0;
+
   }
 }

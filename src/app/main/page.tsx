@@ -1027,7 +1027,7 @@ export default function MainPage() {
             style={{
               position: 'relative',
               width: '100%',
-              height: '500px', // 섹션 높이
+              height: '300px', // 섹션 높이
               overflow: 'hidden',
             }}
           >
@@ -1037,7 +1037,7 @@ export default function MainPage() {
                 display: 'flex',
                 flexDirection: 'row',
                 width: 'max-content', // 자식만큼 가로로
-                gap: '10px',
+                gap: '12px',
                 borderRadius: '16px',
               }}
             >
