@@ -828,7 +828,7 @@ export default function MainPage() {
                 <div className={styles.cardImg}>
                   <img
                     src="/images/main/01.jpg"
-                    alt="Moon - 서서히 퍼지는 달빛은 어둠 속에서 서서히 드러나는 인간의 내면성과 감정의 흐름을 은유하며, 도시가 품고 있는 강인함과 생명력을 감각적으로 전달한다."
+                    alt="City Pulse - 서울 도심 곳곳에 존재하는 수많은 간판들은 단순한 상업적 도구를 넘어, 개인의 희망과 도시의 서사를 담고 있는 상징적 매개체이다."
                   />
                 </div>
               </div>
@@ -905,7 +905,7 @@ export default function MainPage() {
                     <img
                       className={styles.sgImg}
                       src="/images/main/info08-1.jpg"
-                      alt="관람객 모습"
+                      alt="관람객 모습 - Collage: Gwanghwa"
                     />
                   </div>
                 </div>
@@ -926,7 +926,7 @@ export default function MainPage() {
                   <div className={` ${styles.cardImg}`}>
                     <img
                       className={styles.sgImg}
-                      src="/images/main/04.jpg"
+                      src="/images/main/04.jpg" // 정사각 비율로 변경
                       alt="관람객 모습 - Pattern: 시간을 짓는 손길"
                     />
                   </div>
@@ -1002,13 +1002,14 @@ export default function MainPage() {
               />
               <img
                 src="/images/main/06.jpg"
-                alt="Neon Notelgia - 본 작업은 도시 공간 속에서 흔히 스쳐 지나칠 수 있지만, 일상 속 필수적 정보를 전달하는 ‘사인(Sign)’의 의미에 주목한 공간 미디어 인스톨레이션이다."
+                alt="Pattern: 시간을 짓는 손길 - 이 작업은 ‘무늬’라는 시각적 언어를 통해 시간과 기억, 그리고 자연에 대한 인간의 인식을 형상화합니다. "
                 width={656}
                 height={373}
               />
               <img
                 src="/images/main/07.jpg"
-                alt="Neon Notelgia - 본 작업은 도시 공간 속에서 흔히 스쳐 지나칠 수 있지만, 일상 속 필수적 정보를 전달하는 ‘사인(Sign)’의 의미에 주목한 공간 미디어 인스톨레이션이다."
+                alt="기억의 스펙트럼
+The Spectrum of Memory - 색은 단순한 시각 요소를 넘어, 기억을 저장하고 불러오는 감각적 코드로 작동합니다."
                 width={656}
                 height={373}
               />
