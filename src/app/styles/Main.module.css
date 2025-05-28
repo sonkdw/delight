@@ -675,9 +675,7 @@
   transition: opacity 0.3s;
   opacity: 1;
 }
-.fade {
-  opacity: 0;
-}
+
 .sgLeftTop {
   font-size: 18px;
   color: #444;

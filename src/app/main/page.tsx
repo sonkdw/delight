@@ -712,7 +712,6 @@ export default function MainPage() {
   }, []);
 
   // 특정 위치에 오면 텍스트 바꿔주기
-  const [fade, setFade] = useState(false);
   const [sgText, setSgText] = useState(
     <>
       <span className={styles.sgLeftTop}>지금, 여기</span>
@@ -954,7 +953,7 @@ export default function MainPage() {
         <div className={`${styles.sectionInfo}`}>
           <div className={styles.wrapperTop}>
             <div ref={containerRef} className={styles.sgContainer}>
-              <div ref={leftRef} className={`${styles.sgLeft} ${fade ? styles.fade : ''}`}>
+              <div ref={leftRef} className={styles.sgLeft}>
                 {sgText}
               </div>
               <div ref={rightRef} className={styles.sgRight}>
