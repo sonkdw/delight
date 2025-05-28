@@ -596,6 +596,8 @@
 .pivotScSection {
   background-image: url('/images/main/bg03.jpg');
   height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .pivotScSection h2 {
@@ -604,13 +606,18 @@
   font-size: 42px;
   font-family: 'Montserrat', sans-serif;
   justify-self: center;
-  padding-top: 10rem;
+  padding-top: 15rem;
 }
 
 .pivotScSection p {
   color: white;
   text-align-last: center;
   padding-top: 40px;
+}
+
+.pivotScSection img {
+  border-radius: 16px;
+  padding-top: 4rem;
 }
 
 /* Sticky Gallery css */

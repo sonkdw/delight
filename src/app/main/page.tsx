@@ -394,33 +394,14 @@ export default function MainPage() {
           },
           {
             opacity: 1,
-            width: bottomVideoUrl ? '80vw' : '100vw',
-            height: bottomVideoUrl ? '80vh' : '100vh',
+            width: '80vw',
+            height: '80vh',
             scale: 1,
             duration: 1.5,
             ease: 'power3.out',
           },
           '-=.9'
         );
-        setTimeout(() => {
-          // 등장 애니메이션이 완료된 후에 실행
-          const pinSpacer = document.querySelectorAll('.pin-spacer');
-          if (pinSpacer) {
-            gsap.set(pinSpacer, { height: '80vh' }); // 초기값
-
-            gsap.to(pinSpacer, {
-              height: '0vh',
-              ease: 'power3.inOut',
-              scrollTrigger: {
-                trigger: pinSpacer,
-                start: 'top top',
-                end: '+=80vh', // 80vh 만큼 스크롤 구간에서 0으로 줄어듦
-                scrub: true, // 스크롤 위치에 따라 양방향 트랜지션!
-                pin: false, // 이미 pin 걸려 있으니 false
-              },
-            });
-          }
-        }, 2000); // 등장 애니 duration(1.5s)보다 살짝 길게
       },
       // 모바일
       '(max-width: 768px)': () => {
@@ -432,8 +413,8 @@ export default function MainPage() {
           },
           {
             opacity: 1,
-            width: bottomVideoUrl ? '90vw' : '100vw',
-            height: bottomVideoUrl ? '50vh' : '100vh',
+            width: '90vw',
+            height: '50vh',
             scale: 1,
             duration: 1.2,
             ease: 'power3.out',
@@ -441,25 +422,25 @@ export default function MainPage() {
           '-=.9'
         );
 
-        setTimeout(() => {
-          // 등장 애니메이션이 완료된 후에 실행
-          const pinSpacer = document.querySelectorAll('.pin-spacer');
-          if (pinSpacer) {
-            gsap.set(pinSpacer, { height: '80vh' }); // 초기값
+        // setTimeout(() => {
+        //   // 등장 애니메이션이 완료된 후에 실행
+        //   const pinSpacer = document.querySelectorAll('.pin-spacer');
+        //   if (pinSpacer) {
+        //     gsap.set(pinSpacer, { height: '80vh' }); // 초기값
 
-            gsap.to(pinSpacer, {
-              height: '0vh',
-              ease: 'power3.inOut',
-              scrollTrigger: {
-                trigger: pinSpacer,
-                start: 'top top',
-                end: '+=80vh', // 80vh 만큼 스크롤 구간에서 0으로 줄어듦
-                scrub: true, // 스크롤 위치에 따라 양방향 트랜지션!
-                pin: false, // 이미 pin 걸려 있으니 false
-              },
-            });
-          }
-        }, 2000); // 등장 애니 duration(1.5s)보다 살짝 길게
+        //     gsap.to(pinSpacer, {
+        //       height: '0vh',
+        //       ease: 'power3.inOut',
+        //       scrollTrigger: {
+        //         trigger: pinSpacer,
+        //         start: 'top top',
+        //         end: '+=80vh', // 80vh 만큼 스크롤 구간에서 0으로 줄어듦
+        //         scrub: true, // 스크롤 위치에 따라 양방향 트랜지션!
+        //         pin: false, // 이미 pin 걸려 있으니 false
+        //       },
+        //     });
+        //   }
+        // }, 2000); // 등장 애니 duration(1.5s)보다 살짝 길게
 
         ScrollTrigger.refresh();
       },
@@ -804,6 +785,7 @@ export default function MainPage() {
     if (!pivotContainerRef.current || !innerRef.current) return;
 
     const totalWidth = innerRef.current.scrollWidth - pivotContainerRef.current.offsetWidth;
+    console.log(totalWidth);
 
     gsap.to(innerRef.current, {
       x: -totalWidth,
@@ -1025,24 +1007,6 @@ export default function MainPage() {
               <p ref={delightSeoulMarqueeRef} className={styles.marqueeText}>
                 delight seoul 2025
               </p>
-              {/* <div className={styles.infoCard}>
-                <div className={`${styles.cardImg} ${styles.marginInline}`}>
-                  <img
-                    src="/images/main/info09.jpg"
-                    alt="The Door:상상의 경계, 선택의 임계점 - 이 작업은 ‘문 ’이라는 상징을 통해 인간 내면의 상상력과 탐험 욕구, 그리고 선택의 양가성을 시각적으로 구현한 설치 작품입니다. "
-                  />
-                </div>
-              </div> */}
-              {/* <div className={`${styles.overflowHidden}`}>
-                <p
-                  ref={text9Ref}
-                  className={`${styles.wrapperBottom} ${isMobile ? styles.wrapperInline : styles.infoCard}`}
-                >
-                  무엇이 숨겨지고 있고, 무엇이 드러나는가?
-                  <br />
-                  우리가 진실이라고 믿는 것은 어디까지인가?
-                </p>
-              </div> */}
             </div>
           </div>
         </div>
@@ -1094,6 +1058,12 @@ export default function MainPage() {
               />
               <img
                 src="/images/main/info14.jpg"
+                alt="Neon Notelgia - 본 작업은 도시 공간 속에서 흔히 스쳐 지나칠 수 있지만, 일상 속 필수적 정보를 전달하는 ‘사인(Sign)’의 의미에 주목한 공간 미디어 인스톨레이션이다."
+                width={656}
+                height={373}
+              />
+              <img
+                src="/images/main/info10.jpg"
                 alt="Neon Notelgia - 본 작업은 도시 공간 속에서 흔히 스쳐 지나칠 수 있지만, 일상 속 필수적 정보를 전달하는 ‘사인(Sign)’의 의미에 주목한 공간 미디어 인스톨레이션이다."
                 width={656}
                 height={373}
@@ -1198,8 +1168,6 @@ export default function MainPage() {
           </div>
         </div> */}
 
-        {/* 테스트 */}
-
         {/* 이미지 날라오는 모션 */}
         <div ref={cardScaleContainerRef} className={styles.container}>
           <div className={styles.fixedBox}>
@@ -1254,15 +1222,23 @@ export default function MainPage() {
               </span>
 
               <div ref={videoDivRef} className={styles.videoBox}>
-                {bottomVideoUrl && inView && (
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    src="https://www.youtube.com/embed/ZFWOwC_pmLw?autoplay=1&mute=1&loop=1&playlist=ZFWOwC_pmLw&controls=0&showinfo=0&modestbranding=1"
-                    title="YouTube video player"
-                    allow="autoplay; encrypted-media"
-                    allowFullScreen
-                    className={styles.video}
+                {bottomVideoUrl ? (
+                  inView && (
+                    <iframe
+                      width="100%"
+                      height="100%"
+                      src="https://www.youtube.com/embed/ZFWOwC_pmLw?autoplay=1&mute=1&loop=1&playlist=ZFWOwC_pmLw&controls=0&showinfo=0&modestbranding=1"
+                      title="YouTube video player"
+                      allow="autoplay; encrypted-media"
+                      allowFullScreen
+                      className={styles.video}
+                    />
+                  )
+                ) : (
+                  <img
+                    src="/images/main/section3-06.jpg"
+                    alt="전시를 즐기는 관람객의 모습"
+                    className={styles.img}
                   />
                 )}
               </div>
