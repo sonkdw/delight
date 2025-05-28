@@ -301,6 +301,16 @@
   margin: 0 auto;
 }
 
+.infoCardDivide{
+  display: flex;
+  gap: 16px;
+}
+
+.infoCardDivide > div:first-child {
+  margin-top: 150px;
+}
+
+
 .cardImg,
 .cardImg2 {
   border-radius: 12px;
@@ -337,7 +347,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  font-size: 68px;
+  font-size: 80px;
 
   font-weight: 800;
   text-align: center;
@@ -398,7 +408,7 @@
   text-align: center;
   font-family: 'Montserrat', sans-serif;
   font-weight: 800;
-  font-size: 52px;
+  font-size: 22px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -431,13 +441,11 @@
 .display * {
   font-family: 'Noto Serif Display', serif;
   font-weight: 500;
-  letter-spacing: 0.3rem;
 }
 
 .blind h3 {
   font-family: 'Noto Serif Display', serif;
   font-weight: 500;
-  letter-spacing: 0.1rem;
 }
 
 .divideBox {
@@ -462,6 +470,8 @@
 .divideImg.divideImgRight {
   transform: translateY(-50px);
 }
+
+
 
 .delightSeoulMarqueeContainer {
   overflow: hidden;
@@ -522,7 +532,6 @@
   font-family: 'Montserrat', sans-serif;
   font-weight: 800;
   color: #fff;
-  letter-spacing: 0.04em;
   white-space: nowrap;
   user-select: none;
   margin-left: -2vw;
@@ -674,7 +683,6 @@
 }
 .sgImg {
   max-width: 100%;
-  border-radius: 16px;
   width: 720px;
 }
 
@@ -682,7 +690,6 @@
   margin-top: 18px;
   font-size: 1rem;
   font-weight: bold;
-  letter-spacing: 2px;
 }
 
 @media all and (max-width: 767px) {
@@ -692,6 +699,11 @@
 
   .sectionTop .text span {
     font-size: 16px;
+  }
+
+  .cardImg,
+  .cardImg2{
+    border-radius: 4px;
   }
 
   .wrapper {
@@ -860,6 +872,7 @@
   .sgContainer {
     padding-inline: 1.5rem;
     min-height: 95vh;
+    padding: 0 1rem;
   }
   .sgLeftTop {
     font-size: 14px;
@@ -873,6 +886,14 @@
   .sgRight {
     width: 60%;
     padding: 50px 0;
+  }
+
+  .sgRight .infoCardDivide{
+    flex-wrap: wrap;
+  }
+
+  .sgRight .infoCardDivide .cardImg{
+    width: 100%;
   }
 
   .sgRight p {
@@ -893,6 +914,11 @@
   }
 
   .sectionBg .blindText {
-    font-size: 28px;
+    font-size: 16px;
+  }
+
+
+  .infoCardDivide > div:first-child{
+    margin-top: 50px;
   }
 }

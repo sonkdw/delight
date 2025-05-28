@@ -818,11 +818,19 @@ export default function MainPage() {
             </div>
 
             <div ref={section3Ref} className={styles.infoCard}>
-              <div className={styles.cardImg}>
-                <img
-                  src="/images/main/info05.jpg"
-                  alt="12지신의 숲 Forest of the Twelve Guardians -  도시 공간 속에서 흔히 스쳐 지나칠 수 있지만, 일상 속 필수적 정보를 전달하는 ‘사인(Sign)’의 의미에 주목한 공간 미디어 인스톨레이션"
-                />
+              <div className={styles.infoCardDivide}>
+                <div className={styles.cardImg}>
+                  <img
+                    src="/images/main/info05.jpg"
+                    alt="12지신의 숲 Forest of the Twelve Guardians -  도시 공간 속에서 흔히 스쳐 지나칠 수 있지만, 일상 속 필수적 정보를 전달하는 ‘사인(Sign)’의 의미에 주목한 공간 미디어 인스톨레이션"
+                  />
+                </div>
+                <div className={styles.cardImg}>
+                  <img
+                    src="/images/main/01.jpg"
+                    alt="Moon - 서서히 퍼지는 달빛은 어둠 속에서 서서히 드러나는 인간의 내면성과 감정의 흐름을 은유하며, 도시가 품고 있는 강인함과 생명력을 감각적으로 전달한다."
+                  />
+                </div>
               </div>
               <div className={styles.overflowHidden}>
                 <p ref={text5Ref}>도시성과 인간의 감각적 경험</p>
@@ -870,29 +878,60 @@ export default function MainPage() {
                   </div>
                 </div>
 
-                <p ref={text13Ref}>LONDON - SEOUL - PARIS</p>
+                <p ref={text13Ref}>그 표면에 새겨진 시간의 흔적과 <br />존재의 서사</p>
 
                 <div ref={rightImg2Ref} className={styles.infoCard}>
-                  <div className={`${styles.cardImg}`}>
-                    <img
-                      className={styles.sgImg}
-                      src="/images/main/info07-1.jpg"
-                      alt="Collage: Gwanghwa - 이 작품은 경복궁의 정문인 광화문과 그 뒤로 펼쳐진 북악산을 중심으로 구성되며, ”일월오봉도(日月五峯圖)”의 구도를 차용합니다. 일월오봉도는 조선 왕조의 권위와 자연 질서를 상징하는 도상으로, 왕의 공간을 장식하던 가장 상징적인 회화입니다."
-                    />
+                  <div className={styles.infoCardDivide}>
+                    <div className={`${styles.cardImg}`}>
+                      <img
+                        className={styles.sgImg}
+                        src="/images/main/info07-1.jpg"
+                        alt="Collage: Gwanghwa - 이 작품은 경복궁의 정문인 광화문과 그 뒤로 펼쳐진 북악산을 중심으로 구성되며, ”일월오봉도(日月五峯圖)”의 구도를 차용합니다. 일월오봉도는 조선 왕조의 권위와 자연 질서를 상징하는 도상으로, 왕의 공간을 장식하던 가장 상징적인 회화입니다."
+                      />
+                    </div>
+                    <div className={`${styles.cardImg}`}>
+                      <img
+                        className={styles.sgImg}
+                        src="/images/main/02.jpg"
+                        alt="Collage: Gwanghwa - 이 작품은 경복궁의 정문인 광화문과 그 뒤로 펼쳐진 북악산을 중심으로 구성되며, ”일월오봉도(日月五峯圖)”의 구도를 차용합니다. 일월오봉도는 조선 왕조의 권위와 자연 질서를 상징하는 도상으로, 왕의 공간을 장식하던 가장 상징적인 회화입니다."
+                      />
+                    </div>
                   </div>
                 </div>
 
-                <p ref={text14Ref}>끊임없이 넘쳐흐르는 사각의 흐름</p>
 
                 <div ref={rightImg3Ref} className={styles.infoCard}>
                   <div className={` ${styles.cardImg}`}>
                     <img
                       className={styles.sgImg}
                       src="/images/main/info08-1.jpg"
-                      alt="관람객 모습 - Collage: Gwanghwa"
+                      alt="관람객 모습"
                     />
                   </div>
                 </div>
+
+                <p ref={text14Ref}>도시의 양면성과 <br />공존의 미학</p>
+
+                <div ref={rightImg3Ref} className={styles.infoCard}>
+                  <div className={` ${styles.cardImg}`}>
+                    <img
+                      className={styles.sgImg}
+                      src="/images/main/03.jpg"
+                      alt="관람객 모습 - 빛의 기억 Memory of Light"
+                    />
+                  </div>
+                </div>
+
+                <div ref={rightImg3Ref} className={styles.infoCard}>
+                  <div className={` ${styles.cardImg}`}>
+                    <img
+                      className={styles.sgImg}
+                      src="/images/main/04.jpg"
+                      alt="관람객 모습 - Pattern: 시간을 짓는 손길"
+                    />
+                  </div>
+                </div>
+
               </div>
             </div>
 
@@ -922,7 +961,7 @@ export default function MainPage() {
             style={{
               position: 'relative',
               width: '100%',
-              height: '300px', // 섹션 높이
+              height: '373px', // 섹션 높이
               overflow: 'hidden',
             }}
           >
@@ -944,18 +983,31 @@ export default function MainPage() {
               />
               <img
                 src="/images/main/info11-1.jpg"
-                alt="Neon Notelgia - 본 작업은 도시 공간 속에서 흔히 스쳐 지나칠 수 있지만, 일상 속 필수적 정보를 전달하는 ‘사인(Sign)’의 의미에 주목한 공간 미디어 인스톨레이션이다."
+                alt="관람객 모습 - Resonance"
                 width={656}
                 height={373}
               />
               <img
                 src="/images/main/info14.jpg"
+                alt="전시 모습 "
+                width={656}
+                height={373}
+              />
+
+              <img
+                src="/images/main/05.jpg"
+                alt="Neon Notelgia - 본 작업은 도시 공간 속에서 흔중 스쳐 지나칠 수 있지만, 일상 속 필수적 정보를 전달하는 ‘사인(Sign)’의 의미에 주목한 공간 미디어 인스톨레이션이다."
+                width={656}
+                height={373}
+              />
+              <img
+                src="/images/main/06.jpg"
                 alt="Neon Notelgia - 본 작업은 도시 공간 속에서 흔히 스쳐 지나칠 수 있지만, 일상 속 필수적 정보를 전달하는 ‘사인(Sign)’의 의미에 주목한 공간 미디어 인스톨레이션이다."
                 width={656}
                 height={373}
               />
               <img
-                src="/images/main/info10.jpg"
+                src="/images/main/07.jpg"
                 alt="Neon Notelgia - 본 작업은 도시 공간 속에서 흔히 스쳐 지나칠 수 있지만, 일상 속 필수적 정보를 전달하는 ‘사인(Sign)’의 의미에 주목한 공간 미디어 인스톨레이션이다."
                 width={656}
                 height={373}
