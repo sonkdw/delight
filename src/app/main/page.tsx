@@ -592,7 +592,7 @@ export default function MainPage() {
 
     gsap.fromTo(
       textEl,
-      { x: 120, y: 0 },
+      { x: 620, y: 0 },
       {
         x: '-10vw',
         ease: 'none',
@@ -940,7 +940,7 @@ export default function MainPage() {
               </div>
             </div>
 
-            <div ref={section7Ref} className={` ${styles.delightSeoulMarqueeContainer}`}>
+            <div ref={section7Ref} className={`${styles.delightSeoulMarqueeContainer}`}>
               <p ref={delightSeoulMarqueeRef} className={styles.marqueeText}>
                 delight seoul 2025
               </p>
@@ -1083,16 +1083,15 @@ The Spectrum of Memory - 색은 단순한 시각 요소를 넘어, 기억을 저
                       className={styles.video}
                     />
                   ) : (
-                    <></>
-                    // <video
-                    //   src="/videos/outro.mp4"
-                    //   autoPlay
-                    //   muted
-                    //   loop
-                    //   playsInline
-                    //   className={styles.video}
-                    //   style={{ objectFit: 'cover', height: '100%' }}
-                    // />
+                    <video
+                      src="/videos/outro.mp4"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className={styles.video}
+                      style={{ objectFit: 'cover', height: '100%' }}
+                    />
                   )
                 ) : null}
               </div>
