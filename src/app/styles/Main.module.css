@@ -278,10 +278,11 @@
 }
 
 .bgBox {
+  background-color: black;
   box-sizing: border-box;
   position: relative;
   top: 0;
-  height: 100vh; /* 조정 필요 */
+  height: 110vh; /* 조정 필요 */
   overscroll-behavior: none;
   place-content: center;
 }
@@ -301,17 +302,14 @@
   margin: 0 auto;
 }
 
-.infoCardDivide{
+.infoCardDivide {
   display: flex;
   gap: 16px;
 }
 
-.infoCardDivide .cardImg{
+.infoCardDivide .cardImg {
   width: 50%;
 }
-
-
-
 
 .cardImg,
 .cardImg2 {
@@ -323,7 +321,7 @@
 .cardImg img {
   width: 100%;
   display: block;
-  transform-origin: 50% 100% 0;
+  transform-origin: 50% 124% 0;
 }
 
 .cardText {
@@ -387,6 +385,7 @@
 .sectionBg {
   background-color: #000;
   position: relative;
+  margin-top: 10rem;
 }
 
 .sectionBg .blindBg1 {
@@ -472,8 +471,6 @@
 .divideImg.divideImgRight {
   transform: translateY(-50px);
 }
-
-
 
 .delightSeoulMarqueeContainer {
   overflow: hidden;
@@ -638,6 +635,21 @@
   padding-top: 20px;
 }
 
+.pivotScImgs {
+  position: relative;
+  width: 100%;
+  height: 373px;
+  overflow: hidden;
+}
+
+.pivotScImgsInner {
+  display: flex;
+  flex-direction: row;
+  width: max-content;
+  gap: 12px;
+  border-radius: 16px;
+}
+
 .pivotScSection img {
   border-radius: 16px;
 }
@@ -660,12 +672,18 @@
   padding: 5rem 4rem;
   box-sizing: border-box;
   width: 50%;
+  transition: opacity 0.3s;
+  opacity: 1;
+}
+.fade {
+  opacity: 0;
 }
 .sgLeftTop {
   font-size: 18px;
   color: #444;
   font-weight: 800;
 }
+
 .sgRight {
   flex: 2;
   padding: 4rem 40px;
@@ -703,9 +721,21 @@
     font-size: 16px;
   }
 
+  .bgBox {
+    background-color: black;
+    height: 100vh;
+  }
+
   .cardImg,
-  .cardImg2{
+  .cardImg2 {
     border-radius: 4px;
+  }
+  .cardImg.smCardImg img {
+    transform-origin: 50% 244% 0;
+  }
+
+  .cardImg img {
+    transform-origin: 50% 118% 0;
   }
 
   .wrapper {
@@ -828,6 +858,7 @@
 
   .videoBox {
     height: 220px !important;
+    place-content: center;
   }
 
   .leftTitle {
@@ -890,11 +921,11 @@
     padding: 50px 0;
   }
 
-  .sgRight .infoCardDivide{
+  .sgRight .infoCardDivide {
     flex-wrap: wrap;
   }
 
-  .sgRight .infoCardDivide .cardImg{
+  .sgRight .infoCardDivide .cardImg {
     width: 100%;
   }
 
@@ -915,9 +946,16 @@
     font-size: 33px;
   }
 
+  .pivotScImgs {
+    height: 273px;
+    align-content: center;
+  }
+
+  .pivotScImgsInner {
+    width: auto;
+  }
+
   .sectionBg .blindText {
     font-size: 16px;
   }
-
-
 }

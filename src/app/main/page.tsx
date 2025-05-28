@@ -105,7 +105,37 @@ export default function MainPage() {
   const section10Ref = useRef<HTMLDivElement | null>(null);
   const section11Ref = useRef<HTMLDivElement | null>(null);
 
-  const cardImgRef = useRef(null);
+  const cardImgRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!section3Ref.current || !cardImgRef.current) return;
+
+    const infoElem = section3Ref.current;
+    const bgElem = cardImgRef.current;
+    const initialHeight = infoElem.offsetHeight; // 시작 height(px)
+
+    // GSAP ScrollTrigger
+    gsap.fromTo(
+      infoElem,
+      { height: initialHeight }, // 시작 높이
+      {
+        height: '-50px', // 0으로 줄이기
+        ease: 'none',
+        scrollTrigger: {
+          trigger: bgElem, // sectionBg 도달 시
+          start: 'top 99%', // cardImgRef의 top이 viewport 50% 닿을 때 시작
+          end: 'bottom 99%', // cardImgRef의 top이 viewport top에 닿을 때 끝
+          scrub: true, // 스크롤과 연동
+        },
+        immediateRender: false,
+      }
+    );
+
+    // 클린업
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
 
   const animatedTextRef = useRef<HTMLDivElement>(null);
 
@@ -590,11 +620,14 @@ export default function MainPage() {
 
     const textEl = delightSeoulMarqueeRef.current;
 
+    const xFrom = isMobile ? '50vw' : 620;
+    const xTo = isMobile ? '0' : '-10vw';
+
     gsap.fromTo(
       textEl,
-      { x: 620, y: 0 },
+      { x: xFrom, y: 0 },
       {
-        x: '-10vw',
+        x: xTo,
         ease: 'none',
         scrollTrigger: {
           trigger: textEl,
@@ -604,7 +637,7 @@ export default function MainPage() {
         },
       }
     );
-  }, []);
+  }, [isMobile]);
 
   // faq 마퀴
   useEffect(() => {
@@ -653,10 +686,14 @@ export default function MainPage() {
   const rightImg1Ref = useRef<HTMLDivElement>(null);
   const rightImg2Ref = useRef<HTMLDivElement>(null);
   const rightImg3Ref = useRef<HTMLDivElement>(null);
+  const rightImg4Ref = useRef<HTMLDivElement>(null);
+  const rightImg5Ref = useRef<HTMLDivElement>(null);
 
   useSectionStaggerAnim(rightImg1Ref, styles);
   useSectionStaggerAnim(rightImg2Ref, styles);
   useSectionStaggerAnim(rightImg3Ref, styles);
+  useSectionStaggerAnim(rightImg4Ref, styles);
+  useSectionStaggerAnim(rightImg5Ref, styles);
 
   useEffect(() => {
     if (!rightRef.current || !leftRef.current) return;
@@ -672,6 +709,63 @@ export default function MainPage() {
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
+  }, []);
+
+  // 특정 위치에 오면 텍스트 바꿔주기
+  const [fade, setFade] = useState(false);
+  const [sgText, setSgText] = useState(
+    <>
+      <span className={styles.sgLeftTop}>지금, 여기</span>
+      <br />
+      익숙하면서도 낯선
+      <br />
+      공존의 장면
+    </>
+  );
+
+  // 스크롤에 따른 텍스트 변화
+  useEffect(() => {
+    const target = rightImg3Ref.current;
+    if (!target) return;
+
+    const observer = new window.IntersectionObserver(
+      ([entry]) => {
+        // 1. 먼저 opacity를 0으로 페이드 아웃
+        gsap.to(leftRef.current, {
+          opacity: 0,
+          duration: 0.3,
+          onComplete: () => {
+            // 2. 텍스트 변경 (여기서는 opacity는 0 상태)
+            if (entry.isIntersecting) {
+              setSgText(
+                <>
+                  <br />
+                  끊임없이 넘쳐흐르는 <br />
+                  사각의 흐름
+                </>
+              );
+            } else {
+              setSgText(
+                <>
+                  <span className={styles.sgLeftTop}>지금, 여기</span>
+                  <br />
+                  익숙하면서도 낯선
+                  <br />
+                  공존의 장면
+                </>
+              );
+            }
+            // 3. 텍스트가 바뀐 후, 아주 잠깐(예: 10~30ms) 대기 후 opacity 1로!
+            setTimeout(() => {
+              gsap.to(leftRef.current, { opacity: 1, duration: 0.3 });
+            }, 30);
+          },
+        });
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(target);
+    return () => observer.disconnect();
   }, []);
 
   // 네이버 지도 관련 함수
@@ -728,9 +822,8 @@ export default function MainPage() {
 
           {/* 검정색 영역 걷히면 나타나는 동영상 영역 */}
           <div className={styles.bgBox}>
-            <></>
-            {/* <video
-              src="/videos/intro.mp4"
+            <video
+              src="/videos/outro.mp4"
               width="100%"
               height="100%"
               autoPlay
@@ -739,7 +832,7 @@ export default function MainPage() {
               playsInline
               className={styles.video}
               style={{ objectFit: 'cover' }}
-            /> */}
+            />
           </div>
         </>
 
@@ -820,13 +913,13 @@ export default function MainPage() {
 
             <div ref={section3Ref} className={styles.infoCard}>
               <div className={styles.infoCardDivide}>
-                <div className={styles.cardImg}>
+                <div className={`${styles.cardImg} ${styles.smCardImg}`}>
                   <img
                     src="/images/main/info05.jpg"
                     alt="12지신의 숲 Forest of the Twelve Guardians -  도시 공간 속에서 흔히 스쳐 지나칠 수 있지만, 일상 속 필수적 정보를 전달하는 ‘사인(Sign)’의 의미에 주목한 공간 미디어 인스톨레이션"
                   />
                 </div>
-                <div className={styles.cardImg}>
+                <div className={`${styles.cardImg} ${styles.smCardImg}`}>
                   <img
                     src="/images/main/01.jpg"
                     alt="City Pulse - 서울 도심 곳곳에 존재하는 수많은 간판들은 단순한 상업적 도구를 넘어, 개인의 희망과 도시의 서사를 담고 있는 상징적 매개체이다."
@@ -861,12 +954,8 @@ export default function MainPage() {
         <div className={`${styles.sectionInfo}`}>
           <div className={styles.wrapperTop}>
             <div ref={containerRef} className={styles.sgContainer}>
-              <div ref={leftRef} className={styles.sgLeft}>
-                <span className={styles.sgLeftTop}>지금, 여기</span>
-                <br />
-                익숙하면서도 낯선
-                <br />
-                공존의 장면
+              <div ref={leftRef} className={`${styles.sgLeft} ${fade ? styles.fade : ''}`}>
+                {sgText}
               </div>
               <div ref={rightRef} className={styles.sgRight}>
                 <div ref={rightImg1Ref} className={styles.infoCard}>
@@ -904,7 +993,7 @@ export default function MainPage() {
                 </div>
 
                 <div ref={rightImg3Ref} className={styles.infoCard}>
-                  <div className={` ${styles.cardImg}`}>
+                  <div className={styles.cardImg}>
                     <img
                       className={styles.sgImg}
                       src="/images/main/info08-1.jpg"
@@ -918,7 +1007,7 @@ export default function MainPage() {
                   공존의 미학
                 </p>
 
-                <div ref={rightImg3Ref} className={styles.infoCard}>
+                <div ref={rightImg4Ref} className={styles.infoCard}>
                   <div className={` ${styles.cardImg}`}>
                     <img
                       className={styles.sgImg}
@@ -928,7 +1017,7 @@ export default function MainPage() {
                   </div>
                 </div>
 
-                <div ref={rightImg3Ref} className={styles.infoCard}>
+                <div ref={rightImg5Ref} className={styles.infoCard}>
                   <div className={` ${styles.cardImg}`}>
                     <img
                       className={styles.sgImg}
@@ -962,24 +1051,8 @@ export default function MainPage() {
             </p>
           </div>
           {/* 가로스크롤 */}
-          <div
-            style={{
-              position: 'relative',
-              width: '100%',
-              height: '373px', // 섹션 높이
-              overflow: 'hidden',
-            }}
-          >
-            <div
-              ref={innerRef}
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                width: 'max-content', // 자식만큼 가로로
-                gap: '12px',
-                borderRadius: '16px',
-              }}
-            >
+          <div className={styles.pivotScImgs}>
+            <div className={styles.pivotScImgsInner} ref={innerRef}>
               <img
                 src="/images/main/info10.jpg"
                 alt="Neon Notelgia - 본 작업은 도시 공간 속에서 흔히 스쳐 지나칠 수 있지만, 일상 속 필수적 정보를 전달하는 ‘사인(Sign)’의 의미에 주목한 공간 미디어 인스톨레이션이다."
@@ -1090,7 +1163,7 @@ The Spectrum of Memory - 색은 단순한 시각 요소를 넘어, 기억을 저
                       loop
                       playsInline
                       className={styles.video}
-                      style={{ objectFit: 'cover', height: '100%' }}
+                      style={{ objectFit: 'contain' }}
                     />
                   )
                 ) : null}
