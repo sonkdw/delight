@@ -728,7 +728,8 @@ export default function MainPage() {
 
           {/* 검정색 영역 걷히면 나타나는 동영상 영역 */}
           <div className={styles.bgBox}>
-            <video
+            <></>
+            {/* <video
               src="/videos/intro.mp4"
               width="100%"
               height="100%"
@@ -738,7 +739,7 @@ export default function MainPage() {
               playsInline
               className={styles.video}
               style={{ objectFit: 'cover' }}
-            />
+            /> */}
           </div>
         </>
 
@@ -878,7 +879,10 @@ export default function MainPage() {
                   </div>
                 </div>
 
-                <p ref={text13Ref}>그 표면에 새겨진 시간의 흔적과 <br />존재의 서사</p>
+                <p ref={text13Ref}>
+                  그 표면에 새겨진 시간의 흔적과 <br />
+                  존재의 서사
+                </p>
 
                 <div ref={rightImg2Ref} className={styles.infoCard}>
                   <div className={styles.infoCardDivide}>
@@ -899,7 +903,6 @@ export default function MainPage() {
                   </div>
                 </div>
 
-
                 <div ref={rightImg3Ref} className={styles.infoCard}>
                   <div className={` ${styles.cardImg}`}>
                     <img
@@ -910,7 +913,10 @@ export default function MainPage() {
                   </div>
                 </div>
 
-                <p ref={text14Ref}>도시의 양면성과 <br />공존의 미학</p>
+                <p ref={text14Ref}>
+                  도시의 양면성과 <br />
+                  공존의 미학
+                </p>
 
                 <div ref={rightImg3Ref} className={styles.infoCard}>
                   <div className={` ${styles.cardImg}`}>
@@ -931,7 +937,6 @@ export default function MainPage() {
                     />
                   </div>
                 </div>
-
               </div>
             </div>
 
@@ -987,12 +992,7 @@ export default function MainPage() {
                 width={656}
                 height={373}
               />
-              <img
-                src="/images/main/info14.jpg"
-                alt="전시 모습 "
-                width={656}
-                height={373}
-              />
+              <img src="/images/main/info14.jpg" alt="전시 모습 " width={656} height={373} />
 
               <img
                 src="/images/main/05.jpg"
@@ -1083,15 +1083,16 @@ The Spectrum of Memory - 색은 단순한 시각 요소를 넘어, 기억을 저
                       className={styles.video}
                     />
                   ) : (
-                    <video
-                      src="/videos/outro.mp4"
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      className={styles.video}
-                      style={{ objectFit: 'cover', height: '100%' }}
-                    />
+                    <></>
+                    // <video
+                    //   src="/videos/outro.mp4"
+                    //   autoPlay
+                    //   muted
+                    //   loop
+                    //   playsInline
+                    //   className={styles.video}
+                    //   style={{ objectFit: 'cover', height: '100%' }}
+                    // />
                   )
                 ) : null}
               </div>
