@@ -14,6 +14,7 @@ import {
   useShowTextAnimation,
 } from '../hook/gsapHooks';
 import { useIsMobile } from '../hook/useMediaQuery';
+import Player from '@/_components/player';
 
 declare global {
   interface Window {
@@ -845,7 +846,8 @@ export default function MainPage() {
 
           {/* 검정색 영역 걷히면 나타나는 동영상 영역 */}
           <div className={styles.bgBox}>
-            <video
+            <Player />
+            {/* <video
               src="/videos/outro.mp4"
               width="100%"
               height="100%"
@@ -855,7 +857,7 @@ export default function MainPage() {
               playsInline
               className={styles.video}
               style={{ objectFit: 'cover' }}
-            />
+            /> */}
           </div>
         </>
 
