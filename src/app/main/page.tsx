@@ -27,43 +27,43 @@ declare global {
         }) => { render: () => void };
       };
     };
-    // naver?: NaverGlobal;
+    naver?: NaverGlobal;
   }
 }
 
-// interface NaverGlobal {
-//   maps: {
-//     Map: new (element: HTMLElement, options?: NaverMapOptions) => NaverMapInstance;
-//     LatLng: new (lat: number, lng: number) => NaverLatLngInstance;
-//     Marker: new (options: {
-//       position: NaverLatLngInstance;
-//       map: NaverMapInstance;
-//       title?: string;
-//       [key: string]: any;
-//     }) => any;
-//     // 필요하면 다른 지도 객체들도 여기에 추가
-//   };
-// }
+interface NaverGlobal {
+  maps: {
+    Map: new (element: HTMLElement, options?: NaverMapOptions) => NaverMapInstance;
+    LatLng: new (lat: number, lng: number) => NaverLatLngInstance;
+    Marker: new (options: {
+      position: NaverLatLngInstance;
+      map: NaverMapInstance;
+      title?: string;
+      [key: string]: any;
+    }) => any;
+    // 필요하면 다른 지도 객체들도 여기에 추가
+  };
+}
 
-// interface NaverMapOptions {
-//   center?: NaverLatLngInstance;
-//   zoom?: number;
-//   [key: string]: any;
-// }
+interface NaverMapOptions {
+  center?: NaverLatLngInstance;
+  zoom?: number;
+  [key: string]: any;
+}
 
-// interface NaverMapInstance {
-//   setCenter: (latlng: NaverLatLngInstance) => void;
-//   setZoom: (level: number) => void;
-//   // 필요한 메소드만 추가
-//   [key: string]: any;
-// }
+interface NaverMapInstance {
+  setCenter: (latlng: NaverLatLngInstance) => void;
+  setZoom: (level: number) => void;
+  // 필요한 메소드만 추가
+  [key: string]: any;
+}
 
-// interface NaverLatLngInstance {
-//   // 좌표 객체, 실제로는 lat/lng 프로퍼티만 있으면 충분
-//   lat: () => number;
-//   lng: () => number;
-//   [key: string]: any;
-// }
+interface NaverLatLngInstance {
+  // 좌표 객체, 실제로는 lat/lng 프로퍼티만 있으면 충분
+  lat: () => number;
+  lng: () => number;
+  [key: string]: any;
+}
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 gsap.registerPlugin(SplitText);
@@ -787,36 +787,49 @@ export default function MainPage() {
   }, []);
 
   // 네이버 지도 관련 함수
-  // const mapRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<HTMLDivElement>(null);
 
-  // useEffect(() => {
-  //   // 스크립트가 이미 있으면 생성 생략
-  //   if (window.naver && window.naver.maps) {
-  //     createMap();
-  //     return;
-  //   }
-  //   // 동적 스크립트 삽입
-  //   const script = document.createElement('script');
-  //   script.src = 'https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=wusfcf60wp';
-  //   script.async = true;
-  //   script.onload = createMap;
-  //   document.body.appendChild(script);
+  useEffect(() => {
+    // 이미 지도 객체가 있으면 중복 로딩 방지
+    if (window.naver && window.naver.maps && mapRef.current) {
+      createMap();
+      return;
+    }
 
-  //   function createMap() {
-  //     if (window.naver && mapRef.current) {
-  //       const map = new window.naver.maps.Map(mapRef.current, {
-  //         center: new window.naver.maps.LatLng(37.5665, 126.978),
-  //         zoom: 15,
-  //       });
-  //       new window.naver.maps.Marker({
-  //         position: new window.naver.maps.LatLng(37.5665, 126.978),
-  //         map,
-  //         title: '서울시청',
-  //       });
-  //     }
-  //   }
-  //   // cleanup 필요시 추가
-  // }, []);
+    const script = document.createElement('script');
+    script.src = 'https://openapi.map.naver.com/openapi/v3/maps.js?clientId=wusfcf60wp';
+    script.async = true;
+    document.body.appendChild(script);
+
+    script.onload = () => {
+      // *** naver/maps 네임스페이스 비동기 로딩 기다리기 ***
+      const interval = setInterval(() => {
+        if (window.naver && window.naver.maps && mapRef.current) {
+          createMap();
+          clearInterval(interval);
+        }
+      }, 100);
+    };
+
+    function createMap() {
+      const { naver } = window;
+      if (!naver || !mapRef.current) return;
+      const map = new naver.maps.Map(mapRef.current, {
+        center: new naver.maps.LatLng(37.5665, 126.978),
+        zoom: 15,
+      });
+      new naver.maps.Marker({
+        position: new naver.maps.LatLng(37.5665, 126.978),
+        map,
+        title: '서울시청',
+      });
+    }
+
+    // cleanup: script 제거
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   return (
     <div id="smooth-wrapper" className={styles.noise}>
@@ -972,9 +985,16 @@ export default function MainPage() {
         <div className={`${styles.sectionInfo}`}>
           <div className={styles.wrapperTop}>
             <div ref={containerRef} className={styles.sgContainer}>
-              <div ref={leftRef} className={styles.sgLeft}>
-                {sgText}
-              </div>
+              {isMobile ? (
+                <div ref={leftRef} className={styles.sgLeftMobile}>
+                  {sgText}
+                </div>
+              ) : (
+                <div ref={leftRef} className={styles.sgLeft}>
+                  {sgText}
+                </div>
+              )}
+
               <div ref={rightRef} className={styles.sgRight}>
                 <div ref={rightImg1Ref} className={styles.infoCard}>
                   <div className={styles.cardImg}>
@@ -1449,8 +1469,8 @@ The Spectrum of Memory - 색은 단순한 시각 요소를 넘어, 기억을 저
                 {/* <div
                   id="daumRoughmapContainer1747889978369"
                   className="root_daum_roughmap root_daum_roughmap_landing"
-                /> */}
-                {/* <div ref={mapRef} style={{ width: '100%', height: '400px' }} /> */}
+                />  */}
+                <div ref={mapRef} style={{ width: '100%', height: '400px' }} />
 
                 {/* 임시 지도 이미지  */}
                 <div>
