@@ -325,7 +325,7 @@
 }
 
 .cardImg.sgSmImg img {
-  transform-origin: 50% 144% 0;
+  transform-origin: 50% 190% 0;
 }
 
 .cardText {
@@ -389,7 +389,6 @@
 .sectionBg {
   background-color: #000;
   position: relative;
-  margin-top: 10rem;
 }
 
 .sectionBg .blindBg1 {

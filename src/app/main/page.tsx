@@ -721,15 +721,29 @@ export default function MainPage() {
     </>
   );
 
-  // 스크롤에 따른 텍스트 변화
+  const prevAnyVisibleRef = useRef<boolean | null>(null);
   useEffect(() => {
-    const targets = [rightImg1Ref.current, rightImg2Ref.current];
+    const targets = [rightImg5Ref.current, section7Ref.current, pivotContainerRef.current];
     if (targets.some((el) => !el)) return;
+
+    // 모바일인지 체크
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+
+    const visibleMap = new Map();
 
     const observer = new window.IntersectionObserver(
       (entries) => {
-        // 1,2 둘 중 하나라도 화면에 보이면 true
-        const anyVisible = entries.some((entry) => entry.isIntersecting);
+        entries.forEach((entry) => {
+          visibleMap.set(entry.target, entry.isIntersecting);
+        });
+
+        const isAnyTargetVisible = targets.some((el) => visibleMap.get(el));
+        const anyVisible = !isAnyTargetVisible;
+
+        if (prevAnyVisibleRef.current === anyVisible) return;
+        prevAnyVisibleRef.current = anyVisible;
+
+        console.log('anyVisible changed to', anyVisible);
 
         gsap.to(leftRef.current, {
           opacity: 0,
@@ -744,11 +758,14 @@ export default function MainPage() {
                   <br />
                   공존의 장면
                 </>
+              ) : isMobile ? (
+                <>
+                  끊임없이 <br /> 넘쳐흐르는 <br /> 사각의 흐름
+                </>
               ) : (
                 <>
                   <br />
-                  끊임없이 넘쳐흐르는 <br />
-                  사각의 흐름
+                  끊임없이 넘쳐흐르는 <br /> 사각의 흐름
                 </>
               )
             );
@@ -758,11 +775,13 @@ export default function MainPage() {
           },
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.5 }
     );
 
-    // 두 타겟 모두 감시
-    targets.forEach((el) => observer.observe(el as HTMLElement));
+    targets.forEach((el) => {
+      visibleMap.set(el, false);
+      observer.observe(el as HTMLElement);
+    });
 
     return () => observer.disconnect();
   }, []);
