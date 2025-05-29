@@ -986,9 +986,7 @@ export default function MainPage() {
           <div className={styles.wrapperTop}>
             <div ref={containerRef} className={styles.sgContainer}>
               {isMobile ? (
-                <div ref={leftRef} className={styles.sgLeftMobile}>
-                  {sgText}
-                </div>
+                <div className={styles.sgLeftMobile}>지금여기</div>
               ) : (
                 <div ref={leftRef} className={styles.sgLeft}>
                   {sgText}

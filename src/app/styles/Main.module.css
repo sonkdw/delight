@@ -680,7 +680,6 @@
 
 .sgLeftMobile {
   position: sticky;
-  top: 0;
   height: fit-content;
   font-size: 32px;
   color: #222;
