@@ -107,35 +107,35 @@ export default function MainPage() {
 
   const cardImgRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    if (!section3Ref.current || !cardImgRef.current) return;
+  // useEffect(() => {
+  //   if (!section3Ref.current || !cardImgRef.current) return;
 
-    const infoElem = section3Ref.current;
-    const bgElem = cardImgRef.current;
-    const initialHeight = infoElem.offsetHeight; // 시작 height(px)
+  //   const infoElem = section3Ref.current;
+  //   const bgElem = cardImgRef.current;
+  //   const initialHeight = infoElem.offsetHeight; // 시작 height(px)
 
-    // GSAP ScrollTrigger
-    gsap.fromTo(
-      infoElem,
-      { height: initialHeight }, // 시작 높이
-      {
-        height: '-50px', // 0으로 줄이기
-        ease: 'none',
-        scrollTrigger: {
-          trigger: bgElem, // sectionBg 도달 시
-          start: 'top 99%', // cardImgRef의 top이 viewport 50% 닿을 때 시작
-          end: 'bottom 99%', // cardImgRef의 top이 viewport top에 닿을 때 끝
-          scrub: true, // 스크롤과 연동
-        },
-        immediateRender: false,
-      }
-    );
+  //   // GSAP ScrollTrigger
+  //   gsap.fromTo(
+  //     infoElem,
+  //     { height: initialHeight }, // 시작 높이
+  //     {
+  //       height: '-50px', // 0으로 줄이기
+  //       ease: 'none',
+  //       scrollTrigger: {
+  //         trigger: bgElem, // sectionBg 도달 시
+  //         start: 'top 99%', // cardImgRef의 top이 viewport 50% 닿을 때 시작
+  //         end: 'bottom 99%', // cardImgRef의 top이 viewport top에 닿을 때 끝
+  //         scrub: true, // 스크롤과 연동
+  //       },
+  //       immediateRender: false,
+  //     }
+  //   );
 
-    // 클린업
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
+  //   // 클린업
+  //   return () => {
+  //     ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+  //   };
+  // }, []);
 
   const animatedTextRef = useRef<HTMLDivElement>(null);
 
@@ -329,7 +329,6 @@ export default function MainPage() {
         end: () => `+=${scrollLen}`, // 가로로 스크롤할 전체 길이만큼
         scrub: true,
         pin: true,
-
         anticipatePin: 1,
       },
     });
@@ -975,16 +974,16 @@ export default function MainPage() {
 
                 <div ref={rightImg2Ref} className={styles.infoCard}>
                   <div className={styles.infoCardDivide}>
-                    <div className={`${styles.cardImg}`}>
+                    <div className={`${styles.cardImg} ${styles.sgSmImg}`}>
                       <img
-                        className={styles.sgImg}
+                        className={`${styles.sgImg}`}
                         src="/images/main/info07-1.jpg"
                         alt="Collage: Gwanghwa - 이 작품은 경복궁의 정문인 광화문과 그 뒤로 펼쳐진 북악산을 중심으로 구성되며, ”일월오봉도(日月五峯圖)”의 구도를 차용합니다. 일월오봉도는 조선 왕조의 권위와 자연 질서를 상징하는 도상으로, 왕의 공간을 장식하던 가장 상징적인 회화입니다."
                       />
                     </div>
-                    <div className={`${styles.cardImg}`}>
+                    <div className={`${styles.cardImg} ${styles.sgSmImg}`}>
                       <img
-                        className={styles.sgImg}
+                        className={`${styles.sgImg}`}
                         src="/images/main/02.jpg"
                         alt="Collage: Gwanghwa - 이 작품은 경복궁의 정문인 광화문과 그 뒤로 펼쳐진 북악산을 중심으로 구성되며, ”일월오봉도(日月五峯圖)”의 구도를 차용합니다. 일월오봉도는 조선 왕조의 권위와 자연 질서를 상징하는 도상으로, 왕의 공간을 장식하던 가장 상징적인 회화입니다."
                       />

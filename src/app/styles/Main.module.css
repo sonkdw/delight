@@ -324,6 +324,10 @@
   transform-origin: 50% 124% 0;
 }
 
+.cardImg.sgSmImg img {
+  transform-origin: 50% 144% 0;
+}
+
 .cardText {
   overflow: hidden;
   font-weight: 400;
@@ -721,7 +725,7 @@
 
   .bgBox {
     background-color: black;
-    height: 100vh;
+    height: 50vh;
   }
 
   .cardImg,
@@ -936,6 +940,10 @@
     width: 100%;
     display: block;
     transform-origin: 50% 190% 0 !important;
+  }
+
+  .pivotScSection {
+    height: 100vh !important;
   }
 
   .pivotScSection h2 {
