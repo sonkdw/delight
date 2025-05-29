@@ -667,9 +667,8 @@
   justify-content: space-between;
 }
 .sgLeft {
-  position: sticky;
-  top: 0;
-  height: fit-content;
+  position: relative;
+  height: 100vh;
   font-size: 32px;
   color: #222;
   font-weight: 700;
@@ -911,6 +910,11 @@
   }
   .sgLeftTop {
     font-size: 14px;
+  }
+  .sgLeft {
+    padding: 50px 1rem;
+    font-size: 18px;
+    width: 40%;
   }
 
   .sgRight {
