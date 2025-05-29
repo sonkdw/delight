@@ -182,22 +182,22 @@ export default function MainPage() {
   };
 
   // 스크롤 스무더
-  useEffect(() => {
-    if (isMobile === undefined) return;
+  // useEffect(() => {
+  //   if (isMobile === undefined) return;
 
-    if (!isMobile) {
-      const smoother = ScrollSmoother.create({
-        wrapper: '#smooth-wrapper',
-        content: '#smooth-content',
-        smooth: 1, // 부드러움 정도, 1~2 추천
-        effects: true, // 패럴랙스 효과용, 기본 true
-      });
-      // cleanup
-      return () => {
-        if (smoother) smoother.kill();
-      };
-    }
-  }, [isMobile]);
+  //   if (!isMobile) {
+  //     const smoother = ScrollSmoother.create({
+  //       wrapper: '#smooth-wrapper',
+  //       content: '#smooth-content',
+  //       smooth: 1, // 부드러움 정도, 1~2 추천
+  //       effects: true, // 패럴랙스 효과용, 기본 true
+  //     });
+  //     // cleanup
+  //     return () => {
+  //       if (smoother) smoother.kill();
+  //     };
+  //   }
+  // }, [isMobile]);
 
   // 로고 텍스트 스플릿
   useEffect(() => {
@@ -693,22 +693,6 @@ export default function MainPage() {
   useSectionStaggerAnim(rightImg3Ref, styles);
   useSectionStaggerAnim(rightImg4Ref, styles);
   useSectionStaggerAnim(rightImg5Ref, styles);
-
-  // useEffect(() => {
-  //   if (!rightRef.current || !leftRef.current) return;
-
-  //   ScrollTrigger.create({
-  //     trigger: rightRef.current,
-  //     start: 'top 10%',
-  //     end: () => `bottom 40%`,
-  //     pin: leftRef.current,
-  //     pinSpacing: false,
-  //   });
-
-  //   return () => {
-  //     ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-  //   };
-  // }, []);
 
   // 특정 위치에 오면 텍스트 바꿔주기
   const [sgText, setSgText] = useState(

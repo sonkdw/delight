@@ -669,7 +669,7 @@
 .sgLeft {
   position: sticky;
   top: 0;
-  height: 100vh;
+  height: fit-content;
   font-size: 32px;
   color: #222;
   font-weight: 700;
