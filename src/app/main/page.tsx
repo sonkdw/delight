@@ -799,7 +799,7 @@ export default function MainPage() {
 
       const map = new naver.maps.Map(mapRef.current, {
         center,
-        zoom: 18,
+        zoom: 17,
       });
       new naver.maps.Marker({
         position: center,
