@@ -694,21 +694,21 @@ export default function MainPage() {
   useSectionStaggerAnim(rightImg4Ref, styles);
   useSectionStaggerAnim(rightImg5Ref, styles);
 
-  useEffect(() => {
-    if (!rightRef.current || !leftRef.current) return;
+  // useEffect(() => {
+  //   if (!rightRef.current || !leftRef.current) return;
 
-    ScrollTrigger.create({
-      trigger: rightRef.current,
-      start: 'top 10%',
-      end: () => `bottom 40%`,
-      pin: leftRef.current,
-      pinSpacing: false,
-    });
+  //   ScrollTrigger.create({
+  //     trigger: rightRef.current,
+  //     start: 'top 10%',
+  //     end: () => `bottom 40%`,
+  //     pin: leftRef.current,
+  //     pinSpacing: false,
+  //   });
 
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
+  //   return () => {
+  //     ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+  //   };
+  // }, []);
 
   // 특정 위치에 오면 텍스트 바꿔주기
   const [sgText, setSgText] = useState(
