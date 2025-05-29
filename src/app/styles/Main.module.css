@@ -942,7 +942,7 @@
   }
 
   .pivotScSection {
-    height: 100vh !important;
+    /* height: 100vh !important; */
   }
 
   .pivotScSection h2 {
