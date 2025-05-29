@@ -963,4 +963,8 @@
   .sectionBg .blindText {
     font-size: 16px;
   }
+
+  .pivotScSection p{
+    padding-bottom: 5rem;
+  }
 }
