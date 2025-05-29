@@ -27,43 +27,70 @@ declare global {
         }) => { render: () => void };
       };
     };
-    // naver?: NaverGlobal;
+    naver?: NaverGlobal;
   }
 }
 
-// interface NaverGlobal {
-//   maps: {
-//     Map: new (element: HTMLElement, options?: NaverMapOptions) => NaverMapInstance;
-//     LatLng: new (lat: number, lng: number) => NaverLatLngInstance;
-//     Marker: new (options: {
-//       position: NaverLatLngInstance;
-//       map: NaverMapInstance;
-//       title?: string;
-//       [key: string]: any;
-//     }) => any;
-//     // 필요하면 다른 지도 객체들도 여기에 추가
-//   };
-// }
+// Size와 Point 인터페이스 정의
+interface NaverSize {
+  width: number;
+  height: number;
+}
 
-// interface NaverMapOptions {
-//   center?: NaverLatLngInstance;
-//   zoom?: number;
-//   [key: string]: any;
-// }
+interface NaverPoint {
+  x: number;
+  y: number;
+}
 
-// interface NaverMapInstance {
-//   setCenter: (latlng: NaverLatLngInstance) => void;
-//   setZoom: (level: number) => void;
-//   // 필요한 메소드만 추가
-//   [key: string]: any;
-// }
+interface NaverGlobal {
+  maps: {
+    Map: new (element: HTMLElement, options?: NaverMapOptions) => NaverMapInstance;
+    LatLng: new (lat: number, lng: number) => NaverLatLngInstance;
+    Marker: new (options: NaverMarkerOptions) => NaverMarkerInstance;
+    Size: new (width: number, height: number) => NaverSize;
+    Point: new (x: number, y: number) => NaverPoint;
+    // 필요하면 다른 객체도 추가
+  };
+}
 
-// interface NaverLatLngInstance {
-//   // 좌표 객체, 실제로는 lat/lng 프로퍼티만 있으면 충분
-//   lat: () => number;
-//   lng: () => number;
-//   [key: string]: any;
-// }
+interface NaverMapOptions {
+  center?: NaverLatLngInstance;
+  zoom?: number;
+  // 필요한 옵션만 추가
+}
+
+interface NaverMapInstance {
+  setCenter: (latlng: NaverLatLngInstance) => void;
+  setZoom: (level: number) => void;
+  // 필요한 메소드만 추가
+}
+
+interface NaverLatLngInstance {
+  lat: () => number;
+  lng: () => number;
+}
+
+interface NaverMarkerIcon {
+  url?: string;
+  size?: NaverSize;
+  content?: string;
+  anchor?: NaverPoint;
+  // 실제로 지원하는 추가 옵션 있으면 추가
+}
+
+interface NaverMarkerOptions {
+  position: NaverLatLngInstance;
+  map: NaverMapInstance;
+  title?: string;
+  icon?: NaverMarkerIcon; // icon은 optional, 네이버 공식 문서상
+}
+
+interface NaverMarkerInstance {
+  setPosition: (latlng: NaverLatLngInstance) => void;
+  setMap: (map: NaverMapInstance | null) => void;
+  getTitle?: () => string;
+  // 필요한 메소드만 추가
+}
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 gsap.registerPlugin(SplitText);
@@ -106,36 +133,6 @@ export default function MainPage() {
   const section11Ref = useRef<HTMLDivElement | null>(null);
 
   const cardImgRef = useRef<HTMLDivElement | null>(null);
-
-  // useEffect(() => {
-  //   if (!section3Ref.current || !cardImgRef.current) return;
-
-  //   const infoElem = section3Ref.current;
-  //   const bgElem = cardImgRef.current;
-  //   const initialHeight = infoElem.offsetHeight; // 시작 height(px)
-
-  //   // GSAP ScrollTrigger
-  //   gsap.fromTo(
-  //     infoElem,
-  //     { height: initialHeight }, // 시작 높이
-  //     {
-  //       height: '-50px', // 0으로 줄이기
-  //       ease: 'none',
-  //       scrollTrigger: {
-  //         trigger: bgElem, // sectionBg 도달 시
-  //         start: 'top 99%', // cardImgRef의 top이 viewport 50% 닿을 때 시작
-  //         end: 'bottom 99%', // cardImgRef의 top이 viewport top에 닿을 때 끝
-  //         scrub: true, // 스크롤과 연동
-  //       },
-  //       immediateRender: false,
-  //     }
-  //   );
-
-  //   // 클린업
-  //   return () => {
-  //     ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-  //   };
-  // }, []);
 
   const animatedTextRef = useRef<HTMLDivElement>(null);
 
@@ -771,49 +768,60 @@ export default function MainPage() {
   }, []);
 
   // 네이버 지도 관련 함수
-  // const mapRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<HTMLDivElement>(null);
 
-  // useEffect(() => {
-  //   // 이미 지도 객체가 있으면 중복 로딩 방지
-  //   if (window.naver && window.naver.maps && mapRef.current) {
-  //     createMap();
-  //     return;
-  //   }
+  useEffect(() => {
+    // 이미 지도 객체가 있으면 중복 로딩 방지
+    if (window.naver && window.naver.maps && mapRef.current) {
+      createMap();
+      return;
+    }
 
-  //   const script = document.createElement('script');
-  //   script.src = 'https://openapi.map.naver.com/openapi/v3/maps.js?clientId=wusfcf60wp';
-  //   script.async = true;
-  //   document.body.appendChild(script);
+    const script = document.createElement('script');
+    script.src = 'https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=wusfcf60wp';
+    script.async = true;
+    document.body.appendChild(script);
 
-  //   script.onload = () => {
-  //     // *** naver/maps 네임스페이스 비동기 로딩 기다리기 ***
-  //     const interval = setInterval(() => {
-  //       if (window.naver && window.naver.maps && mapRef.current) {
-  //         createMap();
-  //         clearInterval(interval);
-  //       }
-  //     }, 100);
-  //   };
+    script.onload = () => {
+      // *** naver/maps 네임스페이스 비동기 로딩 기다리기 ***
+      const interval = setInterval(() => {
+        if (window.naver && window.naver.maps && mapRef.current) {
+          createMap();
+          clearInterval(interval);
+        }
+      }, 100);
+    };
 
-  //   function createMap() {
-  //     const { naver } = window;
-  //     if (!naver || !mapRef.current) return;
-  //     const map = new naver.maps.Map(mapRef.current, {
-  //       center: new naver.maps.LatLng(37.5665, 126.978),
-  //       zoom: 15,
-  //     });
-  //     new naver.maps.Marker({
-  //       position: new naver.maps.LatLng(37.5665, 126.978),
-  //       map,
-  //       title: '서울시청',
-  //     });
-  //   }
+    function createMap() {
+      const { naver } = window;
+      if (!naver || !mapRef.current) return;
+      const center = new naver.maps.LatLng(37.575321, 126.981629);
 
-  //   // cleanup: script 제거
-  //   return () => {
-  //     document.body.removeChild(script);
-  //   };
-  // }, []);
+      const map = new naver.maps.Map(mapRef.current, {
+        center,
+        zoom: 18,
+      });
+      new naver.maps.Marker({
+        position: center,
+        map,
+        title: '도화서길디원',
+        icon: {
+          content: `
+          <div style="width:2.5rem;height:3.3rem;display:flex;align-items:center;justify-content:center;">
+            <img src="/images/main/map-pin.png" style="width:100%;height:100%;" />
+          </div>
+        `,
+          // size: new naver.maps.Size(48, 64), // px 단위 (3rem, 4rem ≒ 48, 64)
+          anchor: new naver.maps.Point(24, 64), // 하단 중앙이 위치에 찍히게
+        },
+      });
+    }
+
+    // cleanup: script 제거
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   return (
     <div id="smooth-wrapper" className={styles.noise}>
@@ -1444,12 +1452,9 @@ The Spectrum of Memory - 색은 단순한 시각 요소를 넘어, 기억을 저
             <div className={styles.locationWrap}>
               <div className={styles.location}>
                 {/* 네이버 지도 */}
-                {/* <div ref={mapRef} style={{ width: '100%', height: '400px' }} /> */}
+                <div ref={mapRef} style={{ width: '100%', height: '400px' }} />
 
-                {/* 임시 지도 이미지  */}
-                <div>
-                  <img src="/images/main/location.png" alt="map" />
-                </div>
+                {/* 임시 지도 이미지 */}
               </div>
               <div className={styles.textWrap}>
                 <div className={styles.row}>
