@@ -699,7 +699,7 @@ export default function MainPage() {
 
     ScrollTrigger.create({
       trigger: rightRef.current,
-      start: 'top top',
+      start: 'top 10%',
       end: () => `bottom 40%`,
       pin: leftRef.current,
       pinSpacing: false,
