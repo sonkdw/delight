@@ -667,18 +667,6 @@
   justify-content: space-between;
 }
 .sgLeft {
-  height: fit-content;
-  font-size: 32px;
-  color: #222;
-  font-weight: 700;
-  padding: 5rem 4rem;
-  box-sizing: border-box;
-  width: 50%;
-  transition: opacity 0.3s;
-  opacity: 1;
-}
-
-.sgLeftMobile {
   position: sticky;
   top: 0;
   height: fit-content;
@@ -923,11 +911,6 @@
   }
   .sgLeftTop {
     font-size: 14px;
-  }
-  .sgLeftMobile {
-    padding: 50px 1rem;
-    font-size: 18px;
-    width: 40%;
   }
 
   .sgRight {

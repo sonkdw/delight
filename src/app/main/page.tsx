@@ -985,13 +985,9 @@ export default function MainPage() {
         <div className={`${styles.sectionInfo}`}>
           <div className={styles.wrapperTop}>
             <div ref={containerRef} className={styles.sgContainer}>
-              {isMobile ? (
-                <div className={styles.sgLeftMobile}>지금여기</div>
-              ) : (
-                <div ref={leftRef} className={styles.sgLeft}>
-                  {sgText}
-                </div>
-              )}
+              <div ref={leftRef} className={styles.sgLeft}>
+                {sgText}
+              </div>
 
               <div ref={rightRef} className={styles.sgRight}>
                 <div ref={rightImg1Ref} className={styles.infoCard}>
