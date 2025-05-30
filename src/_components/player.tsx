@@ -79,11 +79,13 @@ const Player = () => {
       observer.observe(containerRef.current);
     }
     return () => observer.disconnect();
-  }, [playerRef.current, containerRef.current]);
+  }, [playerRef, containerRef]);
 
   useEffect(() => {
     return () => {
-      intervalRef.current && clearInterval(intervalRef.current);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
     };
   }, []);
 
