@@ -258,8 +258,10 @@ export default function MainPage() {
           scrollTrigger: {
             trigger: sectionTop,
             start: 'top top',
-            end: 'bottom top',
+            // end: 'bottom top',
+            end: '+=1',
             scrub: false,
+            // pin: true,
           },
         });
       }
@@ -808,9 +810,15 @@ export default function MainPage() {
         title: '도화서길디원',
         icon: {
           content: `
-          <div style="width:2.5rem;height:3.3rem;display:flex;align-items:center;justify-content:center;">
-            <img src="/images/main/map-pin.png" style="width:100%;height:100%;" />
-          </div>
+          <a
+  href="https://booking.naver.com/booking/5/bizes/1400786"
+  target="_blank"
+  rel="noopener noreferrer"
+  style="width:2.5rem;height:3.3rem;display:flex;align-items:center;justify-content:center;"
+>
+  <img src="/images/main/map-pin.png" style="width:100%;height:100%;" />
+</a>
+
         `,
           // size: new naver.maps.Size(48, 64), // px 단위 (3rem, 4rem ≒ 48, 64)
           anchor: new naver.maps.Point(24, 64), // 하단 중앙이 위치에 찍히게
@@ -847,17 +855,6 @@ export default function MainPage() {
           {/* 검정색 영역 걷히면 나타나는 동영상 영역 */}
           <div className={styles.bgBox}>
             <Player />
-            {/* <video
-              src="/videos/outro.mp4"
-              width="100%"
-              height="100%"
-              autoPlay
-              muted
-              loop
-              playsInline
-              className={styles.video}
-              style={{ objectFit: 'cover' }}
-            /> */}
           </div>
         </>
 
@@ -1455,8 +1452,6 @@ The Spectrum of Memory - 색은 단순한 시각 요소를 넘어, 기억을 저
               <div className={styles.location}>
                 {/* 네이버 지도 */}
                 <div ref={mapRef} style={{ width: '100%', height: '400px' }} />
-
-                {/* 임시 지도 이미지 */}
               </div>
               <div className={styles.textWrap}>
                 <div className={styles.row}>
