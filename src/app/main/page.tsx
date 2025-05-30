@@ -170,7 +170,7 @@ export default function MainPage() {
   const isMobile = useIsMobile();
 
   // 첫번째 비디오 url 유무 플래그 (임시)
-  const topVideoUrl = true;
+  // const topVideoUrl = true;
 
   // 두번째 비디오 url 유무 플래그 (임시)
   const bottomVideoUrl = false;
@@ -856,14 +856,13 @@ export default function MainPage() {
         icon: {
           content: `
           <a
-  href="https://booking.naver.com/booking/5/bizes/1400786"
-  target="_blank"
-  rel="noopener noreferrer"
-  style="width:2.5rem;height:3.3rem;display:flex;align-items:center;justify-content:center;"
->
-  <img src="/images/main/map-pin.png" style="width:100%;height:100%;" />
-</a>
-
+            href="https://booking.naver.com/booking/5/bizes/1400786"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="width:2.5rem;height:3.3rem;display:flex;align-items:center;justify-content:center;"
+          >
+            <img src="/images/main/map-pin.png" style="width:100%;height:100%;" />
+          </a>
         `,
           // size: new naver.maps.Size(48, 64), // px 단위 (3rem, 4rem ≒ 48, 64)
           anchor: new naver.maps.Point(24, 64), // 하단 중앙이 위치에 찍히게
