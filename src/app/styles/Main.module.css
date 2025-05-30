@@ -959,16 +959,16 @@
     font-size: 33px;
   }
 
-  /* .pivotScImgs {
+  .pivotScImgs {
     height: 273px;
     align-content: center;
   }
 
   .pivotScImgsInner {
     width: auto;
-  } */
+  }
 
-  .pivotScImgs {
+  /* .pivotScImgs {
     position: relative;
     height: 273px;
     overflow-x: auto;
@@ -983,7 +983,7 @@
     width: max-content;
     gap: 12px;
     border-radius: 16px;
-  }
+  } */
 
   .sectionBg .blindText {
     font-size: 16px;

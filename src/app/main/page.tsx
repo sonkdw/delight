@@ -357,31 +357,31 @@ export default function MainPage() {
   const pivotContainerRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
 
-  // useEffect(() => {
-  //   if (!pivotContainerRef.current || !innerRef.current) return;
+  useEffect(() => {
+    if (!pivotContainerRef.current || !innerRef.current) return;
 
-  //   const totalWidth = innerRef.current.scrollWidth - pivotContainerRef.current.offsetWidth;
+    const totalWidth = innerRef.current.scrollWidth - pivotContainerRef.current.offsetWidth;
 
-  //   // 모바일이면 스크롤 길이 넉넉하게
-  //   const scrollLen = isMobile ? totalWidth * 1.7 : totalWidth;
+    // 모바일이면 스크롤 길이 넉넉하게
+    const scrollLen = isMobile ? totalWidth * 1.7 : totalWidth;
 
-  //   gsap.to(innerRef.current, {
-  //     x: -totalWidth,
-  //     ease: 'none',
-  //     scrollTrigger: {
-  //       trigger: pivotContainerRef.current,
-  //       start: 'top top',
-  //       end: () => `+=${scrollLen}`, // 가로로 스크롤할 전체 길이만큼
-  //       scrub: true,
-  //       pin: true,
-  //       anticipatePin: 1,
-  //     },
-  //   });
+    gsap.to(innerRef.current, {
+      x: -totalWidth,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: pivotContainerRef.current,
+        start: 'top top',
+        end: () => `+=${scrollLen}`, // 가로로 스크롤할 전체 길이만큼
+        scrub: true,
+        pin: true,
+        anticipatePin: 1,
+      },
+    });
 
-  //   return () => {
-  //     ScrollTrigger.getAll().forEach((t) => t.kill());
-  //   };
-  // }, []);
+    return () => {
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
+  }, []);
 
   // 이미지 날라오는 모션
   useEffect(() => {
