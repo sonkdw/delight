@@ -3,10 +3,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import YouTube, { YouTubeEvent, YouTubeProps } from 'react-youtube';
 
+type SizeType = { height: number; width: number };
+
 const VIDEO_ID = 'ZFWOwC_pmLw';
 
 const Player = () => {
-  const [screen, setScreen] = useState({ height: window.innerHeight, width: window.innerWidth });
+  const [size, setSize] = useState<SizeType>({
+    height: 0,
+    width: 0,
+  });
   const playerRef = useRef<YouTube>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const intervalRef = useRef<NodeJS.Timeout>(null);
@@ -73,15 +78,20 @@ const Player = () => {
   }, [playerRef.current, containerRef.current]);
 
   useEffect(() => {
+    if (!containerRef.current) return;
     const handleResize = () => {
-      setScreen({ height: window.innerHeight, width: window.innerWidth });
+      setSize({
+        height: containerRef.current?.clientHeight ?? window?.innerHeight,
+        width: containerRef.current?.clientWidth ?? window.innerWidth,
+      });
     };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+    handleResize();
+    containerRef.current?.addEventListener('resize', handleResize);
+    return () => containerRef.current?.removeEventListener('resize', handleResize);
+  }, [containerRef.current]);
 
   return (
-    <div ref={containerRef} className="">
+    <div ref={containerRef} className="z-50 h-full w-full">
       <button
         className="absolute top-0 right-0 bottom-0 left-0 bg-transparent"
         onClick={handleViewClick}
@@ -92,10 +102,10 @@ const Player = () => {
         iframeClassName="embed embed-youtube"
         videoId={VIDEO_ID}
         id={VIDEO_ID}
-        className="h-screen w-full"
+        className="w-full"
         opts={{
-          height: String(screen.height),
-          width: String(screen.width),
+          height: String(size.height),
+          width: String(size.width),
           playerVars: {
             autoplay: 1,
             loop: 1,
@@ -107,7 +117,6 @@ const Player = () => {
             playsinline: 1,
             enablejsapi: 1,
             disablekb: 1,
-            origin: window.location.origin,
             'x-webkit-airplay': 'allow',
             'webkit-playsinline': true,
           },
