@@ -375,6 +375,7 @@ export default function MainPage() {
         scrub: true,
         pin: true,
         anticipatePin: 1,
+        pinSpacing: false,
       },
     });
 
@@ -1157,6 +1158,8 @@ The Spectrum of Memory - 색은 단순한 시각 요소를 넘어, 기억을 저
             </div>
           </div>
         </div>
+
+        <div style={{ height: '3000px' }}></div>
 
         {/* 이미지 날라오는 모션 */}
         <div ref={cardScaleContainerRef} className={styles.container}>
