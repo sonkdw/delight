@@ -120,7 +120,7 @@ export default function MainPage() {
   const text15Ref = useRef(null);
   const text16Ref = useRef(null);
   const logoRef = useRef(null);
-  const sectionTopRef = useRef(null);
+  const sectionTopRef = useRef<HTMLDivElement | null>(null);
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const section2Ref = useRef<HTMLDivElement | null>(null);
   const section3Ref = useRef<HTMLDivElement | null>(null);
@@ -245,27 +245,72 @@ export default function MainPage() {
   useShowTextAnimation(text16Ref, 0.5); // Delight seoul 2025
 
   // 첫번째 섹션 검정색 영역의 높이를 줄이는 gsap
+  // useEffect(() => {
+  //   if (topVideoUrl) {
+  //     gsap.registerPlugin(ScrollTrigger);
+
+  //     const sectionTop = sectionTopRef.current;
+
+  //     if (sectionTop) {
+  //       gsap.to(sectionTop, {
+  //         height: '0vh',
+  //         ease: 'power3.inOut',
+  //         scrollTrigger: {
+  //           trigger: sectionTop,
+  //           start: 'top top',
+  //           end: '+=1',
+  //           scrub: false,
+  //         },
+  //       });
+  //     }
+  //   }
+  // }, []);
+
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+
+  // 첫번째 섹션 검정색 영역의 높이를 줄이는 바닐라 js
   useEffect(() => {
-    if (topVideoUrl) {
-      gsap.registerPlugin(ScrollTrigger);
+    const wrapperEl = wrapperRef.current;
+    const sectionEl = sectionTopRef.current;
 
-      const sectionTop = sectionTopRef.current;
+    if (!wrapperEl || !sectionEl) return;
 
-      if (sectionTop) {
-        gsap.to(sectionTop, {
-          height: '0vh',
-          ease: 'power3.inOut',
-          scrollTrigger: {
-            trigger: sectionTop,
-            start: 'top top',
-            // end: 'bottom top',
-            end: '+=1',
-            scrub: false,
-            // pin: true,
-          },
-        });
+    const animatingRef = { current: false };
+    let animationFrame: number | null = null;
+
+    const animateHeight = () => {
+      let current = parseFloat(sectionEl.style.height) || 100;
+      if (current > 10) {
+        current = Math.max(0, current - 6);
+        sectionEl.style.height = `${current}vh`;
+        animationFrame = requestAnimationFrame(animateHeight);
+      } else {
+        sectionEl.style.height = '0vh';
+        animatingRef.current = false;
+        wrapperEl.removeEventListener('scroll', handleScroll);
+      }
+    };
+
+    // 스크롤 이벤트 핸들러
+    function handleScroll() {
+      if (!wrapperEl || !sectionEl) return;
+
+      if (!animatingRef.current && wrapperEl.scrollTop > 0) {
+        animatingRef.current = true;
+        sectionEl.style.height = '100vh';
+        animationFrame = requestAnimationFrame(animateHeight);
       }
     }
+
+    // 초기 높이
+    sectionEl.style.height = '100vh';
+
+    wrapperEl.addEventListener('scroll', handleScroll);
+
+    return () => {
+      wrapperEl.removeEventListener('scroll', handleScroll);
+      if (animationFrame) cancelAnimationFrame(animationFrame);
+    };
   }, []);
 
   // 텍스트와 이미지가 순차적으로 나오는 모션
@@ -838,7 +883,7 @@ export default function MainPage() {
         {/* 첫번쨰 섹션 */}
         <>
           <div ref={sectionTopRef} className={styles.sectionTop}>
-            <div className={styles.wrapper}>
+            <div className={styles.wrapper} ref={wrapperRef}>
               <p className={styles.text}>
                 <span ref={textRef}>2025</span>
               </p>
