@@ -893,6 +893,7 @@ export default function MainPage() {
                 <span>SCROLL</span>
                 <div className={styles.bar}></div>
               </div>
+              <div style={{ height: '101vh' }} /> {/* 스크롤을 위한 더미 */}
             </div>
           </div>
 
