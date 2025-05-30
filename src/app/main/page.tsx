@@ -227,7 +227,7 @@ export default function MainPage() {
     return () => split.revert();
   }, []);
 
-  // 뒤의 숫자로 딜레이 속도 조절하시면 됩니다!
+  // 뒤의 숫자로 딜레이 속도 조절하시면 됩니다.
   useShowTextAnimation(text2Ref); // 2025 5. 8 - 2025. 11. 15
   useShowTextAnimation(text3Ref, 0.2); // 도시는 어둡고도 찬란하며
   useShowTextAnimation(text4Ref, 0.4); // 정보의 고정성과 유동성
