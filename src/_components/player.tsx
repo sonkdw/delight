@@ -7,6 +7,7 @@ const VIDEO_ID = 'ZFWOwC_pmLw';
 
 const Player = () => {
   const [duration, setDuration] = useState<number>(0);
+
   const playerRef = useRef<YouTube>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const intervalRef = useRef<NodeJS.Timeout>(null);
@@ -26,14 +27,14 @@ const Player = () => {
   const handlePlayerReady: YouTubeProps['onReady'] = async (event) => {
     await event.target.playVideo();
     const videoDuration = await event.target.getDuration();
-    setDuration(videoDuration);
+    setDuration(Math.floor(videoDuration));
   };
 
-  // 영상의 총 재생시간 -1초 가 되면 처음부터 다시 재생
+  // 영상의 총 재생시간 -2초 가 되면 처음부터 다시 재생
   const handleUpdateCurrentTime = async (player: YouTubeEvent['target']) => {
     if (!playerRef?.current) return;
     const targetYoutubeVideo = playerRef?.current;
-    const playTime = await targetYoutubeVideo.getInternalPlayer().getCurrentTime();
+    const playTime = Math.floor(await targetYoutubeVideo.getInternalPlayer().getCurrentTime());
 
     const canGoStartPoint = playTime > duration - 2;
     if (canGoStartPoint) {
@@ -45,7 +46,12 @@ const Player = () => {
   // 영상 재생 상태 변경 핸들러
   const handlePlayerStateChange: YouTubeProps['onStateChange'] = (event) => {
     const player = event.target;
+
     if (event.data === -1 || event.data === 5) return;
+    if (event.data === YouTube.PlayerState.ENDED) {
+      player.seekTo(1, true);
+      return;
+    }
     if (event.data === YouTube.PlayerState.PLAYING) {
       intervalRef.current = setInterval(() => handleUpdateCurrentTime(player), 1000);
       return;
@@ -74,6 +80,12 @@ const Player = () => {
     }
     return () => observer.disconnect();
   }, [playerRef.current, containerRef.current]);
+
+  useEffect(() => {
+    return () => {
+      intervalRef.current && clearInterval(intervalRef.current);
+    };
+  }, []);
 
   return (
     <div ref={containerRef} className="relative aspect-[16/9] w-full">
