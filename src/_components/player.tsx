@@ -3,15 +3,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import YouTube, { YouTubeEvent, YouTubeProps } from 'react-youtube';
 
-type SizeType = { height: number; width: number };
-
 const VIDEO_ID = 'ZFWOwC_pmLw';
 
 const Player = () => {
-  const [size, setSize] = useState<SizeType>({
-    height: 0,
-    width: 0,
-  });
+  const [duration, setDuration] = useState<number>(0);
   const playerRef = useRef<YouTube>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const intervalRef = useRef<NodeJS.Timeout>(null);
@@ -27,19 +22,22 @@ const Player = () => {
     await playInfos?.mute();
   };
 
-  // 영상 준비되면 바로 시작
+  // 영상 준비되면 바로 시작, 영상 총 재생시간 저장
   const handlePlayerReady: YouTubeProps['onReady'] = async (event) => {
     await event.target.playVideo();
+    const videoDuration = await event.target.getDuration();
+    setDuration(videoDuration);
   };
 
-  // 영상 재생시간 113초(마지막쯤) 넘어가면 영상 초기(4초)로 되돌려 재생
+  // 영상의 총 재생시간 -1초 가 되면 처음부터 다시 재생
   const handleUpdateCurrentTime = async (player: YouTubeEvent['target']) => {
     if (!playerRef?.current) return;
     const targetYoutubeVideo = playerRef?.current;
     const playTime = await targetYoutubeVideo.getInternalPlayer().getCurrentTime();
-    const canGoStartPoint = playTime > 113;
+
+    const canGoStartPoint = playTime > duration - 2;
     if (canGoStartPoint) {
-      player.seekTo(4, true);
+      player.seekTo(1, true);
       return;
     }
   };
@@ -77,41 +75,25 @@ const Player = () => {
     return () => observer.disconnect();
   }, [playerRef.current, containerRef.current]);
 
-  useEffect(() => {
-    if (!containerRef.current) return;
-    const handleResize = () => {
-      setSize({
-        height: containerRef.current?.clientHeight ?? window?.innerHeight,
-        width: containerRef.current?.clientWidth ?? window.innerWidth,
-      });
-    };
-    handleResize();
-    containerRef.current?.addEventListener('resize', handleResize);
-    return () => containerRef.current?.removeEventListener('resize', handleResize);
-  }, [containerRef.current]);
-
   return (
-    <div ref={containerRef} className="z-50 h-full w-full">
+    <div ref={containerRef} className="relative aspect-[16/9] w-full">
       <button
         className="absolute top-0 right-0 bottom-0 left-0 bg-transparent"
         onClick={handleViewClick}
       />
-
       <YouTube
         ref={playerRef}
-        iframeClassName="embed embed-youtube"
+        iframeClassName="embed embed-youtube w-full h-full"
         videoId={VIDEO_ID}
         id={VIDEO_ID}
-        className="w-full"
+        className="h-full w-full"
         opts={{
-          height: String(size.height),
-          width: String(size.width),
           playerVars: {
             autoplay: 1,
             loop: 1,
             mute: 1,
-            start: 3,
-            controls: 1,
+            start: 0,
+            controls: 0,
             showinfo: 0,
             modestbranding: 0,
             playsinline: 1,
@@ -121,7 +103,6 @@ const Player = () => {
             'webkit-playsinline': true,
           },
         }}
-        style={{ width: '100vw' }}
         onReady={handlePlayerReady}
         onStateChange={handlePlayerStateChange}
         onPlay={handlePlayerStateChange}
