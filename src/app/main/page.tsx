@@ -357,32 +357,31 @@ export default function MainPage() {
   const pivotContainerRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (!pivotContainerRef.current || !innerRef.current) return;
+  // useEffect(() => {
+  //   if (!pivotContainerRef.current || !innerRef.current) return;
 
-    const totalWidth = innerRef.current.scrollWidth - pivotContainerRef.current.offsetWidth;
+  //   const totalWidth = innerRef.current.scrollWidth - pivotContainerRef.current.offsetWidth;
 
-    // 모바일이면 스크롤 길이 넉넉하게
-    const scrollLen = isMobile ? totalWidth * 1.7 : totalWidth;
+  //   // 모바일이면 스크롤 길이 넉넉하게
+  //   const scrollLen = isMobile ? totalWidth * 1.7 : totalWidth;
 
-    gsap.to(innerRef.current, {
-      x: -totalWidth,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: pivotContainerRef.current,
-        start: 'top top',
-        end: () => `+=${scrollLen}`, // 가로로 스크롤할 전체 길이만큼
-        scrub: true,
-        pin: true,
-        anticipatePin: 1,
-        pinSpacing: false,
-      },
-    });
+  //   gsap.to(innerRef.current, {
+  //     x: -totalWidth,
+  //     ease: 'none',
+  //     scrollTrigger: {
+  //       trigger: pivotContainerRef.current,
+  //       start: 'top top',
+  //       end: () => `+=${scrollLen}`, // 가로로 스크롤할 전체 길이만큼
+  //       scrub: true,
+  //       pin: true,
+  //       anticipatePin: 1,
+  //     },
+  //   });
 
-    return () => {
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-    };
-  }, []);
+  //   return () => {
+  //     ScrollTrigger.getAll().forEach((t) => t.kill());
+  //   };
+  // }, []);
 
   // 이미지 날라오는 모션
   useEffect(() => {
@@ -1158,8 +1157,6 @@ The Spectrum of Memory - 색은 단순한 시각 요소를 넘어, 기억을 저
             </div>
           </div>
         </div>
-
-        <div style={{ height: '3000px' }}></div>
 
         {/* 이미지 날라오는 모션 */}
         <div ref={cardScaleContainerRef} className={styles.container}>

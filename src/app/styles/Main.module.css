@@ -959,13 +959,30 @@
     font-size: 33px;
   }
 
-  .pivotScImgs {
+  /* .pivotScImgs {
     height: 273px;
     align-content: center;
   }
 
   .pivotScImgsInner {
     width: auto;
+  } */
+
+  .pivotScImgs {
+    position: relative;
+    height: 273px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  .pivotScImgsInner {
+    display: flex;
+    flex-direction: row;
+    width: max-content;
+    gap: 12px;
+    border-radius: 16px;
   }
 
   .sectionBg .blindText {
