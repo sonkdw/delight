@@ -23,6 +23,16 @@
   font-family: 'Suit', sans-serif;
 }
 
+body {
+  background: #fff;
+}
+
+/* 지도 커스텀 */
+.root_daum_roughmap .wrap_controllers,
+.root_daum_roughmap .cont {
+  display: none;
+}
+
 /* Suit Thin */
 @font-face {
   font-family: 'Suit';
@@ -164,5 +174,13 @@
   font-family: 'Montserrat';
   src: url('/fonts/Montserrat/Montserrat-Black.ttf') format('truetype');
   font-weight: 900;
+  font-style: normal;
+}
+
+/* Noto serif Display Medium */
+@font-face {
+  font-family: 'Noto Serif Display';
+  src: url('/fonts/NotoSerifDisplay/NotoSerifDisplay_Condensed-Medium.ttf') format('truetype');
+  font-weight: 500;
   font-style: normal;
 }
