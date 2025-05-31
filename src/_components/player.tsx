@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import YouTube, { YouTubeEvent, YouTubeProps } from 'react-youtube';
 
-const VIDEO_ID = 'ZFWOwC_pmLw';
+const VIDEO_ID = 'pxwLv3x6F0c';
 
 const Player = () => {
   const [duration, setDuration] = useState<number>(0);
