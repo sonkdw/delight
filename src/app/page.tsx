@@ -1,19 +1,13 @@
 'use client';
 
-import Image from 'next/image';
-import styles from './styles/ComingSoon.module.css';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import gsap from 'gsap';
-import { useEffect, useRef } from 'react';
+// import Image from 'next/image';
+// import styles from './styles/ComingSoon.module.css';
+// import { ScrollTrigger } from 'gsap/ScrollTrigger';
+// import gsap from 'gsap';
+// import { useEffect, useRef } from 'react';
 
 
 // app/page.tsx
-import { redirect } from 'next/navigation'
-
-export default function Home() {
-  redirect('/main')
-}
-
 // export default function ComingSoonPage() {
 //   const infoTextRef = useRef<HTMLParagraphElement>(null);
 //   const comingSoonRef = useRef<HTMLParagraphElement>(null);
@@ -188,3 +182,10 @@ export default function Home() {
 //     </div>
 //   );
 // }
+
+
+import { redirect } from 'next/navigation'
+
+export default function Home() {
+  redirect('/main')
+}
