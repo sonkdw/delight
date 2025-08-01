@@ -15,6 +15,7 @@ import {
 } from '../hook/gsapHooks';
 import { useIsMobile } from '../hook/useMediaQuery';
 import Player from '@/_components/player';
+import NoticePopup from '@/_components/NoticePopup';
 
 declare global {
   interface Window {
@@ -166,6 +167,7 @@ export default function MainPage() {
   const gridBase4Ref = useRef<HTMLDivElement>(null);
 
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+  const [showNoticePopup, setShowNoticePopup] = useState(true);
 
   const isMobile = useIsMobile();
 
@@ -878,6 +880,9 @@ export default function MainPage() {
 
   return (
     <div id="smooth-wrapper" className={styles.noise}>
+      {showNoticePopup && (
+        <NoticePopup onClose={() => setShowNoticePopup(false)} />
+      )}
       <div id="smooth-content">
         {/* 첫번쨰 섹션 */}
         <>
